@@ -11,13 +11,14 @@ class Homepage extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
+            children: [
               Text('Foodora',
               style: TextStyle(
                 fontFamily: 'FoodoraFont',
                 fontSize: 55.0,
               ),
-              ),
+                ),
+                
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Text('for bussiness',              
