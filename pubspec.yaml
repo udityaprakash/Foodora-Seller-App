@@ -67,9 +67,9 @@ flutter:
     - family: FoodoraFont
       fonts:
         - asset: public/fonts/DancingScript-VariableFont_wght.ttf
-    - family: Railway
+    - family: Raleway
       fonts:
-        - asset: public/fonts/Railway-VariableFont_wght.ttf     
+        - asset: public/fonts/Raleway-VariableFont_wght.ttf     
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
