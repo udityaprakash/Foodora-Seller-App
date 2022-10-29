@@ -15,7 +15,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 4), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => const Homepage(),
@@ -25,25 +25,32 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset('public/svg/logo.svg',
-          width: 350,
-          height: 350,
-          color:Colors.black,
+      body: SingleChildScrollView(
+        child: Container(
+          width: size.width,
+          height: size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/svg/logo.svg',
+                width: 350,
+                height: 350,
+                color: Colors.white,
+              ),
+              const Text(
+                'Foodora',
+                style: TextStyle(
+                  fontFamily: 'FoodoraFont',
+                  fontSize: 60.0,
+                ),
+              ),
+            ],
           ),
-          const Text(
-            'Foodora',
-            style: TextStyle(
-              fontFamily: 'FoodoraFont',
-              fontSize: 60.0,
-            ),
-          ),
-          
-        ],
+        ),
       ),
     );
   }

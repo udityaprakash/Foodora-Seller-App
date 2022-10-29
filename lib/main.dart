@@ -1,25 +1,22 @@
-import 'dart:ui';
-import 'screens/splashpage/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'screens/splashpage/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(35, 107, 150, 1
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromRGBO(35, 107, 150, 1),
+        textTheme: Typography().white,
       ),
-      textTheme: Typography().white,
-      ),
-      home: const SafeArea(
-        child: Splashscreen()
-        ),
+      home: const SafeArea(child: Splashscreen()),
     );
   }
 }
