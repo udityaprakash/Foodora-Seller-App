@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodora_seller/screens/homepage/loginpage.dart';
+import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import 'loginpage.dart';
 
 class Homepage extends StatelessWidget {
@@ -64,7 +64,7 @@ class Homepage extends StatelessWidget {
               ),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Login'.toUpperCase(),
                     style: const TextStyle(
@@ -84,7 +84,7 @@ class Homepage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Loginpage()),
+                  MaterialPageRoute(builder: (context) => const Newsellerpage()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -93,7 +93,7 @@ class Homepage extends StatelessWidget {
               ),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'New Seller'.toUpperCase(),
                     style: const TextStyle(
