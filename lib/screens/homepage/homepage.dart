@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import 'loginpage.dart';
 
 class Homepage extends StatelessWidget {
@@ -83,7 +84,7 @@ class Homepage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Loginpage()),
+                  MaterialPageRoute(builder: (context) => const Newsellerpage()),
                 );
               },
               style: ElevatedButton.styleFrom(

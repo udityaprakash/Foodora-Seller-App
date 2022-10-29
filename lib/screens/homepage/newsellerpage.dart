@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-class Loginpage extends StatefulWidget {
-  const Loginpage({super.key});
+
+
+
+
+class Newsellerpage extends StatefulWidget {
+  const Newsellerpage({super.key});
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<Newsellerpage> createState() => _NewsellerpageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _NewsellerpageState extends State<Newsellerpage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(body: Center(
-      child: Text('Login Page',
+      child: Text('Seller page',
       style: TextStyle(
         fontFamily: 'raleway',
         fontSize: 30,
