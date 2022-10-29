@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class _SplashscreenState extends State<Splashscreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'loginpage.dart';
 
 class Homepage extends StatelessWidget {
@@ -64,7 +63,7 @@ class Homepage extends StatelessWidget {
               ),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Login'.toUpperCase(),
                     style: const TextStyle(
@@ -93,7 +92,7 @@ class Homepage extends StatelessWidget {
               ),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'New Seller'.toUpperCase(),
                     style: const TextStyle(
