@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
@@ -77,7 +79,7 @@ class Homepage extends StatelessWidget {
                             letterSpacing: 4,
                             color: Color.fromRGBO(0, 0, 255, 1),
                             fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w900,
+                            fontVariations: <FontVariation>[FontVariation('wght',600)],
                             fontSize: 30.0),
                       ),
                     ),
@@ -107,7 +109,8 @@ class Homepage extends StatelessWidget {
                             letterSpacing: 4,
                             color: Color.fromRGBO(0, 0, 255, 1),
                             fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w900,
+                            // fontWeight: FontWeight.w900,
+                            fontVariations: <FontVariation>[FontVariation('wght',600)],
                             fontSize: 30.0),
                       ),
                     ),
