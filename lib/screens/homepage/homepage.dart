@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
+import '../desigining.dart';
 import 'loginpage.dart';
 
 class Homepage extends StatelessWidget {
@@ -58,64 +59,19 @@ class Homepage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+                buttongenerator('login', context,(){Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Loginpage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-                    shape: const StadiumBorder(),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Login'.toUpperCase(),
-                        style: const TextStyle(
-                            letterSpacing: 4,
-                            color: Color.fromRGBO(0, 0, 255, 1),
-                            fontFamily: 'Raleway',
-                            fontVariations: <FontVariation>[FontVariation('wght',600)],
-                            fontSize: 30.0),
-                      ),
-                    ),
-                  ),
-                ),
+                    );}),
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+                buttongenerator('new seller', context,(){Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Newsellerpage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-                    shape: const StadiumBorder(),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'New Seller'.toUpperCase(),
-                        style: const TextStyle(
-                            letterSpacing: 4,
-                            color: Color.fromRGBO(0, 0, 255, 1),
-                            fontFamily: 'Raleway',
-                            // fontWeight: FontWeight.w900,
-                            fontVariations: <FontVariation>[FontVariation('wght',600)],
-                            fontSize: 30.0),
-                      ),
-                    ),
-                  ),
-                ),
+                    );}),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
