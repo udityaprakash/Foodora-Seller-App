@@ -3,7 +3,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import '../desigining.dart';
 import 'loginpage.dart';

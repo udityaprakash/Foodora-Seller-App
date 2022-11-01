@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:foodora_seller/screens/desigining.dart';
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -14,12 +13,14 @@ class _LoginpageState extends State<Loginpage> {
     return Scaffold(body: Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height ,
-      padding: EdgeInsets.fromLTRB(10,30.0,10,10),
+      padding: EdgeInsets.fromLTRB(10,50.0,10,10),
       child: Column(       
         children: [
-          svggenerator(250,250,
+          svggenerator(300,300,
                   'assets/svg/loginpageicon.svg',
-                ),
+          ),
+          
+
         ],
       ),
     )
