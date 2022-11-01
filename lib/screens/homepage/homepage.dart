@@ -52,12 +52,9 @@ class Homepage extends StatelessWidget {
                 const SizedBox(
                   height: 60.0,
                 ),
-                SvgPicture.asset(
-                  'assets/svg/logo.svg',
-                  width: 350,
-                  height: 350,
-                  color: Colors.white,
-                ),
+                svggenerator(350,350,
+                'assets/svg/logo.svg',
+              ),
                 const SizedBox(
                   height: 30,
                 ),

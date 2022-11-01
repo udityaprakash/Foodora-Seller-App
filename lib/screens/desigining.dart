@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 
 Widget buttongenerator(String quote, BuildContext context, function) {
@@ -31,4 +32,13 @@ Widget buttongenerator(String quote, BuildContext context, function) {
       ),
     ),
   );
+}
+
+Widget svggenerator(double h,double w,String uri){
+  return SvgPicture.asset(
+                  uri,
+                  width: w,
+                  height: h,
+                  color: Colors.white,
+                );
 }
