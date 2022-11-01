@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, unnecessary_import
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

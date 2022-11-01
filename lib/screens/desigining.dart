@@ -1,16 +1,21 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'homepage/loginpage.dart';
 
 Widget buttongenerator(String quote, BuildContext context, function) {
   return ElevatedButton(
     onPressed: function,
     style: ElevatedButton.styleFrom(
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      shape: const StadiumBorder(),
+    primary: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0),
+      side: const BorderSide(color:Color.fromRGBO(0, 0, 255, 1),
+      width: 1.5 )
     ),
+  ),
     child: Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
