@@ -42,13 +42,14 @@ class _SplashscreenState extends State<Splashscreen> {
               svggenerator(350,350,
                 'assets/svg/logo.svg',
               ),
-              const Text(
-                'Foodora',
-                style: TextStyle(
-                  fontFamily: 'FoodoraFont',
-                  fontSize: 60.0,
-                ),
-              ),
+              textgenerator('Foodora', 60.0, 'FoodoraFont',700),
+              // const Text(
+              //   'Foodora',
+              //   style: TextStyle(
+              //     fontFamily: 'FoodoraFont',
+              //     fontSize: 60.0,
+              //   ),
+              // ),
             ],
           ),
         ),

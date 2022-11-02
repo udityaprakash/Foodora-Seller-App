@@ -28,23 +28,11 @@ class Homepage extends StatelessWidget {
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    Text(
-                      'Foodora',
-                      style: TextStyle(
-                        fontFamily: 'FoodoraFont',
-                        fontSize: 55.0,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        'for bussiness',
-                        style: TextStyle(
-                          fontFamily: 'FoodoraFont',
-                          fontSize: 25.0,
-                        ),
-                      ),
+                  children: [
+                    textgenerator('Foodora', 55.0, 'FoodoraFont',700),
+                     Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: textgenerator('for bussiness', 25.0, 'FoodoraFont',400),
                     ),
                   ],
                 ),
