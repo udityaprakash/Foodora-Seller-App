@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodora_seller/screens/desigining.dart';
 import '../homepage/homepage.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -38,19 +39,17 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(
+              svggenerator(350,350,
                 'assets/svg/logo.svg',
-                width: 350,
-                height: 350,
-                color: Colors.white,
               ),
-              const Text(
-                'Foodora',
-                style: TextStyle(
-                  fontFamily: 'FoodoraFont',
-                  fontSize: 60.0,
-                ),
-              ),
+              textgenerator('Foodora', 60.0, 'FoodoraFont',700),
+              // const Text(
+              //   'Foodora',
+              //   style: TextStyle(
+              //     fontFamily: 'FoodoraFont',
+              //     fontSize: 60.0,
+              //   ),
+              // ),
             ],
           ),
         ),

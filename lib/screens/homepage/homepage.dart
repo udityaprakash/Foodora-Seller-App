@@ -3,7 +3,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import '../desigining.dart';
 import 'loginpage.dart';
@@ -29,35 +28,20 @@ class Homepage extends StatelessWidget {
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    Text(
-                      'Foodora',
-                      style: TextStyle(
-                        fontFamily: 'FoodoraFont',
-                        fontSize: 55.0,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        'for bussiness',
-                        style: TextStyle(
-                          fontFamily: 'FoodoraFont',
-                          fontSize: 25.0,
-                        ),
-                      ),
+                  children: [
+                    textgenerator('Foodora', 55.0, 'FoodoraFont',700),
+                     Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: textgenerator('for bussiness', 25.0, 'FoodoraFont',400),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 60.0,
                 ),
-                SvgPicture.asset(
-                  'assets/svg/logo.svg',
-                  width: 350,
-                  height: 350,
-                  color: Colors.white,
-                ),
+                svggenerator(350,350,
+                'assets/svg/logo.svg',
+              ),
                 const SizedBox(
                   height: 30,
                 ),
