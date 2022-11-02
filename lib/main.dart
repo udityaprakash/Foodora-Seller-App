@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromRGBO(0, 100, 145, 1),
         textTheme: Typography().white,
       ),
-      home: const SafeArea(child: Splashscreen()),
+      home: const Scaffold(body: Splashscreen(),
+      ),
     );
   }
 }
