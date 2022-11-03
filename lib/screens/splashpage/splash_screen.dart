@@ -18,11 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const Homepage(),
-        ),
-      );
+      Navigator.pushReplacementNamed(context, '/homepage');
     });
   }
 
@@ -38,10 +34,12 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              svggenerator(350,350,
+              svggenerator(
+                350,
+                350,
                 'assets/svg/logo.svg',
               ),
-              textgenerator('Foodora', 60.0, 'FoodoraFont',700),
+              textgenerator('Foodora', 60.0, 'FoodoraFont', 700),
             ],
           ),
         ),

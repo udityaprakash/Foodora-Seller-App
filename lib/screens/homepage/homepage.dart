@@ -17,7 +17,7 @@ class Homepage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height-40.0,
+            height: MediaQuery.of(context).size.height - 40.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -45,20 +45,13 @@ class Homepage extends StatelessWidget {
                   height: 30,
                 ),
                 buttongenerator('Sign In', context, () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Loginpage()),
-                  );
+                  Navigator.pushNamed(context, '/siginpage');
                 }),
                 const SizedBox(
                   height: 30,
                 ),
                 buttongenerator('New Restraunt', context, () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Newsellerpage()),
-                  );
+                  Navigator.pushNamed(context, '/newrestaraunt');
                 }),
                 Expanded(
                   child: Row(
@@ -85,4 +78,3 @@ class Homepage extends StatelessWidget {
     );
   }
 }
-
