@@ -9,24 +9,24 @@ Widget buttongenerator(String quote, BuildContext context, function) {
   return ElevatedButton(
     onPressed: function,
     style: ElevatedButton.styleFrom(
-      primary: Colors.white,
+      primary: Color.fromRGBO(0, 100, 255, 1),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-          side: const BorderSide(
-              color: Color.fromRGBO(0, 0, 255, 1), width: 1.0),
+          borderRadius: BorderRadius.circular(10.0),
+          // side: const BorderSide(
+          //     color: Colors.white),
               ),
     ),
     child: Center(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(18.0),
         child: Text(
-          quote.toUpperCase(),
+          quote,
           style: const TextStyle(
               letterSpacing: 2,
-              color: Color.fromRGBO(0, 0, 255, 1),
+              color: Colors.white,
               fontFamily: 'Raleway',
               fontVariations: <FontVariation>[FontVariation('wght', 700)],
-              fontSize: 30.0),
+              fontSize: 23.0),
         ),
       ),
     ),

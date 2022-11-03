@@ -44,7 +44,7 @@ class Homepage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                buttongenerator('login', context, () {
+                buttongenerator('Sign In', context, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Loginpage()),
@@ -53,7 +53,7 @@ class Homepage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                buttongenerator('new seller', context, () {
+                buttongenerator('New Restraunt', context, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
