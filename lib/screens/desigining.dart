@@ -9,9 +9,9 @@ Widget buttongenerator(String quote, BuildContext context, function) {
   return ElevatedButton(
     onPressed: function,
     style: ElevatedButton.styleFrom(
-      primary: Color.fromRGBO(0, 100, 255, 1),
+      primary: Color.fromRGBO(50,81,255, 1),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           // side: const BorderSide(
           //     color: Colors.white),
               ),
