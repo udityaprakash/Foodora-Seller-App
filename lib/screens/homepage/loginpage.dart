@@ -44,7 +44,7 @@ class _LoginpageState extends State<Loginpage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: svggenerator(350, 350, 'assets/svg/Fingerprint.svg'),
+                    child: svggenerator(300, 300, 'assets/svg/Fingerprint.svg'),
                   ),
                   InputFieldgenerator('Enter Your Email'),
                   SizedBox(
@@ -62,11 +62,11 @@ class _LoginpageState extends State<Loginpage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       errortextgenerator(passwordmessage, 15, 400),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 18.0),
-                        child: textgenerator(
-                            'Forgot Password', 15, 'Raleway', 300),
-                      ),
+                      Textlink(
+                          'Forgot Password', 15, context, 300, Colors.white,
+                          () {
+                        Navigator.pushNamed(context, '/forgotpass');
+                      }),
                     ],
                   ),
                   buttongenerator('Sign In', context, () {
@@ -76,6 +76,17 @@ class _LoginpageState extends State<Loginpage> {
                       emailmessage = 'Invalid Email';
                     });
                   }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      textgenerator(
+                          'New user?', 25, 'Raleway', 400, Colors.white),
+                      Textlink('Register', 28, context, 800,
+                          const Color.fromRGBO(50, 81, 255, 1), () {
+                        Navigator.pushNamed(context, '/newregister');
+                      })
+                    ],
+                  )
                 ],
               ),
             ],

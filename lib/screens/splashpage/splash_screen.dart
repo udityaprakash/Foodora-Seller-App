@@ -39,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
                 350,
                 'assets/svg/logo.svg',
               ),
-              textgenerator('Foodora', 60.0, 'FoodoraFont', 700),
+              textgenerator('Foodora', 60.0, 'FoodoraFont', 700,Colors.white),
             ],
           ),
         ),

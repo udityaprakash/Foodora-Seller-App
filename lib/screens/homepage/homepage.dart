@@ -44,16 +44,16 @@ class Homepage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left:25.0),
                         child:
-                            textgenerator('Foodora', 50.0, 'FoodoraFont', 700),
+                            textgenerator('Foodora', 50.0, 'FoodoraFont', 700,Colors.white),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: textgenerator(
-                            'for bussiness', 22.0, 'FoodoraFont', 400),
+                            'for bussiness', 22.0, 'FoodoraFont', 400,Colors.white),
                       ),
                     ],
                   ),
-                  textgenerator('Take Your Restraunt Bussiness to Pinnacle', 16, 'Raleway', 800),
+                  textgenerator('Take Your Restraunt Bussiness to Pinnacle', 16, 'Raleway', 800,Colors.white),
                   const SizedBox(
                     height: 25.0,
                   ),
