@@ -13,6 +13,8 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  var emailmessage = '';
+  var passwordmessage = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,6 @@ class _LoginpageState extends State<Loginpage> {
               Row(
                 children: [
                   Container(
-                    // color: Colors.blue,
                     width: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35.0),
@@ -41,42 +42,39 @@ class _LoginpageState extends State<Loginpage> {
               ),
               Column(
                 children: [
-                  SvgPicture.asset(
-                    'assets/svg/Fingerprint.svg',
-                    width: 350.0,
-                    height: 350,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: svggenerator(350, 350, 'assets/svg/Fingerprint.svg'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Email',
-                      fillColor: Color.fromRGBO(150, 150, 150, 1.5),
-                      filled: true,
-                    ),
-                  ),
+                  InputFieldgenerator('Enter Your Email'),
                   SizedBox(
-                    height: 20.0,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                      fillColor: Color.fromRGBO(150, 150, 150, 1.5),
-                      filled: true,
+                    height: 25.0,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        errortextgenerator(emailmessage, 15, 300),
+                      ],
                     ),
                   ),
+                  InputFieldgenerator('Password'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textgenerator('invalid password', 10, 'Raleway', 500),
+                      errortextgenerator(passwordmessage, 15, 400),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical:18.0),
+                        padding: const EdgeInsets.symmetric(vertical: 18.0),
                         child: textgenerator(
                             'Forgot Password', 15, 'Raleway', 300),
                       ),
                     ],
                   ),
                   buttongenerator('Sign In', context, () {
-                    Navigator.pushReplacementNamed(context, '/siginpage');
+                    // Navigator.pushReplacementNamed(context, '/siginpage');
+                    setState(() {
+                      passwordmessage = 'Invalid Password';
+                      emailmessage = 'Invalid Email';
+                    });
                   }),
                 ],
               ),
