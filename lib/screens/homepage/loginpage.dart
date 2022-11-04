@@ -23,7 +23,8 @@ class _LoginpageState extends State<Loginpage> {
         child: Container(
           height: MediaQuery.of(context).size.height - 40.0,
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Row(
                 children: [
@@ -86,7 +87,12 @@ class _LoginpageState extends State<Loginpage> {
                         Navigator.pushNamed(context, '/newregister');
                       })
                     ],
-                  )
+                  ),
+                  Column(
+                    children: [
+                      svggenerator(140, 360, 'assets/svg/bottompage.svg'),
+                    ],
+                  ),
                 ],
               ),
             ],
