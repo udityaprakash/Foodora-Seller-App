@@ -18,15 +18,15 @@ Widget buttongenerator(String quote, BuildContext context, function) {
     ),
     child: Center(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding:EdgeInsets.all(MediaQuery.of(context).size.height / 50),
         child: Text(
           quote,
-          style: const TextStyle(
+          style:TextStyle(
               letterSpacing: 2,
               color: Colors.white,
               fontFamily: 'Raleway',
               fontVariations: <FontVariation>[FontVariation('wght', 700)],
-              fontSize: 23.0),
+              fontSize: MediaQuery.of(context).size.width/16),
         ),
       ),
     ),
@@ -66,9 +66,9 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt) {
+Widget InputFieldgenerator(String hinttxt,BuildContext context) {
   return SizedBox(
-    height: 55,
+    height: MediaQuery.of(context).size.height/15,
     child: TextFormField(
       style: const TextStyle(
         fontSize: 20,
@@ -105,9 +105,10 @@ Widget Textlink(String tex, double fontsiz, BuildContext context,
     ),
   );
 }
+
 Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
   return SizedBox(
-    height: 55,
+    height: MediaQuery.of(context).size.height/15,
     child: TextFormField(
       style: const TextStyle(
         fontSize: 20,
@@ -121,7 +122,7 @@ Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
             _passwordVisible ? Icons.visibility_off : Icons.visibility,
             color: Theme.of(context).primaryColorDark,
           ),
-          onPressed:funct,
+          onPressed: funct,
         ),
         hintText: hinttxt,
         hintStyle: const TextStyle(
@@ -135,6 +136,21 @@ Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
       ),
+    ),
+  );
+}
+
+Widget Backgroundimg(BuildContext context) {
+  return Container(
+    height: MediaQuery.of(context).size.height,
+    width: MediaQuery.of(context).size.width,
+    child: Align(
+      alignment: Alignment.bottomCenter,
+      child: SvgPicture.asset(
+        'assets/svg/bottompage.svg',
+        width:MediaQuery.of(context).size.width,)
+      // svggenerator(
+      //     200, MediaQuery.of(context).size.width, 'assets/svg/bottompage.svg'),
     ),
   );
 }
