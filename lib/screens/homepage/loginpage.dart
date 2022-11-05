@@ -15,14 +15,20 @@ class Loginpage extends StatefulWidget {
 class _LoginpageState extends State<Loginpage> {
   var emailmessage = '';
   var passwordmessage = '';
+  bool _passwordVisible = true;
   @override
+  void initState() {
+    super.initState();
+    _passwordVisible = true;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height - 40.0,
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: ListView(
             shrinkWrap: true,
             children: [
@@ -57,7 +63,16 @@ class _LoginpageState extends State<Loginpage> {
                       ],
                     ),
                   ),
-                  InputFieldgenerator('Password'),
+                  Inputpassfield(
+                    'Password',
+                    _passwordVisible,
+                    context,
+                    (){
+                      setState(() {
+                              _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +86,6 @@ class _LoginpageState extends State<Loginpage> {
                     ],
                   ),
                   buttongenerator('Sign In', context, () {
-                    // Navigator.pushReplacementNamed(context, '/siginpage');
                     setState(() {
                       passwordmessage = 'Invalid Password';
                       emailmessage = 'Invalid Email';

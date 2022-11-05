@@ -72,7 +72,7 @@ class Homepage extends StatelessWidget {
                     height: 30,
                   ),
                   buttongenerator('New Restraunt', context, () {
-                    Navigator.pushNamed(context, '/newrestaraunt');
+                    Navigator.pushNamed(context, '/newregister');
                   }),
                   Expanded(
                     child: Row(

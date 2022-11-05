@@ -91,7 +91,7 @@ Widget InputFieldgenerator(String hinttxt) {
 }
 
 Widget Textlink(String tex, double fontsiz, BuildContext context,
-    double fontweit,Color co, function) {
+    double fontweit, Color co, function) {
   return TextButton(
     onPressed: function,
     child: Text(
@@ -102,6 +102,39 @@ Widget Textlink(String tex, double fontsiz, BuildContext context,
           fontFamily: 'Raleway',
           fontVariations: <FontVariation>[FontVariation('wght', fontweit)],
           fontSize: fontsiz),
+    ),
+  );
+}
+Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
+  return SizedBox(
+    height: 55,
+    child: TextFormField(
+      style: const TextStyle(
+        fontSize: 20,
+        fontFamily: 'Raleway',
+        fontWeight: FontWeight.w700,
+      ),
+      obscureText: _passwordVisible,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(
+            _passwordVisible ? Icons.visibility_off : Icons.visibility,
+            color: Theme.of(context).primaryColorDark,
+          ),
+          onPressed:funct,
+        ),
+        hintText: hinttxt,
+        hintStyle: const TextStyle(
+            color: Colors.white54,
+            fontSize: 20,
+            fontFamily: 'Raleway',
+            fontWeight: FontWeight.w700),
+        fillColor: Color.fromRGBO(150, 150, 150, 1.5),
+        filled: true,
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
+      ),
     ),
   );
 }
