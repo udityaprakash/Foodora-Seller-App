@@ -13,8 +13,25 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: textgenerator('New Register', 20, 'Raleway', 500, Colors.blue),
+        child: Stack(
+          children:[ 
+            Backgroundimg(context),
+            SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  
+                  Center(
+                    child: textgenerator(
+                        'Welcome', 30, 'Raleway', 700, Colors.blue),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          ]
         ),
       ),
     );

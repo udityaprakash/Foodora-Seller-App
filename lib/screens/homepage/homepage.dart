@@ -44,27 +44,31 @@ class Homepage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: textgenerator(
-                          'Foodora', 50.0, 'FoodoraFont', 700, Colors.white),
+                          'Foodora',
+                          MediaQuery.of(context).size.width / 8,
+                          'FoodoraFont',
+                          700,
+                          Colors.white),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: textgenerator('for bussiness', 22.0, 'FoodoraFont',
+                      padding: EdgeInsets.all(MediaQuery.of(context).size.width / 48),
+                      child: textgenerator('for bussiness', MediaQuery.of(context).size.width / 15, 'FoodoraFont',
                           400, Colors.white),
                     ),
                   ],
                 ),
-                textgenerator('Take Your Restraunt Bussiness to Pinnacle', 16,
+                textgenerator('Take Your Restraunt Bussiness to Pinnacle', MediaQuery.of(context).size.width / 25,
                     'Raleway', 800, Colors.white),
-                const SizedBox(
-                  height: 25.0,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/ 20,
                 ),
                 svggenerator(
-                  350,
-                  350,
+                  MediaQuery.of(context).size.height / 2.8,
+                  MediaQuery.of(context).size.width / 0.8,
                   'assets/svg/logo.svg',
                 ),
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 30,
                 ),
                 buttongenerator('Sign In', context, () {
                   Navigator.pushNamed(context, '/siginpage');
@@ -75,20 +79,27 @@ class Homepage extends StatelessWidget {
                 buttongenerator('New Restraunt', context, () {
                   Navigator.pushNamed(context, '/newregister');
                 }),
-                Expanded(
+                Padding(
+                  padding:EdgeInsets.only(top:MediaQuery.of(context).size.height / 17, bottom:MediaQuery.of(context).size.width / 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       Text("Code Of Conduct",
                           style:
-                              TextStyle(decoration: TextDecoration.underline)),
+                              TextStyle(decoration:TextDecoration.underline,
+                              fontSize: MediaQuery.of(context).size.width / 35
+                              
+                              ),
+                              ),
                       Text("Terms Of Service",
                           style:
-                              TextStyle(decoration: TextDecoration.underline)),
+                              TextStyle(decoration: TextDecoration.underline,
+                              fontSize: MediaQuery.of(context).size.width / 35),),
                       Text("Privacy Policy",
                           style:
-                              TextStyle(decoration: TextDecoration.underline))
+                              TextStyle(decoration: TextDecoration.underline,
+                              fontSize: MediaQuery.of(context).size.width / 35))
                     ],
                   ),
                 )
