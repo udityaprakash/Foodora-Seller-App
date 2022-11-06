@@ -22,22 +22,7 @@ class Homepage extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      // color: Colors.blue,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(35.0),
-                        color: Color.fromRGBO(50, 81, 255, 1),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/svg/logo.svg',
-                        height: 50,
-                      ),
-                    ),
-                  ],
-                ),
+                Toppageicon(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
