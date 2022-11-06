@@ -13,6 +13,9 @@ class _RegisterState extends State<Register> {
   bool _repassword = true;
   String emailmess = "";
   String passmess = "";
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passController = new TextEditingController();
+  TextEditingController _repassController = new TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -53,7 +56,8 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 35,
                     ),
-                    InputFieldgenerator('Email  Address', context),
+                    InputFieldgenerator('Email  Address', context,
+                        controller: _emailController),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 35,
                       child: Align(
@@ -65,7 +69,7 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         _passwordVisible = !_passwordVisible;
                       });
-                    }),
+                    }, controller: _passController),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 35,
                     ),
@@ -74,7 +78,7 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         _repassword = !_repassword;
                       });
-                    }),
+                    }, controller: _repassController),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 30,
                       child: Align(
@@ -84,9 +88,21 @@ class _RegisterState extends State<Register> {
                     ),
                     buttongenerator('Continue', context, () {
                       setState(() {
-                        emailmess = "Invalid Email";
-                        passmess = "Password do not match";
-                        
+                        if (isEmail(_emailController.text)) {
+                          emailmess = "";
+                        } else {
+                          emailmess = "Invalid Email";
+                        }
+                        if (isStrong(_passController.text) &&
+                            isStrong(_repassController.text)) {
+                          if (_passController.text == _repassController.text) {
+                            passmess = '';
+                          } else {
+                            passmess = 'Password do not match';
+                          }
+                        } else {
+                          passmess = "Weak Password";
+                        }
                       });
                     }),
                     Row(

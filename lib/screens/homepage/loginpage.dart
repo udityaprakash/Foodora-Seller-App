@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class _LoginpageState extends State<Loginpage> {
   var emailmessage = '';
   var passwordmessage = '';
   bool _passwordVisible = true;
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passController = new TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -35,7 +38,7 @@ class _LoginpageState extends State<Loginpage> {
               shrinkWrap: true,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left:18.0),
+                  padding: const EdgeInsets.only(left: 18.0),
                   child: Toppageicon(),
                 ),
                 Container(
@@ -50,13 +53,18 @@ class _LoginpageState extends State<Loginpage> {
                             MediaQuery.of(context).size.width / 0.7,
                             'assets/svg/Fingerprint.svg'),
                       ),
-                      InputFieldgenerator('Enter Your Email', context),
+                      InputFieldgenerator('Enter Your Email', context,
+                          controller: _emailController),
                       SizedBox(
                         height: 25.0,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            errortextgenerator(emailmessage, 15, 300),
+                            errortextgenerator(
+                              emailmessage,
+                              15,
+                              300,
+                            ),
                           ],
                         ),
                       ),
@@ -69,6 +77,7 @@ class _LoginpageState extends State<Loginpage> {
                             _passwordVisible = !_passwordVisible;
                           });
                         },
+                        controller: _passController
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,8 +93,17 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                       buttongenerator('Sign In', context, () {
                         setState(() {
-                          passwordmessage = 'Invalid Password';
-                          emailmessage = 'Invalid Email';
+                          if (isEmail(_emailController.text)) {
+                            emailmessage = '';
+                          } else {
+                            emailmessage = 'Invalid Email';
+                          }
+
+                          if (isStrong(_passController.text)) {
+                            passwordmessage = '';
+                          } else {
+                            passwordmessage = 'Invalid Password';
+                          }
                         });
                       }),
                       Row(
