@@ -4,6 +4,28 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+bool isEmail(String email) {
+  if (RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(email)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool isStrong(String? password) {
+  if (password == null) {
+    return false;
+  } else if (RegExp(
+          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+      .hasMatch(password)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Widget buttongenerator(String quote, BuildContext context, function) {
   return ElevatedButton(
     onPressed: function,
@@ -65,10 +87,11 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt, BuildContext context) {
+Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
+      controller: controller,
       style: const TextStyle(
         fontSize: 20,
         fontFamily: 'Raleway',
@@ -105,10 +128,12 @@ Widget Textlink(String tex, double fontsiz, BuildContext context,
   );
 }
 
-Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
+Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct,
+    {controller}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
+      controller: controller,
       style: const TextStyle(
         fontSize: 20,
         fontFamily: 'Raleway',
@@ -183,12 +208,12 @@ Widget Bottomgradient(BuildContext context) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: Container(
-      height: MediaQuery.of(context).size.height / 3.5,
-      decoration: BoxDecoration(
+      height: MediaQuery.of(context).size.height / 4.5,
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black, Colors.white24]),
+            colors: [Colors.black, Colors.white12]),
       ),
     ),
   );

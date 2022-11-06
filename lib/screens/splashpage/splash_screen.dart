@@ -25,22 +25,24 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          height: size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              svggenerator(
-                350,
-                350,
-                'assets/svg/logo.svg',
-              ),
-              textgenerator('Foodora', 60.0, 'FoodoraFont', 700,Colors.white),
-            ],
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            width: size.width,
+            height: size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                svggenerator(
+                  350,
+                  350,
+                  'assets/svg/logo.svg',
+                ),
+                textgenerator('Foodora', 60.0, 'FoodoraFont', 700,Colors.white),
+              ],
+            ),
           ),
         ),
       ),
