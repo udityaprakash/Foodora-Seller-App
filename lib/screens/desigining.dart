@@ -3,6 +3,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 
 bool isEmail(String email) {
   if (RegExp(
@@ -216,5 +218,23 @@ Widget Bottomgradient(BuildContext context) {
             colors: [Colors.black, Colors.white12]),
       ),
     ),
+  );
+}
+
+Widget otp_field(BuildContext context, {function}) {
+  final size = MediaQuery.of(context).size;
+  return OTPTextField(
+    keyboardType: TextInputType.number,
+    length: 6,
+    width: size.width > 330 ? 330 : size.width - 10,
+    fieldWidth: size.width > 330 ? 330 / 7 : (size.width - 10) / 7,
+    style: const TextStyle(fontSize: 20),
+    textFieldAlignment: MainAxisAlignment.spaceAround,
+    otpFieldStyle: OtpFieldStyle(
+        borderColor: Colors.white, enabledBorderColor: Colors.white),
+    fieldStyle: FieldStyle.box,
+    onChanged: (pin) {
+      function(pin);
+    },
   );
 }
