@@ -65,15 +65,16 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                           width: MediaQuery.of(context).size.width,
                           child: Align(
                               alignment: Alignment.topLeft,
-                              child: errortextgenerator(
-                                  emailmessage,
-                                  MediaQuery.of(context).size.width / 23,
-                                  400))),
+                              child:
+                                  errortextgenerator(emailmessage, 15, 400))),
                       buttongenerator('Continue', context, () {
-                        
                         setState(() {
                           if (isEmail(_emailController.text)) {
                             emailmessage = '';
+                            Navigator.of(context).pushReplacementNamed(
+                                '/otppage',
+                                arguments: _emailController.text);
+                            // Navigator.pushReplacementNamed(context,'/otppage');
                           } else {
                             emailmessage = "Invalid Email";
                           }
