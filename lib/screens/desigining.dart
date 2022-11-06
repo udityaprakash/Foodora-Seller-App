@@ -87,8 +87,7 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt, BuildContext context,
-    {controller}) {
+Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
@@ -129,7 +128,8 @@ Widget Textlink(String tex, double fontsiz, BuildContext context,
   );
 }
 
-Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct,{controller}) {
+Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct,
+    {controller}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
@@ -208,12 +208,12 @@ Widget Bottomgradient(BuildContext context) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: Container(
-      height: MediaQuery.of(context).size.height / 3.5,
-      decoration: BoxDecoration(
+      height: MediaQuery.of(context).size.height / 4.5,
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black, Colors.white24]),
+            colors: [Colors.black, Colors.white12]),
       ),
     ),
   );

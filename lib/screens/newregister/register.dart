@@ -93,8 +93,7 @@ class _RegisterState extends State<Register> {
                         } else {
                           emailmess = "Invalid Email";
                         }
-                        if (isStrong(_passController.text) &&
-                            isStrong(_repassController.text)) {
+                        if (isStrong(_passController.text)) {
                           if (_passController.text == _repassController.text) {
                             passmess = '';
                           } else {
