@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -141,24 +140,27 @@ Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct) {
 }
 
 Widget Backgroundimg(BuildContext context) {
-  return Container(
-    height: MediaQuery.of(context).size.height,
-    width: MediaQuery.of(context).size.width,
-    child: Align(
-        alignment: Alignment.bottomCenter,
-        child: SvgPicture.asset(
-          'assets/svg/bottompage.svg',
-          width: MediaQuery.of(context).size.width,
-        )
-        // svggenerator(
-        //     200, MediaQuery.of(context).size.width, 'assets/svg/bottompage.svg'),
-        ),
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Align(
+          alignment: Alignment.bottomCenter,
+          child: SvgPicture.asset(
+            'assets/svg/bottompage.svg',
+            width: MediaQuery.of(context).size.width,
+          )
+          // svggenerator(
+          //     200, MediaQuery.of(context).size.width, 'assets/svg/bottompage.svg'),
+          ),
+    ),
   );
 }
 
 Widget Toppageicon() {
   return Padding(
-    padding: const EdgeInsets.only(top:8.0),
+    padding: const EdgeInsets.only(top: 8.0),
     child: Row(
       children: [
         Container(
@@ -173,6 +175,21 @@ Widget Toppageicon() {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget Bottomgradient(BuildContext context) {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      height: MediaQuery.of(context).size.height / 3.5,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Colors.white24]),
+      ),
     ),
   );
 }

@@ -25,9 +25,10 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - 40,
+            height: MediaQuery.of(context).size.height - 35,
             width: MediaQuery.of(context).size.width,
             child: Stack(children: [
+              Bottomgradient(context),
               Backgroundimg(context),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -93,13 +94,13 @@ class _RegisterState extends State<Register> {
                       children: [
                         textgenerator(
                             'Already Registered?',
-                            MediaQuery.of(context).size.width / 15,
+                            MediaQuery.of(context).size.width / 17,
                             'Raleway',
                             400,
                             Colors.white),
                         Textlink(
                             'Login',
-                            MediaQuery.of(context).size.width / 15,
+                            MediaQuery.of(context).size.width / 17,
                             context,
                             800,
                             const Color.fromRGBO(50, 81, 255, 1), () {
