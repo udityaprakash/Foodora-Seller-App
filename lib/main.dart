@@ -5,9 +5,12 @@ import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import 'package:foodora_seller/screens/newregister/register.dart';
 import 'screens/forgotpages/forgotpass.dart';
 import 'screens/splashpage/splash_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
