@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodora_seller/main.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
+import 'package:foodora_seller/screens/newregister/registerotppage.dart';
 import 'package:foodora_seller/screens/splashpage/splash_screen.dart';
 
 import 'forgotpages/forgotpass.dart';
@@ -24,6 +25,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Newsellerpage());
       case '/newregister':
         return MaterialPageRoute(builder: (_) => const Register());
+      case '/newotppage':
+        return MaterialPageRoute(builder: (_) => Myotppage(email: args.toString()));
       case '/forgotpass':
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case '/otppage':

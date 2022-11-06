@@ -90,17 +90,23 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         if (isEmail(_emailController.text)) {
                           emailmess = "";
-                        } else {
-                          emailmess = "Invalid Email";
-                        }
                         if (isStrong(_passController.text)) {
                           if (_passController.text == _repassController.text) {
                             passmess = '';
+                            Navigator.of(context).pushReplacementNamed(
+                              '/newotppage',
+                              arguments: _emailController.text);
                           } else {
                             passmess = 'Password do not match';
                           }
                         } else {
                           passmess = "Weak Password";
+                        }
+
+
+
+                        } else {
+                          emailmess = "Invalid Email";
                         }
                       });
                     }),

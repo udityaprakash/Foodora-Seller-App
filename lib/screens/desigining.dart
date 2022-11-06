@@ -93,6 +93,8 @@ Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
+      maxLines: 1,
+      autofocus: true,
       controller: controller,
       style: const TextStyle(
         fontSize: 20,
@@ -100,6 +102,7 @@ Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller}) {
         fontWeight: FontWeight.w700,
       ),
       decoration: InputDecoration(
+          isDense: true,
           hintText: hinttxt,
           hintStyle: const TextStyle(
               color: Colors.white54,
@@ -135,6 +138,7 @@ Widget Inputpassfield(String hinttxt, bool _passwordVisible, context, funct,
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
+      maxLines: 1,
       controller: controller,
       style: const TextStyle(
         fontSize: 20,
