@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodora_seller/main.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
+import 'package:foodora_seller/screens/main_home_pages/main_home.dart';
 import 'package:foodora_seller/screens/newregister/registerotppage.dart';
 import 'package:foodora_seller/screens/splashpage/splash_screen.dart';
 
@@ -26,20 +27,22 @@ class RouteGenerator {
       case '/newregister':
         return MaterialPageRoute(builder: (_) => const Register());
       case '/newotppage':
-        return MaterialPageRoute(builder: (_) => Myotppage(email: args.toString()));
+        return MaterialPageRoute(
+            builder: (_) => Myotppage(email: args.toString()));
       case '/forgotpass':
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case '/otppage':
-        return MaterialPageRoute(builder: (_) => EnterOTP(email: args.toString()));
+        return MaterialPageRoute(
+            builder: (_) => EnterOTP(email: args.toString()));
       case '/resetpassword':
-        return MaterialPageRoute(builder: (_) => const Resetpassword());  
+        return MaterialPageRoute(builder: (_) => const Resetpassword());
+      case '/main_home':
+        return MaterialPageRoute(builder: (_) => const main_home());
       default:
         return MaterialPageRoute(builder: (_) => const Errorpage());
     }
   }
 }
-
-
 
 class Errorpage extends StatelessWidget {
   const Errorpage({super.key});

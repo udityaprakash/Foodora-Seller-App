@@ -1,18 +1,13 @@
 // ignore_for_file: sized_box_for_whitespace, unnecessary_import
-
 import 'dart:ui';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import '../desigining.dart';
-import 'loginpage.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size -30.0 ;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -36,16 +31,25 @@ class Homepage extends StatelessWidget {
                           Colors.white),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(MediaQuery.of(context).size.width / 48),
-                      child: textgenerator('for bussiness', MediaQuery.of(context).size.width / 15, 'FoodoraFont',
-                          400, Colors.white),
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width / 48),
+                      child: textgenerator(
+                          'for bussiness',
+                          MediaQuery.of(context).size.width / 15,
+                          'FoodoraFont',
+                          400,
+                          Colors.white),
                     ),
                   ],
                 ),
-                textgenerator('Take Your Restraunt Bussiness to Pinnacle', MediaQuery.of(context).size.width / 25,
-                    'Raleway', 800, Colors.white),
+                textgenerator(
+                    'Take Your Restraunt Bussiness to Pinnacle',
+                    MediaQuery.of(context).size.width / 25,
+                    'Raleway',
+                    800,
+                    Colors.white),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height/ 20,
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
                 svggenerator(
                   MediaQuery.of(context).size.height / 2.8,
@@ -65,25 +69,28 @@ class Homepage extends StatelessWidget {
                   Navigator.pushNamed(context, '/newregister');
                 }),
                 Padding(
-                  padding:EdgeInsets.only(top:MediaQuery.of(context).size.height / 17, bottom:MediaQuery.of(context).size.width / 20),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 17,
+                      bottom: MediaQuery.of(context).size.width / 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("Code Of Conduct",
-                          style:
-                              TextStyle(decoration:TextDecoration.underline,
-                              fontSize: MediaQuery.of(context).size.width / 35
-                              
-                              ),
-                              ),
-                      Text("Terms Of Service",
-                          style:
-                              TextStyle(decoration: TextDecoration.underline,
-                              fontSize: MediaQuery.of(context).size.width / 35),),
+                      Text(
+                        "Code Of Conduct",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: MediaQuery.of(context).size.width / 35),
+                      ),
+                      Text(
+                        "Terms Of Service",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: MediaQuery.of(context).size.width / 35),
+                      ),
                       Text("Privacy Policy",
-                          style:
-                              TextStyle(decoration: TextDecoration.underline,
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
                               fontSize: MediaQuery.of(context).size.width / 35))
                     ],
                   ),

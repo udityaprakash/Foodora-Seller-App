@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
+const blue_background = Color.fromRGBO(50, 81, 255, 1);
+
 bool isEmail(String email) {
   if (RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
