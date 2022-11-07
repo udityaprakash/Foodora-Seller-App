@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -243,4 +244,13 @@ Widget otp_field(BuildContext context, {function}) {
       function(pin);
     },
   );
+}
+
+Future<String?> idgrabber() async {
+  try {
+    final storage = new FlutterSecureStorage();
+    final token = await storage.read(key: 'token');
+
+    return token;
+  } catch (er) {}
 }
