@@ -21,12 +21,6 @@ class _RegisterState extends State<Register> {
   TextEditingController _passController = new TextEditingController();
   TextEditingController _repassController = new TextEditingController();
   @override
-  void initState() {
-    super.initState();
-    _passwordVisible = true;
-    _repassword = true;
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
