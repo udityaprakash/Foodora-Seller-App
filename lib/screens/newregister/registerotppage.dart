@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../config/api_integration.dart';
 import '../desigining.dart';
 
-class Myotppage extends StatefulWidget {
+class register_otp extends StatefulWidget {
   final String email;
-  const Myotppage({super.key, required this.email});
+  const register_otp({super.key, required this.email});
 
   @override
-  State<Myotppage> createState() => _MyotppageState();
+  State<register_otp> createState() => _register_otpState();
 }
 
-class _MyotppageState extends State<Myotppage> {
+class _register_otpState extends State<register_otp> {
   late String _pin;
+  bool _isloading = false;
   bool? _full_Otp;
   String _error_line = "";
   @override
@@ -91,18 +93,46 @@ class _MyotppageState extends State<Myotppage> {
                                 child:
                                     errortextgenerator(_error_line, 15, 400)),
                           ),
-                          buttongenerator("Verify", context, () {
-                            if (_full_Otp == null) {
-                              setState(() {
-                                _error_line = "Enter Full OTP";
-                                // _full_Otp = false;
-                              });
-                            }
-                            if (_full_Otp == true) {
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed("/________");
-                            }
-                          })
+                          _isloading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                      color: blue_background),
+                                )
+                              : SizedBox(height: 20),
+                          SizedBox(height: 10),
+                          buttongenerator(
+                            "Verify",
+                            context,
+                            () async {
+                              if (_full_Otp == null) {
+                                setState(() {
+                                  _full_Otp = false;
+                                  _error_line = "Enter Full OTP";
+                                });
+                              }
+                              if (_full_Otp == true) {
+                                setState(() {
+                                  _isloading = true;
+                                });
+                                final response =
+                                    await otp_correct(widget.email, _pin);
+                                setState(() {
+                                  _isloading = false;
+                                });
+
+                                if (response['success']) {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/main_home');
+                                } else {
+                                  setState(() {
+                                    _error_line = response['msg'];
+                                  });
+                                }
+                              }
+                            },
+                          )
                         ],
                       ),
                     ),

@@ -6,3 +6,6 @@ final otp_send_link =
 
 final sign_up_link =
     "https://foodorabackend-production.up.railway.app/seller/register";
+
+final otp_check_link =
+    "https://foodorabackend-production.up.railway.app/seller/verify";

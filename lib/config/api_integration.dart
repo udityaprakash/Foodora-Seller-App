@@ -38,6 +38,7 @@ dynamic send_api_otp(String email) async {
           "email": email,
         }));
     final output = jsonDecode(response.body);
+    log(response.toString());
     return output;
   } catch (er) {
     log("error caught: " + er.toString());
@@ -58,6 +59,22 @@ dynamic sign_up(String name, String email, String password) async {
         }));
     final output = jsonDecode(response.body);
     log(output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}
+
+dynamic otp_correct(String email, String OTP) async {
+  try {
+    log("Initialised OTP verification begun for: " + email);
+    final response = await post(Uri.parse(otp_check_link),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{"email": email, "otp": OTP}));
+    final output = jsonDecode(response.body);
+    log("otp check results: " + output.toString());
     return output;
   } catch (er) {
     log("error caught: " + er.toString());

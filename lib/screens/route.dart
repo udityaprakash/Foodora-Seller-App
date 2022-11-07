@@ -26,9 +26,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Newsellerpage());
       case '/newregister':
         return MaterialPageRoute(builder: (_) => const Register());
-      case '/newotppage':
+      case '/register_otp':
         return MaterialPageRoute(
-            builder: (_) => Myotppage(email: args.toString()));
+            builder: (_) => register_otp(email: args.toString()));
       case '/forgotpass':
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case '/otppage':
