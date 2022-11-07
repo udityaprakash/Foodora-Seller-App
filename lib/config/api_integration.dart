@@ -43,3 +43,23 @@ dynamic send_api_otp(String email) async {
     log("error caught: " + er.toString());
   }
 }
+
+dynamic sign_up(String name, String email, String password) async {
+  try {
+    log("Seller Sign UP Started for " + email);
+    final response = await post(Uri.parse(sign_up_link),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          "username": name,
+          "email": email,
+          "password": password,
+        }));
+    final output = jsonDecode(response.body);
+    log(output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}

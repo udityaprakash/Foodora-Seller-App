@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodora_seller/screens/desigining.dart';
 
+import '../../config/api_integration.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -9,10 +11,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool _isloading = false;
   bool _passwordVisible = true;
   bool _repassword = true;
   String emailmess = "";
   String passmess = "";
+  TextEditingController _nameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   TextEditingController _repassController = new TextEditingController();
@@ -52,7 +56,8 @@ class _RegisterState extends State<Register> {
                             Colors.white),
                       ),
                     ),
-                    InputFieldgenerator('Full Name', context),
+                    InputFieldgenerator('Full Name', context,
+                        controller: _nameController),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 35,
                     ),
@@ -86,30 +91,54 @@ class _RegisterState extends State<Register> {
                           child: errortextgenerator(passmess,
                               MediaQuery.of(context).size.width / 25, 300)),
                     ),
-                    buttongenerator('Continue', context, () {
-                      setState(() {
+                    _isloading
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                                color: blue_background),
+                          )
+                        : SizedBox(height: 20),
+                    SizedBox(height: 10),
+                    buttongenerator(
+                      'Continue',
+                      context,
+                      () async {
                         if (isEmail(_emailController.text)) {
                           emailmess = "";
-                        if (isStrong(_passController.text)) {
-                          if (_passController.text == _repassController.text) {
-                            passmess = '';
-                            Navigator.of(context).pushReplacementNamed(
-                              '/newotppage',
-                              arguments: _emailController.text);
+                          if (isStrong(_passController.text)) {
+                            if (_passController.text ==
+                                _repassController.text) {
+                              passmess = '';
+                              setState(() {
+                                _isloading = true;
+                              });
+                              dynamic response = await sign_up(
+                                  _nameController.text,
+                                  _emailController.text,
+                                  _passController.text);
+                              setState(() {
+                                _isloading = false;
+                              });
+                              if (response['success']) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/newotppage',
+                                    arguments: _emailController.text);
+                              } else {
+                                emailmess = response['msg'];
+                              }
+                            } else {
+                              passmess = 'Password do not match';
+                            }
                           } else {
-                            passmess = 'Password do not match';
+                            passmess = "Weak Password";
                           }
-                        } else {
-                          passmess = "Weak Password";
-                        }
-
-
-
                         } else {
                           emailmess = "Invalid Email";
                         }
-                      });
-                    }),
+                        setState(() {});
+                      },
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
