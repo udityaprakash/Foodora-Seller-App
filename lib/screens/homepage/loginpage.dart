@@ -1,10 +1,8 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foodora_seller/screens/desigining.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import '../../config/api_integration.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -19,6 +17,7 @@ class _LoginpageState extends State<Loginpage> {
   bool _passwordVisible = true;
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
+  final storage = new FlutterSecureStorage();
   @override
   void initState() {
     super.initState();
@@ -68,17 +67,11 @@ class _LoginpageState extends State<Loginpage> {
                           ],
                         ),
                       ),
-                      Inputpassfield(
-                        'Password',
-                        _passwordVisible,
-                        context,
-                        () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                        controller: _passController
-                      ),
+                      Inputpassfield('Password', _passwordVisible, context, () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      }, controller: _passController),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,17 +85,29 @@ class _LoginpageState extends State<Loginpage> {
                         ],
                       ),
                       buttongenerator('Sign In', context, () {
-                        setState(() {
+                        setState(() async {
                           if (isEmail(_emailController.text)) {
                             emailmessage = '';
+                            final response = await sign_in(
+                                _emailController.text, _passController.text);
+                            if (response['success']) {
+                              await storage.write(
+                                  key: "token",
+                                  value: JwtDecoder.decode(
+                                          response['accesstoken'])['id']
+                                      .toString());
+
+                              if (response['msg'] == "User Not Verified") {
+                                // send_api_otp(emailController.text);
+                                Navigator.pushReplacementNamed(
+                                    context, '/otppage',
+                                    arguments: _emailController.text);
+                              } else
+                                Navigator.pushReplacementNamed(
+                                    context, '/homepage');
+                            }
                           } else {
                             emailmessage = 'Invalid Email';
-                          }
-
-                          if (isStrong(_passController.text)) {
-                            passwordmessage = '';
-                          } else {
-                            passwordmessage = 'Invalid Password';
                           }
                         });
                       }),
