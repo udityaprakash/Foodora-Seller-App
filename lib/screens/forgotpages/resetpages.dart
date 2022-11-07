@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:foodora_seller/config/api_integration.dart';
 import '../desigining.dart';
 
 class Resetpassword extends StatefulWidget {
-  const Resetpassword({super.key});
+  final String email;
+  const Resetpassword({super.key, required this.email});
 
   @override
   State<Resetpassword> createState() => _ResetpasswordState();
@@ -15,14 +18,9 @@ class _ResetpasswordState extends State<Resetpassword> {
   String passmess = "";
   TextEditingController _passController = new TextEditingController();
   TextEditingController _repassController = new TextEditingController();
+  bool _isloading = false;
 
   @override
-  void initState() {
-    super.initState();
-    _passwordVisible = true;
-    _repassword = true;
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -84,21 +82,48 @@ class _ResetpasswordState extends State<Resetpassword> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 30,
                           ),
-                          buttongenerator('Set Password', context, () {
-                            setState(() {
+                          _isloading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                      color: blue_background),
+                                )
+                              : SizedBox(height: 20),
+                          buttongenerator(
+                            'Set Password',
+                            context,
+                            () async {
+                              log(widget.email);
                               if (isStrong(_passController.text)) {
                                 passmess = '';
                                 if (_passController.text ==
                                     _repassController.text) {
                                   passmess = "";
+                                  setState(() {
+                                    _isloading = true;
+                                  });
+                                  final response = await forget_new_password(
+                                      widget.email, _passController.text);
+                                  setState(() {
+                                    _isloading = false;
+                                  });
+                                  if (response['success']) {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/homepage');
+                                  } else {
+                                    setState(() {
+                                      passmess = response['msg'];
+                                    });
+                                  }
                                 } else {
                                   passmess = 'Password do not match';
                                 }
                               } else {
                                 passmess = 'Weak Password';
                               }
-                            });
-                          }),
+                            },
+                          ),
                         ],
                       ),
                     )

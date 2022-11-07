@@ -35,7 +35,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => EnterOTP(email: args.toString()));
       case '/resetpassword':
-        return MaterialPageRoute(builder: (_) => const Resetpassword());
+        return MaterialPageRoute(
+            builder: (_) => Resetpassword(
+                  email: args.toString(),
+                ));
       case '/main_home':
         return MaterialPageRoute(builder: (_) => const main_home());
       default:

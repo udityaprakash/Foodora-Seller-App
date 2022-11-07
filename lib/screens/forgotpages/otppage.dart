@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import '../../config/api_integration.dart';
 import '../desigining.dart';
 
 class EnterOTP extends StatefulWidget {
@@ -14,6 +17,8 @@ class _EnterOTPState extends State<EnterOTP> {
   bool? _full_Otp;
   String _error_line = "";
   bool _isloading = false;
+
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +29,7 @@ class _EnterOTPState extends State<EnterOTP> {
             children: [
               Bottomgradient(context),
               Backgroundimg(context),
-              ListView(
-                shrinkWrap: true,
+              Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 18.0),
@@ -93,20 +97,42 @@ class _EnterOTPState extends State<EnterOTP> {
                             : SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.05),
+                        _isloading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                    color: blue_background),
+                              )
+                            : SizedBox(height: 20),
+                        SizedBox(height: 10),
                         buttongenerator("Verify", context, () async {
+                          log(widget.email);
                           if (_full_Otp == true) {
                             setState(() {
                               _isloading = true;
                             });
                             final response =
-                                await otp_correct(widget.email, _pin);
+                                await forget_otp_verify(widget.email, _pin);
                             setState(() {
                               _isloading = false;
-                              _otp_verified = true;
                             });
-
-                            Navigator.of(context)
-                                .pushReplacementNamed("/resetpassword");
+                            if (response['success']) {
+                              Navigator.of(context).pushReplacementNamed(
+                                  "/resetpassword",
+                                  arguments: widget.email);
+                            } else {
+                              setState(() {
+                                _error_line = response['msg'];
+                              });
+                            }
+                          } else if (_full_Otp == null) {
+                            setState(() {
+                              _full_Otp = false;
+                              _error_line = "Please Enter Entire OTP";
+                            });
+                          } else {
+                            _error_line = "Please Enter Entire OTP";
                           }
                         })
                       ],
