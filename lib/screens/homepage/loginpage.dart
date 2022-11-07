@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foodora_seller/screens/desigining.dart';
@@ -84,10 +86,11 @@ class _LoginpageState extends State<Loginpage> {
                           }),
                         ],
                       ),
-                      buttongenerator('Sign In', context, () {
-                        setState(() async {
+                      buttongenerator('Sign In', context, () async {
+                        {
                           if (isEmail(_emailController.text)) {
                             emailmessage = '';
+                            setState(() {});
                             final response = await sign_in(
                                 _emailController.text, _passController.text);
                             if (response['success']) {
@@ -96,20 +99,19 @@ class _LoginpageState extends State<Loginpage> {
                                   value: JwtDecoder.decode(
                                           response['accesstoken'])['id']
                                       .toString());
-
-                              if (response['msg'] == "User Not Verified") {
-                                // send_api_otp(emailController.text);
-                                Navigator.pushReplacementNamed(
-                                    context, '/otppage',
-                                    arguments: _emailController.text);
-                              } else
-                                Navigator.pushReplacementNamed(
-                                    context, '/homepage');
+                              Navigator.pushReplacementNamed(
+                                  context, '/homepage');
+                            } else if (response['msg'] == "User Not Verified") {
+                              send_api_otp(_emailController.text);
+                              Navigator.pushReplacementNamed(
+                                  context, '/otppage',
+                                  arguments: _emailController.text);
                             }
                           } else {
                             emailmessage = 'Invalid Email';
                           }
-                        });
+                        }
+                        ;
                       }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

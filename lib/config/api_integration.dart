@@ -19,7 +19,7 @@ dynamic sign_in(String email, String password) async {
 
     final output = jsonDecode(response.body);
     if (response != null) {
-      log("Response Recieved as " + output['success'].toString());
+      log("Response Recieved as " + output.toString());
     }
     return output;
   } catch (er) {
