@@ -10,8 +10,13 @@ class Restraunt_register extends StatefulWidget {
 }
 
 class _Restraunt_registerState extends State<Restraunt_register> {
+  var resnameerr = '';
+  var mobnoerr = '';
+  var adderr = '';
+  late String restname;
+  late String mobno;
+  late String addres;
   TextEditingController _restname = TextEditingController();
-  TextEditingController _restdec = TextEditingController();
   TextEditingController _mobno = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _timeo = TextEditingController();
@@ -62,43 +67,83 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
                 ),
-                InputFieldgenerator("Restraunt Name", context,controller: _restname),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 35,
-                ),
-                InputFieldgenerator("Restraunt Description", context,controller: _restdec,
-                // functi: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please enter some text';
-                //   }
-                //   return null;
-                // }
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 35,
-                ),
-                InputNumfieldgenerator('Mobile No.', context, 10,on_changed_function: (String textinput){
-
-
+                InputFieldgenerator("Restraunt Name", context,
+                    check: (String Rest_name) {
+                  restname = Rest_name;
+                  if (Rest_name.length == 0) {
+                    resnameerr = 'Restraunt name cannot be empty';
+                  } else {
+                    resnameerr = '';
+                    restname = Rest_name;
+                  }
                 }),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 200,
+                  height: MediaQuery.of(context).size.height / 35,
+                  child: errortextgenerator(
+                      resnameerr, MediaQuery.of(context).size.width / 30, 400),
                 ),
-                InputFieldgenerator("Full Address", context),
+                // InputFieldgenerator(
+                //   "Restraunt Description", context, controller: _restdec,
+                //   // functi: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return 'Please enter some text';
+                //   //   }
+                //   //   return null;
+                //   // }
+                // ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height / 35,
+                //   child: errortextgenerator(resdescerr, 10, 400),
+                // ),
+                InputNumfieldgenerator('Mobile No.', context, 10,
+                    on_changed_function: (String textinput) {
+                  if (textinput.isNotEmpty) {
+                    if (textinput.length < 10) {
+                      mobnoerr = '10 digits required';
+                    } else {
+                      mobno = textinput;
+                      mobnoerr = '';
+                    }
+                  } else {
+                    mobnoerr = 'Mobile no is required';
+                  }
+                }),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 65,
+                  height: MediaQuery.of(context).size.height / 35,
+                  child: errortextgenerator(
+                      mobnoerr, MediaQuery.of(context).size.width / 30, 400),
                 ),
-                Inputtimepicker(context, 'Opening Time',_timeo),
-                Inputtimepicker(context, 'Closing Time',_timec),
+                InputFieldgenerator("Full Address", context,
+                    check: (String addr) {
+                  if (addr.isEmpty) {
+                    adderr = 'Address cannot be empty';
+                  } else {
+                    adderr = '';
+                    addres = addr;
+                  }
+                }),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height/40,
+                  height: MediaQuery.of(context).size.height / 55,
+                  child: errortextgenerator(
+                      adderr, MediaQuery.of(context).size.width / 30, 400),
                 ),
-                buttongenerator('Next', context, (){
-                  Navigator.pushReplacementNamed(
-                                      context, '/main_home');
+                Inputtimepicker(context, 'Opening Time', _timeo),
+                Inputtimepicker(context, 'Closing Time', _timec),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                buttongenerator('Next', context, () {
+                  if (mobno.length == 10 &&
+                      (addres != '' && restname != '')) {
+                    Navigator.pushReplacementNamed(context, '/main_home');
+                  } else {
+                  }
+                  setState(() {
+                    // if (_restname.text == '') {
+                    //   resnameerr = 'Restraunt name cannot be empty';
+                    // } else {}
+                  });
                 })
-                
-
               ],
             ),
           ),

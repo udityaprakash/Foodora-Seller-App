@@ -38,7 +38,7 @@ dynamic send_api_otp(String email) async {
           "email": email,
         }));
     final output = jsonDecode(response.body);
-    log(response.toString());
+    log(output.toString());
     return output;
   } catch (er) {
     log("error caught: " + er.toString());

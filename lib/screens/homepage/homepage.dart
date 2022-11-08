@@ -67,7 +67,7 @@ class Homepage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                buttongenerator('New Restraunt', context, () {
+                buttongenerator('New Seller', context, () {
                   Navigator.pushNamed(context,
                    '/newregister'
                    );
