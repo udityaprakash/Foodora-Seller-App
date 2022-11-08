@@ -93,13 +93,15 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller,maxlines,functi}) {
+Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller,maxlines,functi,check}) {
+
   return SizedBox(
     height:MediaQuery.of(context).size.height / 15,
     child: TextFormField(
       maxLines: 1,
       autofocus: true,
       controller: controller,
+      onChanged: check,
       style: const TextStyle(
         fontSize: 20,
         fontFamily: 'Raleway',
@@ -266,7 +268,8 @@ Future<String?> idgrabber() async {
 Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
     {controller,on_changed_function}) {
   return SizedBox(
-    height: MediaQuery.of(context).size.height / 11,
+    height: MediaQuery.of(context).size.height / 15,
+
     width: MediaQuery.of(context).size.width / 2 ,
     child: TextFormField(
       maxLines: 1,
@@ -280,6 +283,8 @@ Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
         fontWeight: FontWeight.w700,
       ),
       decoration: InputDecoration(
+        counterText: '',
+
           hintText: hinttext,
           hintStyle: const TextStyle(
               color: Colors.white54,
