@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:foodora_seller/screens/desigining.dart';
-import '../homepage/homepage.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -17,7 +16,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacementNamed(context, '/homepage');
     });
   }
@@ -40,7 +39,8 @@ class _SplashscreenState extends State<Splashscreen> {
                   350,
                   'assets/svg/logo.svg',
                 ),
-                textgenerator('Foodora', 60.0, 'FoodoraFont', 700,Colors.white),
+                textgenerator(
+                    'Foodora', 60.0, 'FoodoraFont', 700, Colors.white),
               ],
             ),
           ),
