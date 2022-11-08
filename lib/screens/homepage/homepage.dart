@@ -69,7 +69,8 @@ class Homepage extends StatelessWidget {
                 ),
                 buttongenerator('New Seller', context, () {
                   Navigator.pushNamed(context,
-                   '/newregister'
+                  //  '/newregister'
+                  '/restrauntregister'
                    );
                 }),
                 Padding(

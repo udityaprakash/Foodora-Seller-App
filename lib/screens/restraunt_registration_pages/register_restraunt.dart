@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/desigining.dart';
 import 'package:textfield_datepicker/textfield_timePicker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Restraunt_register extends StatefulWidget {
   Restraunt_register({super.key});
@@ -21,17 +23,18 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   TextEditingController _address = TextEditingController();
   TextEditingController _timeo = TextEditingController();
   TextEditingController _timec = TextEditingController();
-
+  late PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - 40.0,
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: ListView(
-              shrinkWrap: true,
+            // height: MediaQuery.of(context).size.height - 40.0,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              // shrinkWrap: true,
               children: [
                 Toppageicon(),
                 Row(
@@ -65,7 +68,45 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     700,
                     Colors.white),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 20,
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Center(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(16.0),
+                          color: Color.fromRGBO(150, 150, 150, 1.5),
+                        ),
+                        child: SvgPicture.asset(
+                            'assets/svg/restrauntdefaultimg.svg'),
+                      ),
+                      Positioned(
+                          bottom: 5,
+                          right: 5,
+                          child: InkWell(
+                            child: const Icon(
+                              Icons.add_circle_rounded,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: ((builder) =>
+                                      Showbottomsheet()));
+                            },
+                            // onTap: Showbottomsheet(context: context, builder: ((builder) => bottomsheet())),
+                          ))
+
+
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width / 20,
                 ),
                 InputFieldgenerator("Restraunt Name", context,
                     check: (String Rest_name) {
@@ -133,11 +174,9 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                   height: MediaQuery.of(context).size.height / 40,
                 ),
                 buttongenerator('Next', context, () {
-                  if (mobno.length == 10 &&
-                      (addres != '' && restname != '')) {
+                  if (mobno.length == 10 && (addres != '' && restname != '')) {
                     Navigator.pushReplacementNamed(context, '/main_home');
-                  } else {
-                  }
+                  } else {}
                   setState(() {
                     // if (_restname.text == '') {
                     //   resnameerr = 'Restraunt name cannot be empty';
