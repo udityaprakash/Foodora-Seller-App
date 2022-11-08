@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodora_seller/main.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/main_home_pages/home_page_redirector.dart';
@@ -19,7 +18,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/homepage':
         return MaterialPageRoute(builder: (_) => const Homepage());
-      case '/':
+      case '/splashspage':
         return MaterialPageRoute(builder: (_) => const Splashscreen());
       case '/siginpage':
         return MaterialPageRoute(builder: (_) => const Loginpage());
