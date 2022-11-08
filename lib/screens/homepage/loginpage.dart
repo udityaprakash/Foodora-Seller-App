@@ -22,134 +22,136 @@ class _LoginpageState extends State<Loginpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              Bottomgradient(context),
-              Backgroundimg(context),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 18.0),
-                    child: Toppageicon(),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width / 15),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: svggenerator(
-                              MediaQuery.of(context).size.height / 2.5,
-                              MediaQuery.of(context).size.width / 0.7,
-                              'assets/svg/Fingerprint.svg'),
-                        ),
-                        InputFieldgenerator('Enter Your Email', context,
-                            controller: _emailController),
-                        SizedBox(
-                          height: 25.0,
-                          child: Row(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Bottomgradient(context),
+                Backgroundimg(context),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Toppageicon(),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 15),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: svggenerator(
+                                MediaQuery.of(context).size.height / 2.5,
+                                MediaQuery.of(context).size.width / 0.7,
+                                'assets/svg/Fingerprint.svg'),
+                          ),
+                          InputFieldgenerator('Enter Your Email', context,
+                              controller: _emailController),
+                          SizedBox(
+                            height: 25.0,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                errortextgenerator(
+                                  emailmessage,
+                                  15,
+                                  300,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Inputpassfield('Password', _passwordVisible, context,
+                              () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          }, controller: _passController),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              errortextgenerator(
-                                emailmessage,
-                                15,
-                                300,
-                              ),
+                              errortextgenerator(passwordmessage, 15, 400),
+                              Textlink('Forgot Password', 15, context, 300,
+                                  Colors.white, () {
+                                Navigator.pushNamed(context, '/forgotpass');
+                              }),
                             ],
                           ),
-                        ),
-                        Inputpassfield('Password', _passwordVisible, context,
-                            () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        }, controller: _passController),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            errortextgenerator(passwordmessage, 15, 400),
-                            Textlink('Forgot Password', 15, context, 300,
-                                Colors.white, () {
-                              Navigator.pushNamed(context, '/forgotpass');
-                            }),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: _isloading
-                              ? SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                      color: blue_background))
-                              : SizedBox(height: 1),
-                        ),
-                        SizedBox(height: 10),
-                        buttongenerator('Sign In', context, () async {
-                          {
-                            if (isEmail(_emailController.text)) {
-                              setState(() {
-                                emailmessage = '';
-                                _isloading = true;
-                              });
-                              final response = await sign_in(
-                                  _emailController.text, _passController.text);
-                              setState(() {
-                                _isloading = false;
-                              });
-                              if (response['success']) {
+                          SizedBox(
+                            height: 20,
+                            child: _isloading
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                        color: blue_background))
+                                : SizedBox(height: 1),
+                          ),
+                          SizedBox(height: 10),
+                          buttongenerator('Sign In', context, () async {
+                            {
+                              if (isEmail(_emailController.text)) {
                                 setState(() {
+                                  emailmessage = '';
                                   _isloading = true;
                                 });
-                                await storage.write(
-                                    key: "token",
-                                    value: JwtDecoder.decode(
-                                            response['accesstoken'])['id']
-                                        .toString());
+                                final response = await sign_in(
+                                    _emailController.text, _passController.text);
                                 setState(() {
                                   _isloading = false;
                                 });
-                                Navigator.pushReplacementNamed(
-                                    context, '/main_home');
-                              } else if (response['msg'] ==
-                                  "User Not Verified") {
-                                send_api_otp(_emailController.text);
-                                Navigator.pushReplacementNamed(
-                                    context, '/otppage',
-                                    arguments: _emailController.text);
+                                if (response['success']) {
+                                  setState(() {
+                                    _isloading = true;
+                                  });
+                                  await storage.write(
+                                      key: "token",
+                                      value: JwtDecoder.decode(
+                                              response['accesstoken'])['id']
+                                          .toString());
+                                  setState(() {
+                                    _isloading = false;
+                                  });
+                                  Navigator.pushReplacementNamed(
+                                      context, '/main_home');
+                                } else if (response['msg'] ==
+                                    "User Not Verified") {
+                                  send_api_otp(_emailController.text);
+                                  Navigator.pushReplacementNamed(
+                                      context, '/otppage',
+                                      arguments: _emailController.text);
+                                } else {
+                                  emailmessage = response['msg'];
+                                }
                               } else {
-                                emailmessage = response['msg'];
+                                setState(() {});
+                                emailmessage = 'Invalid Email';
                               }
-                            } else {
-                              setState(() {});
-                              emailmessage = 'Invalid Email';
                             }
-                          }
-                          ;
-                        }),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            textgenerator(
-                                'New user?', 25, 'Raleway', 400, Colors.white),
-                            Textlink('Register', 28, context, 800,
-                                const Color.fromRGBO(50, 81, 255, 1), () {
-                              Navigator.pushReplacementNamed(
-                                  context, '/newregister');
-                            })
-                          ],
-                        ),
-                      ],
+                            ;
+                          }),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              textgenerator(
+                                  'New user?', 25, 'Raleway', 400, Colors.white),
+                              Textlink('Register', 28, context, 800,
+                                  const Color.fromRGBO(50, 81, 255, 1), () {
+                                Navigator.pushReplacementNamed(
+                                    context, '/newregister');
+                              })
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
