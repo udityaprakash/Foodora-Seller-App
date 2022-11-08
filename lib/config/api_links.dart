@@ -20,3 +20,6 @@ final forget_new_password_link =
 
 final seller_profile_link =
     "https://foodorabackend-production.up.railway.app/seller/sellerprofile";
+
+final restaurant_register_link =
+    "https://foodorabackend-production.up.railway.app/seller/restaurantregister";

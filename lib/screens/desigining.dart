@@ -93,10 +93,10 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller,maxlines,functi,check}) {
-
+Widget InputFieldgenerator(String hinttxt, BuildContext context,
+    {controller, maxlines, functi, check}) {
   return SizedBox(
-    height:MediaQuery.of(context).size.height / 15,
+    height: MediaQuery.of(context).size.height / 15,
     child: TextFormField(
       maxLines: 1,
       autofocus: true,
@@ -108,12 +108,12 @@ Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller,max
         fontWeight: FontWeight.w700,
       ),
       validator: functi,
-  //     (value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Please enter some text';
-  //   }
-  //   return null;
-  // },
+      //     (value) {
+      //   if (value == null || value.isEmpty) {
+      //     return 'Please enter some text';
+      //   }
+      //   return null;
+      // },
       decoration: InputDecoration(
           isDense: true,
           hintText: hinttxt,
@@ -266,11 +266,10 @@ Future<String?> idgrabber() async {
 }
 
 Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
-    {controller,on_changed_function}) {
+    {controller, on_changed_function}) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 15,
-
-    width: MediaQuery.of(context).size.width / 2 ,
+    width: double.infinity,
     child: TextFormField(
       maxLines: 1,
       maxLength: maxlen,
@@ -283,8 +282,7 @@ Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
         fontWeight: FontWeight.w700,
       ),
       decoration: InputDecoration(
-        counterText: '',
-
+          counterText: '',
           hintText: hinttext,
           hintStyle: const TextStyle(
               color: Colors.white54,
@@ -303,7 +301,7 @@ Widget Inputtimepicker(
     BuildContext context, String tex, TextEditingController _timeo) {
   return SizedBox(
     height: MediaQuery.of(context).size.height / 11,
-    width: MediaQuery.of(context).size.width/1.2 ,
+    width: MediaQuery.of(context).size.width / 2.4,
     child: TextfieldTimePicker(
       textfieldDateAndTimePickerController: _timeo,
       cupertinoDatePickerBackgroundColor: Colors.black87,
@@ -318,7 +316,7 @@ Widget Inputtimepicker(
           hintText: tex,
           hintStyle: const TextStyle(
               color: Colors.white54,
-              fontSize: 20,
+              fontSize: 18,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w700),
           fillColor: Color.fromRGBO(150, 150, 150, 1.5),
