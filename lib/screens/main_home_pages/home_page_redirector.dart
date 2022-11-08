@@ -17,7 +17,7 @@ class _home_page_redirectorState extends State<home_page_redirector> {
     return FutureBuilder(
       future: idgrabber(),
       builder: (BuildContext context, AsyncSnapshot id_storage) {
-        if (id_storage.data == null || id_storage.data == 'GUEST USER') {
+        if (id_storage.data == null) {
           return Homepage();
         } else if (id_storage.hasData) {
           return main_home();
