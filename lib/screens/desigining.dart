@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:textfield_datepicker/textfield_timePicker.dart';
 
 const blue_background = Color.fromRGBO(50, 81, 255, 1);
 
@@ -44,7 +45,7 @@ Widget buttongenerator(String quote, BuildContext context, function) {
     ),
     child: Center(
       child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 50),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
         child: Text(
           quote,
           style: TextStyle(
@@ -92,18 +93,27 @@ Widget errortextgenerator(String tex, double fontS, double weit) {
   );
 }
 
-Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller}) {
+Widget InputFieldgenerator(String hinttxt, BuildContext context, {controller,maxlines,functi,check}) {
+
   return SizedBox(
-    height: MediaQuery.of(context).size.height / 15,
+    height:MediaQuery.of(context).size.height / 15,
     child: TextFormField(
       maxLines: 1,
       autofocus: true,
       controller: controller,
+      onChanged: check,
       style: const TextStyle(
         fontSize: 20,
         fontFamily: 'Raleway',
         fontWeight: FontWeight.w700,
       ),
+      validator: functi,
+  //     (value) {
+  //   if (value == null || value.isEmpty) {
+  //     return 'Please enter some text';
+  //   }
+  //   return null;
+  // },
       decoration: InputDecoration(
           isDense: true,
           hintText: hinttxt,
@@ -253,4 +263,68 @@ Future<String?> idgrabber() async {
 
     return token;
   } catch (er) {}
+}
+
+Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
+    {controller,on_changed_function}) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height / 15,
+
+    width: MediaQuery.of(context).size.width / 2 ,
+    child: TextFormField(
+      maxLines: 1,
+      maxLength: maxlen,
+      onChanged: on_changed_function,
+      keyboardType: TextInputType.number,
+      controller: controller,
+      style: const TextStyle(
+        fontSize: 20,
+        fontFamily: 'Raleway',
+        fontWeight: FontWeight.w700,
+      ),
+      decoration: InputDecoration(
+        counterText: '',
+
+          hintText: hinttext,
+          hintStyle: const TextStyle(
+              color: Colors.white54,
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w700),
+          fillColor: Color.fromRGBO(150, 150, 150, 1.5),
+          filled: true,
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+    ),
+  );
+}
+
+Widget Inputtimepicker(
+    BuildContext context, String tex, TextEditingController _timeo) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height / 11,
+    width: MediaQuery.of(context).size.width/1.2 ,
+    child: TextfieldTimePicker(
+      textfieldDateAndTimePickerController: _timeo,
+      cupertinoDatePickerBackgroundColor: Colors.black87,
+      cupertinoDateInitialDateTime: DateTime(2022, 9, 7, 17, 30),
+      materialInitialTime: new TimeOfDay(hour: 12, minute: 0),
+      style: const TextStyle(
+        fontSize: 20,
+        fontFamily: 'Raleway',
+        fontWeight: FontWeight.w700,
+      ),
+      decoration: InputDecoration(
+          hintText: tex,
+          hintStyle: const TextStyle(
+              color: Colors.white54,
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w700),
+          fillColor: Color.fromRGBO(150, 150, 150, 1.5),
+          filled: true,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+    ),
+  );
 }

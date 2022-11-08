@@ -4,6 +4,7 @@ import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/main_home_pages/home_page_redirector.dart';
 import 'package:foodora_seller/screens/main_home_pages/main_home.dart';
 import 'package:foodora_seller/screens/newregister/registerotppage.dart';
+import 'package:foodora_seller/screens/restraunt_registration_pages/register_restraunt.dart';
 import 'package:foodora_seller/screens/splashpage/splash_screen.dart';
 
 import 'forgotpages/forgotpass.dart';
@@ -22,8 +23,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Splashscreen());
       case '/siginpage':
         return MaterialPageRoute(builder: (_) => const Loginpage());
-      case '/newrestaraunt':
-        return MaterialPageRoute(builder: (_) => const Newsellerpage());
+      // case '/newrestaraunt':
+      //   return MaterialPageRoute(builder: (_) => const Newsellerpage());
       case '/newregister':
         return MaterialPageRoute(builder: (_) => const Register());
       case '/register_otp':
@@ -39,6 +40,8 @@ class RouteGenerator {
             builder: (_) => Resetpassword(
                   email: args.toString(),
                 ));
+      case '/restrauntregister':
+        return MaterialPageRoute(builder: (_) => Restraunt_register());         
       case '/main_home':
         return MaterialPageRoute(builder: (_) => const main_home());
       case '/home_page_redirector':
@@ -59,3 +62,5 @@ class Errorpage extends StatelessWidget {
     );
   }
 }
+
+
