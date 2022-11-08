@@ -60,13 +60,17 @@ class Homepage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 30,
                 ),
                 buttongenerator('Sign In', context, () {
-                  Navigator.pushNamed(context, '/siginpage');
+                  Navigator.pushNamed(context,
+                   '/siginpage'
+                   );
                 }),
                 const SizedBox(
                   height: 30,
                 ),
                 buttongenerator('New Restraunt', context, () {
-                  Navigator.pushNamed(context, '/newregister');
+                  Navigator.pushNamed(context,
+                   '/newregister'
+                   );
                 }),
                 Padding(
                   padding: EdgeInsets.only(

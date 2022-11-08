@@ -124,7 +124,7 @@ class _register_otpState extends State<register_otp> {
 
                                 if (response['success']) {
                                   Navigator.pushReplacementNamed(
-                                      context, '/main_home');
+                                      context, '/restrauntregister');
                                 } else {
                                   setState(() {
                                     _error_line = response['msg'];
