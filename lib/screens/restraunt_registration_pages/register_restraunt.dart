@@ -33,14 +33,15 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   bool _isloading = false;
   final storage = new FlutterSecureStorage();
   final ImagePicker _picker = ImagePicker();
-  String? _imagePath;
-  File? _image;
+  List<File> _image = [];
   selectImage() async {
-    XFile im = await fromgalaryPath();
+    log("from res");
+    List<XFile> _ximage = await fromgalarymultiplePath();
+    for (int i = 0; i < _ximage.length; ++i) {
+      _image.add(File(_ximage[i].path));
+    }
     setState(
-      () {
-        _image = File(im.path);
-      },
+      () {},
     );
   }
 
@@ -53,8 +54,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
           child: Container(
             height: MediaQuery.of(context).size.height - 40.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: ListView(
-              shrinkWrap: true,
+            child: Column(
               children: [
                 Toppageicon(),
                 Row(
@@ -100,11 +100,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             borderRadius: new BorderRadius.circular(16.0),
                             color: Color.fromRGBO(150, 150, 150, 1.5),
                           ),
-                          child: _image == null
-                              ? SvgPicture.asset(
-                                  'assets/svg/restrauntdefaultimg.svg')
-                              : CircleAvatar(
-                                  backgroundImage: FileImage(_image!))),
+                          child: SvgPicture.asset(
+                              'assets/svg/restrauntdefaultimg.svg')),
                       Positioned(
                           bottom: 5,
                           right: 5,
@@ -250,6 +247,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     setState(() {
                       _isloading = true;
                     });
+                    log("abovefunction" + _image.toString());
                     final response = await restaurant_register(id!, restname,
                         mobno, addres, _timeo.text, _timec.text, _image);
                     setState(() {
