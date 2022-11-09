@@ -1,6 +1,8 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
@@ -300,8 +302,8 @@ Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
 Widget Inputtimepicker(
     BuildContext context, String tex, TextEditingController _timeo) {
   return SizedBox(
-    height: MediaQuery.of(context).size.height / 11,
-    width: MediaQuery.of(context).size.width / 2.4,
+    height: MediaQuery.of(context).size.height / 10,
+    width: MediaQuery.of(context).size.width / 2.3,
     child: TextfieldTimePicker(
       textfieldDateAndTimePickerController: _timeo,
       cupertinoDatePickerBackgroundColor: Colors.black87,
@@ -325,4 +327,71 @@ Widget Inputtimepicker(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
     ),
   );
+}
+
+Widget Showbottomsheet(Uint8List im) {
+  return Container(
+    color: Colors.black,
+    height: 140,
+    width: double.infinity,
+    child: Column(children: [
+      Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: textgenerator(
+            'Choose from below options', 20, 'Raleway', 700, Colors.white),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            onPressed: () async {
+              fromcamera();
+            },
+            icon: const Icon(
+              Icons.add_a_photo,
+              size: 40,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () async {
+              // Uint8List im = await fromgalary();
+            },
+            icon: const Icon(
+              Icons.add_photo_alternate,
+              size: 40,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      )
+    ]),
+  );
+}
+
+void fromcamera() async {
+  // final PickedFile = await pic.getImage(source: ImageSource.camera);
+}
+
+// fromgalary() async {
+//   final ImagePicker imagePicker = ImagePicker();
+//   XFile? _file = await imagePicker.pickImage(source: ImageSource.gallery);
+//   if (_file != null) {
+//     return _file.readAsBytes();
+//   } else {
+//     print("Image not selected");
+//   }
+// }
+
+fromgalaryPath() async {
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? _file = await imagePicker.pickImage(source: ImageSource.gallery);
+  if (_file != null) {
+    return _file;
+  } else {
+    print("Image not selected");
+  }
 }

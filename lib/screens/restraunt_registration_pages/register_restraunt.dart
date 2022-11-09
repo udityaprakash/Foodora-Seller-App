@@ -1,11 +1,15 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foodora_seller/config/api_integration.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/desigining.dart';
 import 'package:http/http.dart';
 import 'package:textfield_datepicker/textfield_timePicker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Restraunt_register extends StatefulWidget {
   Restraunt_register({super.key});
@@ -28,7 +32,20 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   TextEditingController _timec = TextEditingController();
   bool _isloading = false;
   final storage = new FlutterSecureStorage();
+  final ImagePicker _picker = ImagePicker();
+  String? _imagePath;
+  File? _image;
+  selectImage() async {
+    // Uint8List im = await fromgalary();
+    XFile im = await fromgalaryPath();
+    setState(() {
+      // _imagePath = im.path;
+      _image = File(im.path);
+      log(im.path);
+    });
+  }
 
+  imageFun() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +54,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
           child: Container(
             height: MediaQuery.of(context).size.height - 40.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
+            child: ListView(
+              shrinkWrap: true,
               children: [
                 Toppageicon(),
                 Row(
@@ -71,7 +89,91 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     700,
                     Colors.white),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 20,
+                  height: MediaQuery.of(context).size.height / 40,
+                ),
+                Center(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                          height: MediaQuery.of(context).size.height / 5,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          decoration: BoxDecoration(
+                            borderRadius: new BorderRadius.circular(16.0),
+                            color: Color.fromRGBO(150, 150, 150, 1.5),
+                          ),
+                          child: _image == null
+                              ? SvgPicture.asset(
+                                  'assets/svg/restrauntdefaultimg.svg')
+                              : CircleAvatar(
+                                  backgroundImage: FileImage(_image!))),
+                      Positioned(
+                          bottom: 5,
+                          right: 5,
+                          child: InkWell(
+                            child: const Icon(
+                              Icons.add_circle_rounded,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: ((builder) {
+                                    return Container(
+                                      color: Colors.black,
+                                      height: 140,
+                                      width: double.infinity,
+                                      child: Column(children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10.0),
+                                          child: textgenerator(
+                                              'Choose from below options',
+                                              20,
+                                              'Raleway',
+                                              700,
+                                              Colors.white),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () async {
+                                                fromcamera();
+                                              },
+                                              icon: const Icon(
+                                                Icons.no_photography,
+                                                size: 40,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () async {
+                                                selectImage();
+                                              },
+                                              icon: const Icon(
+                                                Icons.add_photo_alternate,
+                                                size: 40,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ]),
+                                    );
+                                  }));
+                            },
+                            // onTap: Showbottomsheet(context: context, builder: ((builder) => bottomsheet())),
+                          ))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width / 20,
                 ),
                 InputFieldgenerator("Restraunt Name", context,
                     check: (String Rest_name) {
@@ -122,7 +224,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                       adderr, MediaQuery.of(context).size.width / 30, 400),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Inputtimepicker(context, 'Opening Time', _timeo),
                     Inputtimepicker(context, 'Closing Time', _timec),
@@ -166,7 +269,6 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                         adderr = response['msg'];
                       });
                     }
-                    ;
                   } else {}
                   setState(() {});
                 })
