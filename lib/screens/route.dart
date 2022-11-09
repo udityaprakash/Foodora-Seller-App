@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodora_seller/screens/Adddishes/add_dish.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/main_home_pages/home_page_redirector.dart';
@@ -41,13 +42,16 @@ class RouteGenerator {
                   email: args.toString(),
                 ));
       case '/restrauntregister':
-        return MaterialPageRoute(builder: (_) => Restraunt_register());         
+        return MaterialPageRoute(builder: (_) => Restraunt_register());
       case '/main_home':
         return MaterialPageRoute(builder: (_) => const main_home());
       case '/home_page_redirector':
         return MaterialPageRoute(builder: (_) => const home_page_redirector());
+      case '/adddish':  
+        return MaterialPageRoute(builder: (_) => const Add_dish());
       default:
         return MaterialPageRoute(builder: (_) => const Errorpage());
+
     }
   }
 }
@@ -57,10 +61,8 @@ class Errorpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('error')),
+    return Scaffold(
+      body: Center(),
     );
   }
 }
-
-
