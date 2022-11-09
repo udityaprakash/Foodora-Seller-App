@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -386,6 +387,29 @@ void fromcamera() async {
 //   }
 // }
 
+Future<List<XFile>> fromgalarymultiplePath() async {
+  log("from gallery ");
+  final imagePicker = ImagePicker();
+  final List<XFile>? _file = await imagePicker.pickMultiImage();
+  if (_file == null) {
+    return [];
+  }
+  if (_file != []) {
+    if (_file.length > 5) {
+      _file.removeRange(4, _file.length - 1);
+    }
+  }
+  for (int i = 0; i < _file.length; ++i) {
+    log(_file[i].path);
+  }
+
+  return _file;
+}
+
+Widget Appbartop() {
+  return AppBar(actions: []);
+}
+
 fromgalaryPath() async {
   final ImagePicker imagePicker = ImagePicker();
   XFile? _file = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -394,12 +418,4 @@ fromgalaryPath() async {
   } else {
     print("Image not selected");
   }
-}
-
-Widget Appbartop() {
-  return AppBar(
-    actions: [
-
-        ]
-  );
 }

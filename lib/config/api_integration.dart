@@ -132,26 +132,25 @@ dynamic forget_new_password(String email, String password) async {
   }
 }
 
-dynamic restaurant_register(String id, String r_name, String mobilenumber,
-    String address, String openingtime, String closingtime, File? image) async {
+dynamic restaurant_register(
+    String id,
+    String r_name,
+    String mobilenumber,
+    String address,
+    String openingtime,
+    String closingtime,
+    List<File?> image) async {
   try {
     log("Registring Restraunt");
 
-    final ext = image!.path.split(".").last.toString();
-    log(id);
-    log(r_name);
-    log(mobilenumber);
-    log(address);
-    log(openingtime);
-    log(closingtime);
-    log(ext);
-
     var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
-    if (image != null) {
+
+    for (int i = 0; i < image.length; ++i) {
+      log(image[i]!.path);
       request.files.add(
         MultipartFile(
-            'image', image.readAsBytes().asStream(), image.lengthSync(),
-            filename: "something.jpg", contentType: MediaType('image', ext)),
+            'image', image[i]!.readAsBytes().asStream(), image[i]!.lengthSync(),
+            filename: "something.jpg", contentType: MediaType('image', 'jpg')),
       );
     }
 
@@ -170,23 +169,32 @@ dynamic restaurant_register(String id, String r_name, String mobilenumber,
     log("error caught: " + er.toString());
   }
 }
-// log("Restraunt Registration of " + r_name + ' with id - ' + id.toString());
-    // final response = await post(
-    //   Uri.parse(restaurant_register_link),
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //   },
-    //   body: jsonEncode(
-    //     <String, String>{
-    //       "id": id,
-    //       "restaurantname": r_name,
-    //       "mobilenumber": mobilenumber,
-    //       "address": address,
-    //       "openingtime": openingtime,
-    //       "closingtime": closingtime
-    //     },
-    //   ),
-    // );
-    // final output = jsonDecode(response.body);
-    // log(output.toString());
-    // return output;
+
+dynamic food_list(
+    String id, String foodname, String food_price, String food_desc,
+    {File? image}) async {
+  try {
+    log("Registring Restraunt");
+
+    var request = MultipartRequest('POST', Uri.parse(food_list_link));
+    if (image != null) {
+      request.files.add(
+        MultipartFile(
+            'image', image.readAsBytes().asStream(), image.lengthSync(),
+            filename: "something.jpg", contentType: MediaType('image', 'jpg')),
+      );
+    }
+
+    request.fields['id'] = id;
+    request.fields['foodname'] = foodname;
+    request.fields['food_price'] = food_price;
+    request.fields['food_desc'] = food_desc;
+
+    var response = await request.send();
+    var result = await response.stream.bytesToString();
+    log(result.toString());
+    return jsonDecode(result);
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}

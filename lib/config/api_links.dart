@@ -23,3 +23,6 @@ final seller_profile_link =
 
 final restaurant_register_link =
     "https://foodorabackend-production.up.railway.app/seller/restaurantregister";
+
+final food_list_link =
+    "https://foodorabackend-production.up.railway.app/seller/foodlisting";
