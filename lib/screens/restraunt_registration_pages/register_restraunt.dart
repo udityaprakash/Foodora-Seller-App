@@ -159,7 +159,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     setState(() {
                       _isloading = false;
                     });
-                    // Navigator.pushReplacementNamed(context, '/main_home');
+                    if (response['success']) {
+                      Navigator.pushReplacementNamed(context, '/main_home');
+                    } else {
+                      setState(() {
+                        adderr = response['msg'];
+                      });
+                    }
+                    ;
                   } else {}
                   setState(() {});
                 })

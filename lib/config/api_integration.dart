@@ -134,8 +134,13 @@ dynamic restaurant_register(String id, String r_name, String mobilenumber,
     String address, String openingtime, String closingtime) async {
   try {
     log("Restraunt Registration of " + r_name + ' with id - ' + id.toString());
+    log("Api " + r_name);
+    log("Api " + mobilenumber);
+    log("Api " + address);
+    log("Api " + openingtime);
+    log("Api " + closingtime);
     final response = await post(
-      Uri.parse(sign_up_link),
+      Uri.parse(restaurant_register_link),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
