@@ -302,8 +302,8 @@ Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,
 Widget Inputtimepicker(
     BuildContext context, String tex, TextEditingController _timeo) {
   return SizedBox(
-    height: MediaQuery.of(context).size.height / 11,
-    width: MediaQuery.of(context).size.width / 2.4,
+    height: MediaQuery.of(context).size.height / 10,
+    width: MediaQuery.of(context).size.width / 2.3,
     child: TextfieldTimePicker(
       textfieldDateAndTimePickerController: _timeo,
       cupertinoDatePickerBackgroundColor: Colors.black87,

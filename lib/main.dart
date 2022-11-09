@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       //   '/forgotpass': (_) => const Forgotpassword(),
       //   '/otppage': (_) => const EnterOTP(email: 'userentered'),
       // },
-      initialRoute: '/restrauntregister',
+      initialRoute: '/splashspage',
       onGenerateRoute: RouteGenerator.generateRoute,
       theme: ThemeData(
         scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0),

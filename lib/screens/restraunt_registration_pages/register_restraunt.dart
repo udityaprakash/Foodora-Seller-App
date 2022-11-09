@@ -224,7 +224,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                       adderr, MediaQuery.of(context).size.width / 30, 400),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Inputtimepicker(context, 'Opening Time', _timeo),
                     Inputtimepicker(context, 'Closing Time', _timec),
@@ -261,7 +262,13 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     setState(() {
                       _isloading = false;
                     });
-                    // Navigator.pushReplacementNamed(context, '/main_home');
+                    if (response['success']) {
+                      Navigator.pushReplacementNamed(context, '/main_home');
+                    } else {
+                      setState(() {
+                        adderr = response['msg'];
+                      });
+                    }
                   } else {}
                   setState(() {});
                 })
