@@ -32,10 +32,9 @@ class _main_homeState extends State<main_home> {
         //   onPressed: () {},
         // ),
       ),
-      body:SingleChildScrollView(
-         ) ,
+      body: SingleChildScrollView(),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(238,238,238,250),
+        backgroundColor: Color.fromARGB(238, 238, 238, 250),
         child: Column(
           children: [
             DrawerHeader(
@@ -49,7 +48,7 @@ class _main_homeState extends State<main_home> {
                   children: [
                     textgenerator('Welcome,', 25, 'Raleway', 300, Colors.white),
                     Padding(
-                      padding: const EdgeInsets.only(top:8.0,left: 20),
+                      padding: const EdgeInsets.only(top: 8.0, left: 20),
                       child: textgenerator(
                           'Uditya', 20, 'Raleway', 300, Colors.white),
                     ),
@@ -59,10 +58,26 @@ class _main_homeState extends State<main_home> {
             ),
             ListTile(
               leading: const Icon(
+                Icons.loupe,
+                color: Colors.black,
+                size: 30,
+              ),
+              title:
+                  textgenerator('Add Dishes', 15, 'Raleway', 500, Colors.white),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/adddish');
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: const Icon(
                 Icons.policy,
                 color: Colors.black,
+                size: 30,
               ),
-              title: textgenerator('Terms And Policy', 15, 'Raleway', 500, Colors.white),
+              title: textgenerator(
+                  'Terms And Policy', 15, 'Raleway', 500, Colors.white),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -72,6 +87,7 @@ class _main_homeState extends State<main_home> {
               leading: Icon(
                 Icons.help,
                 color: Colors.black,
+                size: 30,
               ),
               title: textgenerator('Help', 15, 'Raleway', 500, Colors.white),
               onTap: () {
@@ -82,14 +98,15 @@ class _main_homeState extends State<main_home> {
             ListTile(
               leading: Icon(
                 Icons.logout,
+                size: 30,
                 color: Colors.black,
               ),
               title: textgenerator('Log Out', 15, 'Raleway', 500, Colors.white),
               onTap: () async {
                 storage.delete(key: 'token');
-                Navigator.pushReplacementNamed(context, '/home_page_redirector');
+                Navigator.pushReplacementNamed(
+                    context, '/home_page_redirector');
                 log("Signing Out");
-                
               },
             ),
           ],
