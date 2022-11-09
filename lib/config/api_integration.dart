@@ -129,3 +129,31 @@ dynamic forget_new_password(String email, String password) async {
     log("error caught: " + er.toString());
   }
 }
+
+dynamic restaurant_register(String id, String r_name, String mobilenumber,
+    String address, String openingtime, String closingtime) async {
+  try {
+    log("Restraunt Registration of " + r_name + ' with id - ' + id.toString());
+    final response = await post(
+      Uri.parse(sign_up_link),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        <String, String>{
+          "id": id,
+          "restaurantname": r_name,
+          "mobilenumber": mobilenumber,
+          "address": address,
+          "openingtime": openingtime,
+          "closingtime": closingtime
+        },
+      ),
+    );
+    final output = jsonDecode(response.body);
+    log(output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}

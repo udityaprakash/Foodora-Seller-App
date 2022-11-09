@@ -3,8 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:foodora_seller/config/api_integration.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/desigining.dart';
+import 'package:http/http.dart';
 import 'package:textfield_datepicker/textfield_timePicker.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,6 +30,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   TextEditingController _address = TextEditingController();
   TextEditingController _timeo = TextEditingController();
   TextEditingController _timec = TextEditingController();
+  bool _isloading = false;
+  final storage = new FlutterSecureStorage();
   final ImagePicker _picker = ImagePicker();
   String? _imagePath;
   File? _image;
@@ -47,10 +52,10 @@ class _Restraunt_registerState extends State<Restraunt_register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            // height: MediaQuery.of(context).size.height - 40.0,
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              // shrinkWrap: true,
+            height: MediaQuery.of(context).size.height - 40.0,
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: ListView(
+              shrinkWrap: true,
               children: [
                 Toppageicon(),
                 Row(
@@ -185,26 +190,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                   child: errortextgenerator(
                       resnameerr, MediaQuery.of(context).size.width / 30, 400),
                 ),
-                // InputFieldgenerator(
-                //   "Restraunt Description", context, controller: _restdec,
-                //   // functi: (value) {
-                //   //   if (value == null || value.isEmpty) {
-                //   //     return 'Please enter some text';
-                //   //   }
-                //   //   return null;
-                //   // }
-                // ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height / 35,
-                //   child: errortextgenerator(resdescerr, 10, 400),
-                // ),
                 InputNumfieldgenerator('Mobile No.', context, 10,
                     on_changed_function: (String textinput) {
+                  mobno = textinput;
+
                   if (textinput.isNotEmpty) {
-                    if (textinput.length < 10) {
+                    if (textinput.length != 10) {
                       mobnoerr = '10 digits required';
                     } else {
-                      mobno = textinput;
                       mobnoerr = '';
                     }
                   } else {
@@ -230,20 +223,47 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                   child: errortextgenerator(
                       adderr, MediaQuery.of(context).size.width / 30, 400),
                 ),
-                Inputtimepicker(context, 'Opening Time', _timeo),
-                Inputtimepicker(context, 'Closing Time', _timec),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Inputtimepicker(context, 'Opening Time', _timeo),
+                    Inputtimepicker(context, 'Closing Time', _timec),
+                  ],
                 ),
-                buttongenerator('Next', context, () {
-                  if (mobno.length == 10 && (addres != '' && restname != '')) {
-                    Navigator.pushReplacementNamed(context, '/main_home');
+                _isloading
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child:
+                            CircularProgressIndicator(color: blue_background),
+                      )
+                    : SizedBox(height: 20),
+                buttongenerator('Next', context, () async {
+                  if (mobno.length == 10 &&
+                      (addres != '' &&
+                          restname != '' &&
+                          mobno != '' &&
+                          addres != null &&
+                          restname != null)) {
+                    log(restname);
+                    log(mobno);
+                    log(addres);
+                    log(_timeo.text.toString());
+                    log(_timec.text.toString());
+                    final id = await storage.read(key: 'token');
+
+                    log(id.toString());
+                    setState(() {
+                      _isloading = true;
+                    });
+                    final response = await restaurant_register(
+                        id!, restname, mobno, addres, _timeo.text, _timec.text);
+                    setState(() {
+                      _isloading = false;
+                    });
+                    // Navigator.pushReplacementNamed(context, '/main_home');
                   } else {}
-                  setState(() {
-                    // if (_restname.text == '') {
-                    //   resnameerr = 'Restraunt name cannot be empty';
-                    // } else {}
-                  });
+                  setState(() {});
                 })
               ],
             ),
