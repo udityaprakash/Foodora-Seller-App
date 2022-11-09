@@ -41,13 +41,14 @@ class RouteGenerator {
                   email: args.toString(),
                 ));
       case '/restrauntregister':
-        return MaterialPageRoute(builder: (_) => Restraunt_register());         
+        return MaterialPageRoute(builder: (_) => Restraunt_register());
       case '/main_home':
         return MaterialPageRoute(builder: (_) => const main_home());
       case '/home_page_redirector':
         return MaterialPageRoute(builder: (_) => const home_page_redirector());
       default:
         return MaterialPageRoute(builder: (_) => const Errorpage());
+
     }
   }
 }
@@ -57,10 +58,8 @@ class Errorpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('error')),
+    return Scaffold(
+      body: Center(),
     );
   }
 }
-
-
