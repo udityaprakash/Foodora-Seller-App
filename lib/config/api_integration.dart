@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart';
 
 import 'api_links.dart';
@@ -131,29 +133,60 @@ dynamic forget_new_password(String email, String password) async {
 }
 
 dynamic restaurant_register(String id, String r_name, String mobilenumber,
-    String address, String openingtime, String closingtime) async {
+    String address, String openingtime, String closingtime, File? image) async {
   try {
-    log("Restraunt Registration of " + r_name + ' with id - ' + id.toString());
-    final response = await post(
-      Uri.parse(sign_up_link),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-        <String, String>{
-          "id": id,
-          "restaurantname": r_name,
-          "mobilenumber": mobilenumber,
-          "address": address,
-          "openingtime": openingtime,
-          "closingtime": closingtime
-        },
-      ),
-    );
-    final output = jsonDecode(response.body);
-    log(output.toString());
-    return output;
+    log("Registring Restraunt");
+
+    final ext = image!.path.split(".").last.toString();
+    log(id);
+    log(r_name);
+    log(mobilenumber);
+    log(address);
+    log(openingtime);
+    log(closingtime);
+    log(ext);
+
+    var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
+    if (image != null) {
+      request.files.add(
+        MultipartFile(
+            'image', image.readAsBytes().asStream(), image.lengthSync(),
+            filename: "something.jpg", contentType: MediaType('image', ext)),
+      );
+    }
+
+    request.fields['id'] = id;
+    request.fields['restaurantname'] = r_name;
+    request.fields['mobilenumber'] = mobilenumber;
+    request.fields['restaurantaddress'] = address;
+    request.fields['restaurant_openingtime'] = openingtime;
+    request.fields['restaurant_closingtime'] = closingtime;
+
+    var response = await request.send();
+    var result = await response.stream.bytesToString();
+    log(result.toString());
+    return jsonDecode(result);
   } catch (er) {
     log("error caught: " + er.toString());
   }
 }
+// log("Restraunt Registration of " + r_name + ' with id - ' + id.toString());
+    // final response = await post(
+    //   Uri.parse(restaurant_register_link),
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //   },
+    //   body: jsonEncode(
+    //     <String, String>{
+    //       "id": id,
+    //       "restaurantname": r_name,
+    //       "mobilenumber": mobilenumber,
+    //       "address": address,
+    //       "openingtime": openingtime,
+    //       "closingtime": closingtime
+    //     },
+    //   ),
+    // );
+    // final output = jsonDecode(response.body);
+    // log(output.toString());
+    // return output;

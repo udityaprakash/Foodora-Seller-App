@@ -36,13 +36,12 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   String? _imagePath;
   File? _image;
   selectImage() async {
-    // Uint8List im = await fromgalary();
     XFile im = await fromgalaryPath();
-    setState(() {
-      // _imagePath = im.path;
-      _image = File(im.path);
-      log(im.path);
-    });
+    setState(
+      () {
+        _image = File(im.path);
+      },
+    );
   }
 
   imageFun() {}
@@ -246,19 +245,13 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                           mobno != '' &&
                           addres != null &&
                           restname != null)) {
-                    log(restname);
-                    log(mobno);
-                    log(addres);
-                    log(_timeo.text.toString());
-                    log(_timec.text.toString());
                     final id = await storage.read(key: 'token');
 
-                    log(id.toString());
                     setState(() {
                       _isloading = true;
                     });
-                    final response = await restaurant_register(
-                        id!, restname, mobno, addres, _timeo.text, _timec.text);
+                    final response = await restaurant_register(id!, restname,
+                        mobno, addres, _timeo.text, _timec.text, _image);
                     setState(() {
                       _isloading = false;
                     });
