@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -328,14 +329,14 @@ Widget Inputtimepicker(
   );
 }
 
-Widget Showbottomsheet() {
+Widget Showbottomsheet(Uint8List im) {
   return Container(
     color: Colors.black,
     height: 140,
     width: double.infinity,
     child: Column(children: [
       Padding(
-        padding: const EdgeInsets.only(top:10.0),
+        padding: const EdgeInsets.only(top: 10.0),
         child: textgenerator(
             'Choose from below options', 20, 'Raleway', 700, Colors.white),
       ),
@@ -356,8 +357,8 @@ Widget Showbottomsheet() {
             ),
           ),
           IconButton(
-            onPressed: () {
-              fromgalary();
+            onPressed: () async {
+              // Uint8List im = await fromgalary();
             },
             icon: const Icon(
               Icons.add_photo_alternate,
@@ -375,6 +376,22 @@ void fromcamera() async {
   // final PickedFile = await pic.getImage(source: ImageSource.camera);
 }
 
-void fromgalary() async {
-  // final PickedFile = await pic.getImage(source: ImageSource.gallery);
+// fromgalary() async {
+//   final ImagePicker imagePicker = ImagePicker();
+//   XFile? _file = await imagePicker.pickImage(source: ImageSource.gallery);
+//   if (_file != null) {
+//     return _file.readAsBytes();
+//   } else {
+//     print("Image not selected");
+//   }
+// }
+
+fromgalaryPath() async {
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? _file = await imagePicker.pickImage(source: ImageSource.gallery);
+  if (_file != null) {
+    return _file;
+  } else {
+    print("Image not selected");
+  }
 }
