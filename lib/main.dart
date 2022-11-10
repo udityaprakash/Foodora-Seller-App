@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       //   '/forgotpass': (_) => const Forgotpassword(),
       //   '/otppage': (_) => const EnterOTP(email: 'userentered'),
       // },
-      initialRoute: '/adddish',
+      initialRoute: '/restrauntregister',
       // initialRoute: '/home_page_redirector',
 
       onGenerateRoute: RouteGenerator.generateRoute,

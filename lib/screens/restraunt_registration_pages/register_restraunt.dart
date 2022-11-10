@@ -90,84 +90,84 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 40,
                 ),
-                Center(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.circular(16.0),
-                            color: Color.fromRGBO(150, 150, 150, 1.5),
-                          ),
-                          child: SvgPicture.asset(
-                              'assets/svg/restrauntdefaultimg.svg')),
-                      Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
-                            child: const Icon(
-                              Icons.add_circle_rounded,
-                              color: Colors.white,
-                              size: 30,
+                _image.isNotEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _image.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                child: Image.file(_image[index]),
+                              );
+                            }),
+                      )
+                    : Container(
+                        height: MediaQuery.of(context).size.height / 5.1,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(16.0),
+                          color: Color.fromRGBO(150, 150, 150, 1.5),
+                        ),
+                        child: SvgPicture.asset(
+                            'assets/svg/restrauntdefaultimg.svg'),
+                      ),
+                ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: ((builder) {
+                          return Container(
+                            color: Colors.black,
+                            height: 140,
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: textgenerator(
+                                      'Choose from below options',
+                                      20,
+                                      'Raleway',
+                                      700,
+                                      Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () async {
+                                        fromcamera();
+                                      },
+                                      icon: const Icon(
+                                        Icons.no_photography,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        selectImage();
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: ((builder) {
-                                    return Container(
-                                      color: Colors.black,
-                                      height: 140,
-                                      width: double.infinity,
-                                      child: Column(children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 10.0),
-                                          child: textgenerator(
-                                              'Choose from below options',
-                                              20,
-                                              'Raleway',
-                                              700,
-                                              Colors.white),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () async {
-                                                fromcamera();
-                                              },
-                                              icon: const Icon(
-                                                Icons.no_photography,
-                                                size: 40,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () async {
-                                                selectImage();
-                                              },
-                                              icon: const Icon(
-                                                Icons.add_photo_alternate,
-                                                size: 40,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ]),
-                                    );
-                                  }));
-                            },
-                            // onTap: Showbottomsheet(context: context, builder: ((builder) => bottomsheet())),
-                          ))
-                    ],
-                  ),
-                ),
+                          );
+                        }),
+                      );
+                    },
+                    child: Text("Add Pics")),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 20,
                 ),
@@ -271,3 +271,86 @@ class _Restraunt_registerState extends State<Restraunt_register> {
     );
   }
 }
+
+
+
+
+
+// Center(
+//                   child: Stack(
+//                     children: <Widget>[
+//                       Container(
+//                           height: MediaQuery.of(context).size.height / 5,
+//                           width: MediaQuery.of(context).size.width / 2.5,
+//                           decoration: BoxDecoration(
+//                             borderRadius: new BorderRadius.circular(16.0),
+//                             color: Color.fromRGBO(150, 150, 150, 1.5),
+//                           ),
+//                           child: SvgPicture.asset(
+//                               'assets/svg/restrauntdefaultimg.svg')),
+//                       Positioned(
+//                           bottom: 5,
+//                           right: 5,
+//                           child: InkWell(
+//                             child: const Icon(
+//                               Icons.add_circle_rounded,
+//                               color: Colors.white,
+//                               size: 30,
+//                             ),
+//                             onTap: () {
+//                               showModalBottomSheet(
+//                                   context: context,
+//                                   builder: ((builder) {
+//                                     return Container(
+//                                       color: Colors.black,
+//                                       height: 140,
+//                                       width: double.infinity,
+//                                       child: Column(children: [
+//                                         Padding(
+//                                           padding:
+//                                               const EdgeInsets.only(top: 10.0),
+//                                           child: textgenerator(
+//                                               'Choose from below options',
+//                                               20,
+//                                               'Raleway',
+//                                               700,
+//                                               Colors.white),
+//                                         ),
+//                                         SizedBox(
+//                                           height: 10,
+//                                         ),
+//                                         Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.spaceAround,
+//                                           children: [
+//                                             IconButton(
+//                                               onPressed: () async {
+//                                                 fromcamera();
+//                                               },
+//                                               icon: const Icon(
+//                                                 Icons.no_photography,
+//                                                 size: 40,
+//                                                 color: Colors.white,
+//                                               ),
+//                                             ),
+//                                             IconButton(
+//                                               onPressed: () async {
+//                                                 selectImage();
+//                                               },
+//                                               icon: const Icon(
+//                                                 Icons.add_photo_alternate,
+//                                                 size: 40,
+//                                                 color: Colors.white,
+//                                               ),
+//                                             ),
+//                                           ],
+//                                         )
+//                                       ]),
+//                                     );
+//                                   }));
+//                             },
+//                             // onTap: Showbottomsheet(context: context, builder: ((builder) => bottomsheet())),
+//                           ))
+//                     ],
+//                   ),
+//                 ),
