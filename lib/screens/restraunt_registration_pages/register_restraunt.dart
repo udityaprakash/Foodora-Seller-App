@@ -53,7 +53,6 @@ class _Restraunt_registerState extends State<Restraunt_register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - 40.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
@@ -243,6 +242,12 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     Inputtimepicker(context, 'Closing Time', _timec),
                   ],
                 ),
+                _image.length != 5
+                    ? SizedBox(
+                        height: 20,
+                        child: errortextgenerator('5 Images required', 15, 300),
+                      )
+                    : SizedBox(height: 20),
                 _isloading
                     ? SizedBox(
                         height: 20,
@@ -261,13 +266,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                               restname != '' &&
                               mobno != '' &&
                               addres != null &&
-                              restname != null)) {
+                              restname != null &&
+                              _image.length == 5)) {
                         final id = await storage.read(key: 'token');
 
                         setState(() {
                           _isloading = true;
                         });
-                        log("abovefunction" + _image.toString());
+
                         final response = await restaurant_register(
                             id!,
                             restname,
