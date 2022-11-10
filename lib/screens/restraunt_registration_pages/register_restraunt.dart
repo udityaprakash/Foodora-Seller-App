@@ -267,7 +267,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                               mobno != '' &&
                               addres != null &&
                               restname != null &&
-                              _image.length == 5)) {
+                              _image.length == 5 && _timec.text!='' && _timeo.text!='')) {
                         final id = await storage.read(key: 'token');
 
                         setState(() {

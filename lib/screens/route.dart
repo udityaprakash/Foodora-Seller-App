@@ -7,6 +7,7 @@ import 'package:foodora_seller/screens/main_home_pages/main_home.dart';
 import 'package:foodora_seller/screens/newregister/registerotppage.dart';
 import 'package:foodora_seller/screens/restraunt_registration_pages/register_restraunt.dart';
 import 'package:foodora_seller/screens/splashpage/splash_screen.dart';
+import 'package:foodora_seller/screens/termsnpolicy.dart';
 
 import 'forgotpages/forgotpass.dart';
 import 'forgotpages/otppage.dart';
@@ -47,6 +48,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const main_home());
       case '/home_page_redirector':
         return MaterialPageRoute(builder: (_) => const home_page_redirector());
+      case '/terms':
+        return MaterialPageRoute(builder: (_) => const Termsnpolicy());  
       case '/adddish':  
         return MaterialPageRoute(builder: (_) => const Add_dish());
       default:
