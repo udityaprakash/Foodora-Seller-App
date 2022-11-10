@@ -19,6 +19,8 @@ class _Add_dishState extends State<Add_dish> {
   var dishnameerr = '';
   var dishdescerr = '';
   var priceerr = '';
+  var imgerr = '';
+  bool notsendingdata = true;
   String dishname = '';
   String dishdesc = '';
   String price = '';
@@ -281,82 +283,100 @@ class _Add_dishState extends State<Add_dish> {
                                           ],
                                         ),
                                       )),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (imagesheet == false) {
-                                  if (dishname.isNotEmpty) {
-                                    if (dishdesc.length >= 10) {
-                                      if (price != '0' && price != '' && int.parse(price)!=0) {
-                                        if (_image == null) {
-                                          var response = await food_list(
-                                              user_info,
-                                              dishname,
-                                              price,
-                                              dishdesc);
-                                          if (response['success']) {
-                                            Navigator.pop(context);
+                            errortextgenerator(imgerr, 20, 300),
+                            notsendingdata
+                                ? ElevatedButton(
+                                    onPressed: () async {
+                                      if (imagesheet == false) {
+                                        if (dishname.isNotEmpty) {
+                                          if (dishdesc.length >= 10) {
+                                            if (price != '0' &&
+                                                price != '' &&
+                                                int.parse(price) != 0 &&
+                                                _image != null) {
+                                              setState(() {
+                                                notsendingdata = false;
+                                              });
+                                              var response = await food_list(
+                                                  user_info,
+                                                  dishname,
+                                                  price,
+                                                  dishdesc);
+                                              if (response['success']) {
+                                                Navigator.pop(context);
+                                              }
+                                              // food_list(id, dishname, price, dishdesc,)
+
+                                              // Navigator.of(context).pop();
+                                            } else {
+                                              setState(() {
+                                                priceerr = 'Price Required';
+                                              });
+                                            }
+                                          } else {
+                                            setState(() {
+                                              dishdescerr = 'Describe more';
+                                            });
                                           }
                                         } else {
-                                          var response = await food_list(
-                                              user_info,
-                                              dishname,
-                                              price,
-                                              dishdesc,
-                                              image: _image);
-
-                                          if (response['success']) {
-                                            Navigator.pop(context);
-                                          }
+                                          setState(() {
+                                            dishnameerr =
+                                                'Dish name cannot be empty';
+                                          });
                                         }
-                                        // food_list(id, dishname, price, dishdesc,)
-
-                                        // Navigator.of(context).pop();
                                       } else {
                                         setState(() {
-                                          priceerr = 'Price Required';
+                                          if (_image != null) {
+                                            imgerr = '';
+                                            btntext = 'Add Food';
+                                            imagesheet = false;
+                                          } else {
+                                            setState(() {
+                                              imgerr = 'Please select Dish Image';
+                                            });
+                                          }
                                         });
                                       }
-                                    } else {
-                                      setState(() {
-                                        dishdescerr = 'Describe more';
-                                      });
-                                    }
-                                  } else {
-                                    setState(() {
-                                      dishnameerr = 'Dish name cannot be empty';
-                                    });
-                                  }
-                                } else {
-                                  setState(() {
-                                    btntext = 'Add Food';
-                                    imagesheet = false;
-                                  });
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color.fromRGBO(50, 81, 255, 1),
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero,
-                                ),
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height / 60),
-                                  child: Text(
-                                    btntext,
-                                    style: TextStyle(
-                                        letterSpacing: 2,
-                                        color: Colors.white,
-                                        fontFamily: 'Raleway',
-                                        fontWeight: FontWeight.w900,
-                                        fontSize:
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary:
+                                          const Color.fromRGBO(50, 81, 255, 1),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.height /
+                                                60),
+                                        child: Text(
+                                          btntext,
+                                          style: TextStyle(
+                                              letterSpacing: 2,
+                                              color: Colors.white,
+                                              fontFamily: 'Raleway',
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  16),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    color: Color.fromRGBO(50, 81, 255, 1),
+                                    width: double.infinity,
+                                    child: Center(
+                                        child: textgenerator(
+                                            'Adding...',
                                             MediaQuery.of(context).size.width /
-                                                16),
-                                  ),
-                                ),
-                              ),
-                            )
+                                                16,
+                                            'Raleway',
+                                            200,
+                                            Colors.white)),
+                                  )
                           ],
                         ),
                       ),
