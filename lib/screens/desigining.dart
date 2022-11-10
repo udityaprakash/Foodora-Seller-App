@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
@@ -9,7 +10,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textfield_datepicker/textfield_timePicker.dart';
+
+import '../config/api_integration.dart';
 
 const blue_background = Color.fromRGBO(50, 81, 255, 1);
 
@@ -266,6 +270,18 @@ Future<String?> idgrabber() async {
 
     return token;
   } catch (er) {}
+}
+
+void put_seller_info() async {
+  try {
+    final storage = new FlutterSecureStorage();
+    SharedPreferences user_info = await SharedPreferences.getInstance();
+    Map? get_profile_response =
+        await get_seller_info(await storage.read(key: 'token'));
+    user_info.setString('seller_info', jsonEncode(get_profile_response));
+  } catch (er) {
+    log(er.toString());
+  }
 }
 
 Widget InputNumfieldgenerator(String hinttext, BuildContext context, int maxlen,

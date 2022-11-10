@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../config/api_integration.dart';
 import '../desigining.dart';
 
@@ -13,6 +14,7 @@ class register_otp extends StatefulWidget {
 
 class _register_otpState extends State<register_otp> {
   late String _pin;
+  final storage = new FlutterSecureStorage();
   bool _isloading = false;
   bool? _full_Otp;
   String _error_line = "";
@@ -123,6 +125,17 @@ class _register_otpState extends State<register_otp> {
                                 });
 
                                 if (response['success']) {
+                                  await storage.write(
+                                      key: 'access_token',
+                                      value: response['accesstoken']);
+
+                                  await storage.write(
+                                      key: "token",
+                                      value: JwtDecoder.decode(
+                                              response['accesstoken'])['id']
+                                          .toString());
+                                  put_seller_info();
+
                                   Navigator.pushReplacementNamed(
                                       context, '/restrauntregister');
                                 } else {
