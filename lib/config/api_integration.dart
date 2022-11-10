@@ -174,10 +174,11 @@ dynamic food_list(
     String id, String foodname, String food_price, String food_desc,
     {File? image}) async {
   try {
-    log("Registring Restraunt");
+    log("Adding Dish");
 
     var request = MultipartRequest('POST', Uri.parse(food_list_link));
     if (image != null) {
+      
       request.files.add(
         MultipartFile(
             'image', image.readAsBytes().asStream(), image.lengthSync(),

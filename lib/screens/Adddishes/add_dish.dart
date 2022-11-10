@@ -44,6 +44,7 @@ class _Add_dishState extends State<Add_dish> {
         future: idgrabber(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           user_info = snapshot.data;
+
           return Scaffold(
             body: SafeArea(
               child: SingleChildScrollView(
@@ -285,7 +286,7 @@ class _Add_dishState extends State<Add_dish> {
                                       if (price != '0' && price != '') {
                                         if (_image == null) {
                                           var response = await food_list(
-                                              user_info['id'],
+                                              user_info,
                                               dishname,
                                               price,
                                               dishdesc);
@@ -294,11 +295,12 @@ class _Add_dishState extends State<Add_dish> {
                                           }
                                         } else {
                                           var response = await food_list(
-                                              user_info['id'],
+                                              user_info,
                                               dishname,
                                               price,
                                               dishdesc,
                                               image: _image);
+
                                           if (response['success']) {
                                             Navigator.pop(context);
                                           }
