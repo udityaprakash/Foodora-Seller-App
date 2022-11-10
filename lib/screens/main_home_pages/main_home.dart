@@ -24,13 +24,6 @@ class _main_homeState extends State<main_home> {
               fontFamily: 'FoodoraFont',
               fontSize: MediaQuery.of(context).size.width / 10),
         ),
-        // leading: IconButton(
-        //   icon: IconButton(
-        //     icon: Icon(Icons.menu),
-        //     onPressed: () {},
-        //   ),
-        //   onPressed: () {},
-        // ),
       ),
       body: SingleChildScrollView(),
       drawer: Drawer(
@@ -80,6 +73,7 @@ class _main_homeState extends State<main_home> {
                   'Terms And Policy', 15, 'Raleway', 500, Colors.white),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context).pushNamed('/terms');
               },
             ),
             Divider(),

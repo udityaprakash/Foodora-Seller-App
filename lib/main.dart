@@ -23,15 +23,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // routes: {
-      //   '/homepage': (_) => const Homepage(),
-      //   '/siginpage': (_) => const Loginpage(),
-      //   '/newrestaraunt': (_) => const Newsellerpage(),
-      //   '/newregister': (_) => const Register(),
-      //   '/forgotpass': (_) => const Forgotpassword(),
-      //   '/otppage': (_) => const EnterOTP(email: 'userentered'),
-      // },
-      // initialRoute: '/restrauntregister',
       initialRoute: '/home_page_redirector',
 
       onGenerateRoute: RouteGenerator.generateRoute,
