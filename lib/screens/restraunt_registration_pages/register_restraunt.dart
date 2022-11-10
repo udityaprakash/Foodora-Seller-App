@@ -36,6 +36,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   List<File> _image = [];
   selectImage() async {
     log("from res");
+    _image = [];
     List<XFile> _ximage = await fromgalarymultiplePath();
     for (int i = 0; i < _ximage.length; ++i) {
       _image.add(File(_ximage[i].path));
@@ -52,7 +53,6 @@ class _Restraunt_registerState extends State<Restraunt_register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - 40.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
@@ -90,84 +90,85 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 40,
                 ),
-                Center(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.circular(16.0),
-                            color: Color.fromRGBO(150, 150, 150, 1.5),
-                          ),
-                          child: SvgPicture.asset(
-                              'assets/svg/restrauntdefaultimg.svg')),
-                      Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
-                            child: const Icon(
-                              Icons.add_circle_rounded,
-                              color: Colors.white,
-                              size: 30,
+                _image.isNotEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _image.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              //design this
+                              return Container(
+                                child: Image.file(_image[index]),
+                              );
+                            }),
+                      )
+                    : Container(
+                        height: MediaQuery.of(context).size.height / 5.1,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(16.0),
+                          color: Color.fromRGBO(150, 150, 150, 1.5),
+                        ),
+                        child: SvgPicture.asset(
+                            'assets/svg/restrauntdefaultimg.svg'),
+                      ),
+                ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: ((builder) {
+                          return Container(
+                            color: Colors.black,
+                            height: 140,
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: textgenerator(
+                                      'Choose from below options',
+                                      20,
+                                      'Raleway',
+                                      700,
+                                      Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () async {
+                                        fromcamera();
+                                      },
+                                      icon: const Icon(
+                                        Icons.no_photography,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        selectImage();
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: ((builder) {
-                                    return Container(
-                                      color: Colors.black,
-                                      height: 140,
-                                      width: double.infinity,
-                                      child: Column(children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 10.0),
-                                          child: textgenerator(
-                                              'Choose from below options',
-                                              20,
-                                              'Raleway',
-                                              700,
-                                              Colors.white),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () async {
-                                                fromcamera();
-                                              },
-                                              icon: const Icon(
-                                                Icons.no_photography,
-                                                size: 40,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () async {
-                                                selectImage();
-                                              },
-                                              icon: const Icon(
-                                                Icons.add_photo_alternate,
-                                                size: 40,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ]),
-                                    );
-                                  }));
-                            },
-                            // onTap: Showbottomsheet(context: context, builder: ((builder) => bottomsheet())),
-                          ))
-                    ],
-                  ),
-                ),
+                          );
+                        }),
+                      );
+                    },
+                    child: Text("Add Pics")),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 20,
                 ),
@@ -175,10 +176,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     check: (String Rest_name) {
                   restname = Rest_name;
                   if (Rest_name.length == 0) {
-                    resnameerr = 'Restraunt name cannot be empty';
+                    setState(() {
+                      resnameerr = 'Restraunt name cannot be empty';
+                    });
                   } else {
-                    resnameerr = '';
-                    restname = Rest_name;
+                    setState(() {
+                      resnameerr = '';
+                      restname = Rest_name;
+                    });
                   }
                 }),
                 SizedBox(
@@ -192,12 +197,18 @@ class _Restraunt_registerState extends State<Restraunt_register> {
 
                   if (textinput.isNotEmpty) {
                     if (textinput.length != 10) {
-                      mobnoerr = '10 digits required';
+                      setState(() {
+                        mobnoerr = '10 digits required';
+                      });
                     } else {
-                      mobnoerr = '';
+                      setState(() {
+                        mobnoerr = '';
+                      });
                     }
                   } else {
-                    mobnoerr = 'Mobile no is required';
+                    setState(() {
+                      mobnoerr = 'Mobile no is required';
+                    });
                   }
                 }),
                 SizedBox(
@@ -208,10 +219,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 InputFieldgenerator("Full Address", context,
                     check: (String addr) {
                   if (addr.isEmpty) {
-                    adderr = 'Address cannot be empty';
+                    setState(() {
+                      adderr = 'Address cannot be empty';
+                    });
                   } else {
-                    adderr = '';
-                    addres = addr;
+                    setState(() {
+                      adderr = '';
+                      addres = addr;
+                    });
                   }
                 }),
                 SizedBox(
@@ -227,6 +242,12 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     Inputtimepicker(context, 'Closing Time', _timec),
                   ],
                 ),
+                _image.length != 5
+                    ? SizedBox(
+                        height: 20,
+                        child: errortextgenerator('5 Images required', 15, 300),
+                      )
+                    : SizedBox(height: 20),
                 _isloading
                     ? SizedBox(
                         height: 20,
@@ -235,34 +256,47 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             CircularProgressIndicator(color: blue_background),
                       )
                     : SizedBox(height: 20),
-                buttongenerator('Next', context, () async {
-                  if (mobno.length == 10 &&
-                      (addres != '' &&
-                          restname != '' &&
-                          mobno != '' &&
-                          addres != null &&
-                          restname != null)) {
-                    final id = await storage.read(key: 'token');
+                buttongenerator(
+                  'Next',
+                  context,
+                  () async {
+                    if (!_isloading) {
+                      if (mobno.length == 10 &&
+                          (addres != '' &&
+                              restname != '' &&
+                              mobno != '' &&
+                              addres != null &&
+                              restname != null &&
+                              _image.length == 5)) {
+                        final id = await storage.read(key: 'token');
 
-                    setState(() {
-                      _isloading = true;
-                    });
-                    log("abovefunction" + _image.toString());
-                    final response = await restaurant_register(id!, restname,
-                        mobno, addres, _timeo.text, _timec.text, _image);
-                    setState(() {
-                      _isloading = false;
-                    });
-                    if (response['success']) {
-                      Navigator.pushReplacementNamed(context, '/main_home');
-                    } else {
-                      setState(() {
-                        adderr = response['msg'];
-                      });
+                        setState(() {
+                          _isloading = true;
+                        });
+
+                        final response = await restaurant_register(
+                            id!,
+                            restname,
+                            mobno,
+                            addres,
+                            _timeo.text,
+                            _timec.text,
+                            _image);
+                        setState(() {
+                          _isloading = false;
+                        });
+                        if (response['success']) {
+                          Navigator.pushReplacementNamed(context, '/main_home');
+                        } else {
+                          setState(() {
+                            adderr = response['msg'];
+                          });
+                        }
+                      } else {}
+                      setState(() {});
                     }
-                  } else {}
-                  setState(() {});
-                })
+                  },
+                )
               ],
             ),
           ),
