@@ -435,3 +435,11 @@ fromgalaryPath() async {
     print("Image not selected");
   }
 }
+
+Widget DishTray(context) {
+  return Container(
+    height: 100,
+    width: 100,
+    color: Color.fromARGB(26, 139, 46, 46),
+  );
+}

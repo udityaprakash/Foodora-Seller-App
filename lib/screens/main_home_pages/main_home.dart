@@ -25,7 +25,41 @@ class _main_homeState extends State<main_home> {
               fontSize: MediaQuery.of(context).size.width / 10),
         ),
       ),
-      body: SingleChildScrollView(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              // color: Colors.white38,
+              margin: EdgeInsets.only(top:30,left: 20,right: 20),
+              padding: EdgeInsets.all(10),
+              height: MediaQuery.of(context).size.height/2.5,
+              decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color.fromARGB(255, 110, 110, 110),
+                                width: 2),
+                            borderRadius:
+                                BorderRadius.only(topLeft: Radius.circular(50))
+                            // all(Radius.circular(20.0)),
+                            ),
+              child: Column(
+                children: [
+                  textgenerator('Your Kitchen', MediaQuery.of(context).size.width/20, 'RaleWay', 200, Colors.white),
+                  Divider(color: Colors.white38,),
+                  // ListView.builder(
+                  //   itemCount: 10,
+                  //   scrollDirection: Axis.horizontal,
+                  //   itemBuilder: ((context, index) => Container(
+                  //     height: 100,
+                  //     width: 100,
+                  //     color: Color.fromARGB(26, 139, 46, 46),
+                  //   )))
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ),
       drawer: Drawer(
         backgroundColor: Color.fromARGB(238, 238, 238, 250),
         child: Column(

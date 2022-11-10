@@ -116,7 +116,7 @@ class _RegisterState extends State<Register> {
                                   _isloading = false;
                                 });
                                 if (response['success']) {
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                       context, '/register_otp',
                                       arguments: _emailController.text);
                                 } else {
