@@ -99,7 +99,8 @@ class _LoginpageState extends State<Loginpage> {
                                   _isloading = true;
                                 });
                                 final response = await sign_in(
-                                    _emailController.text, _passController.text);
+                                    _emailController.text,
+                                    _passController.text);
                                 setState(() {
                                   _isloading = false;
                                 });
@@ -108,10 +109,14 @@ class _LoginpageState extends State<Loginpage> {
                                     _isloading = true;
                                   });
                                   await storage.write(
+                                      key: "access_token",
+                                      value: response['accesstoken']);
+                                  await storage.write(
                                       key: "token",
                                       value: JwtDecoder.decode(
                                               response['accesstoken'])['id']
                                           .toString());
+                                  put_seller_info();
                                   setState(() {
                                     _isloading = false;
                                   });
@@ -136,8 +141,8 @@ class _LoginpageState extends State<Loginpage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              textgenerator(
-                                  'New user?', 25, 'Raleway', 400, Colors.white),
+                              textgenerator('New user?', 25, 'Raleway', 400,
+                                  Colors.white),
                               Textlink('Register', 28, context, 800,
                                   const Color.fromRGBO(50, 81, 255, 1), () {
                                 Navigator.pushReplacementNamed(

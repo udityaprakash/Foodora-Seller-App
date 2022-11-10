@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'dart:io';
 import 'package:http_parser/http_parser.dart';
+import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:http/http.dart';
 
 import 'api_links.dart';
@@ -77,6 +78,28 @@ dynamic otp_correct(String email, String OTP) async {
         body: jsonEncode(<String, String>{"email": email, "otp": OTP}));
     final output = jsonDecode(response.body);
     log("otp check results: " + output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}
+
+Future<Map?> get_seller_info(String? idtest) async {
+  if (idtest == null) {
+    return {"error": "ID IS NULL BROO"};
+  }
+  try {
+    final storage = new FlutterSecureStorage();
+    String? id = await storage.read(key: 'access_token');
+    log("Initialised Profile get for: " + idtest);
+    final response = await post(Uri.parse(seller_profile_link),
+        headers: <String, String>{
+          HttpHeaders.authorizationHeader: id!,
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{"_id": idtest}));
+    final Map output = jsonDecode(response.body);
+    log("response of the profile : " + output.toString());
     return output;
   } catch (er) {
     log("error caught: " + er.toString());
@@ -178,7 +201,6 @@ dynamic food_list(
 
     var request = MultipartRequest('POST', Uri.parse(food_list_link));
     if (image != null) {
-      
       request.files.add(
         MultipartFile(
             'image', image.readAsBytes().asStream(), image.lengthSync(),
