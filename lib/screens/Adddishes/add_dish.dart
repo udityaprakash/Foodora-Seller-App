@@ -264,7 +264,10 @@ class _Add_dishState extends State<Add_dish> {
                                                 on_changed_function:
                                                     (String price_inputed) {
                                               price = price_inputed;
-                                              if (price == '0' || price == '') {
+                                              if (price == '0' ||
+                                                  price == '' ||
+                                                  int.parse(price_inputed) ==
+                                                      0) {
                                                 priceerr = 'Price Required';
                                               } else {
                                                 priceerr = '';
@@ -282,7 +285,7 @@ class _Add_dishState extends State<Add_dish> {
                                 if (imagesheet == false) {
                                   if (dishname.isNotEmpty) {
                                     if (dishdesc.length >= 10) {
-                                      if (price != '0' && price != '') {
+                                      if (price != '0' && price != '' && int.parse(price)!=0) {
                                         if (_image == null) {
                                           var response = await food_list(
                                               user_info['id'],
