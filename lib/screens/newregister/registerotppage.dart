@@ -135,7 +135,7 @@ class _register_otpState extends State<register_otp> {
                                               response['accesstoken'])['id']
                                           .toString());
                                   put_seller_info();
-
+                                  Navigator.pop(context);
                                   Navigator.pushReplacementNamed(
                                       context, '/restrauntregister');
                                 } else {
