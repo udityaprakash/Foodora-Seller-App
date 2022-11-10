@@ -36,6 +36,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   List<File> _image = [];
   selectImage() async {
     log("from res");
+    _image = [];
     List<XFile> _ximage = await fromgalarymultiplePath();
     for (int i = 0; i < _ximage.length; ++i) {
       _image.add(File(_ximage[i].path));
@@ -96,6 +97,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _image.length,
                             itemBuilder: (BuildContext context, int index) {
+                              //design this
                               return Container(
                                 child: Image.file(_image[index]),
                               );
@@ -174,10 +176,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     check: (String Rest_name) {
                   restname = Rest_name;
                   if (Rest_name.length == 0) {
-                    resnameerr = 'Restraunt name cannot be empty';
+                    setState(() {
+                      resnameerr = 'Restraunt name cannot be empty';
+                    });
                   } else {
-                    resnameerr = '';
-                    restname = Rest_name;
+                    setState(() {
+                      resnameerr = '';
+                      restname = Rest_name;
+                    });
                   }
                 }),
                 SizedBox(
@@ -191,12 +197,18 @@ class _Restraunt_registerState extends State<Restraunt_register> {
 
                   if (textinput.isNotEmpty) {
                     if (textinput.length != 10) {
-                      mobnoerr = '10 digits required';
+                      setState(() {
+                        mobnoerr = '10 digits required';
+                      });
                     } else {
-                      mobnoerr = '';
+                      setState(() {
+                        mobnoerr = '';
+                      });
                     }
                   } else {
-                    mobnoerr = 'Mobile no is required';
+                    setState(() {
+                      mobnoerr = 'Mobile no is required';
+                    });
                   }
                 }),
                 SizedBox(
@@ -207,10 +219,14 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 InputFieldgenerator("Full Address", context,
                     check: (String addr) {
                   if (addr.isEmpty) {
-                    adderr = 'Address cannot be empty';
+                    setState(() {
+                      adderr = 'Address cannot be empty';
+                    });
                   } else {
-                    adderr = '';
-                    addres = addr;
+                    setState(() {
+                      adderr = '';
+                      addres = addr;
+                    });
                   }
                 }),
                 SizedBox(
@@ -226,6 +242,12 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                     Inputtimepicker(context, 'Closing Time', _timec),
                   ],
                 ),
+                _image.length != 5
+                    ? SizedBox(
+                        height: 20,
+                        child: errortextgenerator('5 Images required', 15, 300),
+                      )
+                    : SizedBox(height: 20),
                 _isloading
                     ? SizedBox(
                         height: 20,
@@ -234,34 +256,47 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             CircularProgressIndicator(color: blue_background),
                       )
                     : SizedBox(height: 20),
-                buttongenerator('Next', context, () async {
-                  if (mobno.length == 10 &&
-                      (addres != '' &&
-                          restname != '' &&
-                          mobno != '' &&
-                          addres != null &&
-                          restname != null)) {
-                    final id = await storage.read(key: 'token');
+                buttongenerator(
+                  'Next',
+                  context,
+                  () async {
+                    if (!_isloading) {
+                      if (mobno.length == 10 &&
+                          (addres != '' &&
+                              restname != '' &&
+                              mobno != '' &&
+                              addres != null &&
+                              restname != null &&
+                              _image.length == 5)) {
+                        final id = await storage.read(key: 'token');
 
-                    setState(() {
-                      _isloading = true;
-                    });
-                    log("abovefunction" + _image.toString());
-                    final response = await restaurant_register(id!, restname,
-                        mobno, addres, _timeo.text, _timec.text, _image);
-                    setState(() {
-                      _isloading = false;
-                    });
-                    if (response['success']) {
-                      Navigator.pushReplacementNamed(context, '/main_home');
-                    } else {
-                      setState(() {
-                        adderr = response['msg'];
-                      });
+                        setState(() {
+                          _isloading = true;
+                        });
+
+                        final response = await restaurant_register(
+                            id!,
+                            restname,
+                            mobno,
+                            addres,
+                            _timeo.text,
+                            _timec.text,
+                            _image);
+                        setState(() {
+                          _isloading = false;
+                        });
+                        if (response['success']) {
+                          Navigator.pushReplacementNamed(context, '/main_home');
+                        } else {
+                          setState(() {
+                            adderr = response['msg'];
+                          });
+                        }
+                      } else {}
+                      setState(() {});
                     }
-                  } else {}
-                  setState(() {});
-                })
+                  },
+                )
               ],
             ),
           ),
