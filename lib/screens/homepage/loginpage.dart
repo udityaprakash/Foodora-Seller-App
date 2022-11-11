@@ -29,7 +29,7 @@ class _LoginpageState extends State<Loginpage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height-30,
             child: Stack(
               children: [
                 Bottomgradient(context),
