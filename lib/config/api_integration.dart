@@ -84,20 +84,18 @@ dynamic otp_correct(String email, String OTP) async {
   }
 }
 
-Future<Map?> get_seller_info(String? idtest) async {
-  if (idtest == null) {
-    return {"error": "ID IS NULL BROO"};
-  }
+Future<Map?> get_seller_info() async {
   try {
     final storage = new FlutterSecureStorage();
-    String? id = await storage.read(key: 'access_token');
-    log("Initialised Profile get for: " + idtest);
+    String? token = await storage.read(key: 'access_token');
+    String? id = await storage.read(key: 'token');
+    log("Initialised Profile get for: " + id!);
     final response = await post(Uri.parse(seller_profile_link),
         headers: <String, String>{
-          HttpHeaders.authorizationHeader: id!,
+          HttpHeaders.authorizationHeader: token!,
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, String>{"_id": idtest}));
+        body: jsonEncode(<String, String>{"_id": id}));
     final Map output = jsonDecode(response.body);
     log("response of the profile : " + output.toString());
     return output;
@@ -190,6 +188,63 @@ dynamic restaurant_register(
     return jsonDecode(result);
   } catch (er) {
     log("error caught: " + er.toString());
+  }
+}
+
+dynamic restaurant_modify(
+    String id,
+    String? r_name,
+    String? mobilenumber,
+    String? address,
+    String? openingtime,
+    String? closingtime,
+    List<File?> image) async {
+  try {
+    log("Registring Restraunt");
+
+    var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
+
+    if (image.isNotEmpty) {
+      for (int i = 0; i < image.length; ++i) {
+        log(image[i]!.path);
+        request.files.add(
+          MultipartFile('image', image[i]!.readAsBytes().asStream(),
+              image[i]!.lengthSync(),
+              filename: "something.jpg",
+              contentType: MediaType('image', 'jpg')),
+        );
+      }
+    }
+
+    request.fields['id'] = id;
+    if (r_name != null) {
+      request.fields['restaurantname'] = r_name;
+    }
+    if (mobilenumber != null) {
+      request.fields['mobilenumber'] = mobilenumber;
+    }
+    if (address != null) {
+      request.fields['restaurantaddress'] = address;
+    } else {
+      final seller_info = await get_seller_info();
+
+      request.fields['restaurantaddress'] =
+          seller_info!['sellerDetails']['restaurantaddress'];
+    }
+
+    if (openingtime != null) {
+      request.fields['restaurant_openingtime'] = openingtime;
+    }
+    if (closingtime != null) {
+      request.fields['restaurant_closingtime'] = closingtime;
+    }
+
+    var response = await request.send();
+    var result = await response.stream.bytesToString();
+    log(result.toString());
+    return jsonDecode(result);
+  } catch (er) {
+    log("error caught at modify:" + er.toString());
   }
 }
 

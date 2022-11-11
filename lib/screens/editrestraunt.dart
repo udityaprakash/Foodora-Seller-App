@@ -20,10 +20,10 @@ class _EditrestrauntState extends State<Editrestraunt> {
   var mobnoerr = '';
   var adderr = '';
   var pinerr = '';
-  late String restname;
-  late String mobno;
-  late String addres;
-  late String pinno;
+  String? restname;
+  String? mobno;
+  String? addres;
+  String? pinno;
   TextEditingController _restname = TextEditingController();
   TextEditingController _mobno = TextEditingController();
   TextEditingController _address = TextEditingController();
@@ -102,9 +102,12 @@ class _EditrestrauntState extends State<Editrestraunt> {
                                 margin: EdgeInsets.all(10),
                                 padding: EdgeInsets.all(7),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 110, 110, 110), width: 2),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(255, 110, 110, 110),
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
                                 child: Image.file(_image[index]),
                               );
                             }),
@@ -175,15 +178,16 @@ class _EditrestrauntState extends State<Editrestraunt> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(50, 81, 255, 1),),
-                    child: textgenerator('Add Pics', 18, 'Raleway', 400, Colors.white)),
+                      primary: Color.fromRGBO(50, 81, 255, 1),
+                    ),
+                    child: textgenerator(
+                        'Add Pics', 18, 'Raleway', 400, Colors.white)),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 20,
                 ),
                 InputFieldgenerator("Restraunt Name", context,
                     check: (String Rest_name) {
                   restname = Rest_name;
-                  
                 }),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 35,
@@ -217,7 +221,7 @@ class _EditrestrauntState extends State<Editrestraunt> {
                 ),
                 InputNumfieldgenerator('Pincode', context, 6,
                     on_changed_function: (String pin) {
-                    pinno = pin;
+                  pinno = pin;
                   if (pin.length >= 1 && pin.length < 6) {
                     pinerr = 'Write full Pincode';
                   } else {
@@ -231,7 +235,7 @@ class _EditrestrauntState extends State<Editrestraunt> {
                 ),
                 InputFieldgenerator("Full Address", context,
                     check: (String addr) {
-                      addres = addr;
+                  addres = addr;
                 }),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 55,
@@ -267,15 +271,18 @@ class _EditrestrauntState extends State<Editrestraunt> {
                         context,
                         () async {
                           if (!_isloading) {
-                            if ((mobno.length == 10 || mobno.isEmpty)&& (pinno.isEmpty || pinno.length==6) &&
-                                (_image.length == 5)) {
+                            if ((mobno == null ||
+                                    mobno.toString().length == 10) &&
+                                (pinno == null ||
+                                    pinno.toString().length == 6) &&
+                                (_image.isEmpty || _image.length == 5)) {
                               final id = await storage.read(key: 'token');
 
                               setState(() {
                                 _isloading = true;
                               });
 
-                              final response = await restaurant_register(
+                              final response = await restaurant_modify(
                                   id!,
                                   restname,
                                   mobno,
