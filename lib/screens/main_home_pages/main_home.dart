@@ -177,13 +177,13 @@ class _main_homeState extends State<main_home> {
             final seller_info = snapshot.data;
             if (snapshot.connectionState == ConnectionState.done) {
               return Drawer(
-                backgroundColor: Color.fromARGB(238, 238, 238, 250),
+                backgroundColor: Color.fromARGB(255, 203, 203, 255),
                 child: Column(
                   children: [
                     DrawerHeader(
                       padding: EdgeInsets.zero,
                       child: Container(
-                        color: Color.fromRGBO(70, 73, 255, 1),
+                        color: Color.fromRGBO(50, 73, 255, 1),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
