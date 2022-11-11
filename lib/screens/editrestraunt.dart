@@ -1,24 +1,21 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:foodora_seller/config/api_integration.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodora_seller/config/api_integration.dart';
 import 'package:foodora_seller/screens/desigining.dart';
-import 'package:http/http.dart';
-import 'package:textfield_datepicker/textfield_timePicker.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Restraunt_register extends StatefulWidget {
-  Restraunt_register({super.key});
+class Editrestraunt extends StatefulWidget {
+  const Editrestraunt({super.key});
 
   @override
-  State<Restraunt_register> createState() => _Restraunt_registerState();
+  State<Editrestraunt> createState() => _EditrestrauntState();
 }
 
-class _Restraunt_registerState extends State<Restraunt_register> {
+class _EditrestrauntState extends State<Editrestraunt> {
   var resnameerr = '';
   var mobnoerr = '';
   var adderr = '';

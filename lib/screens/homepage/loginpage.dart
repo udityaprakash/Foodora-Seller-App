@@ -95,7 +95,7 @@ class _LoginpageState extends State<Loginpage> {
                                 : SizedBox(height: 1),
                           ),
                           SizedBox(height: 10),
-                          buttongenerator('Sign In', context, () async {
+                          _isloading?Container():buttongenerator('Sign In', context, () async {
                             {
                               if (isEmail(_emailController.text)) {
                                 setState(() {

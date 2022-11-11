@@ -107,7 +107,7 @@ class _register_otpState extends State<register_otp> {
                                 )
                               : SizedBox(height: 20),
                           SizedBox(height: 10),
-                          buttongenerator(
+                          _isloading?Container():buttongenerator(
                             "Verify",
                             context,
                             () async {
