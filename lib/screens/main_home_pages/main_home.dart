@@ -134,6 +134,7 @@ class _main_homeState extends State<main_home> {
               title: textgenerator('Help', 15, 'Raleway', 500, Colors.white),
               onTap: () {
                 Navigator.pop(context);
+                
               },
             ),
             Divider(),
