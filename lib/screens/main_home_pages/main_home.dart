@@ -113,34 +113,41 @@ class _main_homeState extends State<main_home> {
                       child: Container(
                         color: Color.fromRGBO(70, 73, 255, 1),
                         width: double.infinity,
-                        child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            textgenerator(
-                                'Welcome,', 25, 'Raleway', 300, Colors.white),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 20),
-                              child: textgenerator(
-                                  seller_info['sellerDetails']['username'],
-                                  20,
-                                  'Raleway',
-                                  300,
-                                  Colors.white),
+                            Container(
+                              child: Column(
+                                children: [
+
+                                  textgenerator(
+                                      'Welcome,', 25, 'Raleway', 300, Colors.white),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(top: 8.0, left: 40),
+                                    child: textgenerator(
+                                        seller_info['sellerDetails']['username'],
+                                        20,
+                                        'Raleway',
+                                        300,
+                                        Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 20),
-                              child: textgenerator(
-                                  seller_info['sellerDetails']['email'],
-                                  20,
-                                  'Raleway',
-                                  300,
-                                  Colors.white),
-                            ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 8.0, left: 20),
+                          child: textgenerator(
+                              seller_info['sellerDetails']['email'],
+                              12,
+                              'Raleway',
+                              300,
+                              Colors.white),
+                        ),
                           ],
-                        )),
+                        ),
                       ),
                     ),
                     ListTile(
