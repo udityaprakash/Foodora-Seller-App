@@ -22,9 +22,11 @@ class _Restraunt_registerState extends State<Restraunt_register> {
   var resnameerr = '';
   var mobnoerr = '';
   var adderr = '';
+  var pinerr = '';
   late String restname;
   late String mobno;
   late String addres;
+  late String pinno;
   TextEditingController _restname = TextEditingController();
   TextEditingController _mobno = TextEditingController();
   TextEditingController _address = TextEditingController();
@@ -92,13 +94,16 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 ),
                 _image.isNotEmpty
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.15,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: _image.length,
                             itemBuilder: (BuildContext context, int index) {
                               //design this
                               return Container(
+                                width: 160,
+                                margin: EdgeInsets.all(10),
+                                color: Colors.white24,
                                 child: Image.file(_image[index]),
                               );
                             }),
@@ -216,6 +221,20 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                   child: errortextgenerator(
                       mobnoerr, MediaQuery.of(context).size.width / 30, 400),
                 ),
+                InputNumfieldgenerator('Pincode', context, 6,
+                    on_changed_function: (String pin) {
+                    pinno = pin;
+                  if (pin.length >= 1 && pin.length < 6) {
+                    pinerr = 'Write full Pincode';
+                  } else {
+                    pinerr = '';
+                  }
+                }),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 35,
+                  child: errortextgenerator(
+                      pinerr, MediaQuery.of(context).size.width / 30, 400),
+                ),
                 InputFieldgenerator("Full Address", context,
                     check: (String addr) {
                   if (addr.isEmpty) {
@@ -256,47 +275,53 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             CircularProgressIndicator(color: blue_background),
                       )
                     : SizedBox(height: 20),
-                _isloading?Container():buttongenerator(
-                  'Next',
-                  context,
-                  () async {
-                    if (!_isloading) {
-                      if (mobno.length == 10 &&
-                          (addres != '' &&
-                              restname != '' &&
-                              mobno != '' &&
-                              addres != null &&
-                              restname != null &&
-                              _image.length == 5 && _timec.text!='' && _timeo.text!='')) {
-                        final id = await storage.read(key: 'token');
+                _isloading
+                    ? Container()
+                    : buttongenerator(
+                        'Next',
+                        context,
+                        () async {
+                          if (!_isloading) {
+                            if (mobno.length == 10 &&
+                                (addres != '' &&
+                                    restname != '' &&
+                                    mobno != '' &&
+                                    addres != null &&
+                                    restname != null &&
+                                    _image.length == 5 &&
+                                    _timec.text != '' &&
+                                    _timeo.text != '' &&
+                                    pinno!='')) {
+                              final id = await storage.read(key: 'token');
 
-                        setState(() {
-                          _isloading = true;
-                        });
+                              setState(() {
+                                _isloading = true;
+                              });
 
-                        final response = await restaurant_register(
-                            id!,
-                            restname,
-                            mobno,
-                            addres,
-                            _timeo.text,
-                            _timec.text,
-                            _image);
-                        setState(() {
-                          _isloading = false;
-                        });
-                        if (response['success']) {
-                          Navigator.pushReplacementNamed(context, '/main_home');
-                        } else {
-                          setState(() {
-                            adderr = response['msg'];
-                          });
-                        }
-                      } else {}
-                      setState(() {});
-                    }
-                  },
-                )
+                              final response = await restaurant_register(
+                                  id!,
+                                  restname,
+                                  mobno,
+                                  addres,
+                                  _timeo.text,
+                                  _timec.text,
+                                  _image);
+                              setState(() {
+                                _isloading = false;
+                              });
+                              if (response['success']) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/main_home');
+                              } else {
+                                setState(() {
+                                  adderr = response['msg'];
+                                });
+                              }
+                            } else {}
+                            setState(() {});
+                          }
+                        },
+                      )
               ],
             ),
           ),
