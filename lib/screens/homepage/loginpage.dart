@@ -29,7 +29,7 @@ class _LoginpageState extends State<Loginpage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height-30,
+            height: MediaQuery.of(context).size.height - 30,
             child: Stack(
               children: [
                 Bottomgradient(context),
@@ -95,70 +95,74 @@ class _LoginpageState extends State<Loginpage> {
                                 : SizedBox(height: 1),
                           ),
                           SizedBox(height: 10),
-                          _isloading?Container():buttongenerator('Sign In', context, () async {
-                            {
-                              if (isEmail(_emailController.text)) {
-                                setState(() {
-                                  emailmessage = '';
-                                  _isloading = true;
-                                });
-                                final response = await sign_in(
-                                    _emailController.text,
-                                    _passController.text);
-                                setState(() {
-                                  _isloading = false;
-                                });
-                                if (response['success']) {
-                                  setState(() {
-                                    _isloading = true;
-                                  });
-                                  await storage.write(
-                                      key: "access_token",
-                                      value: response['accesstoken']);
-                                  await storage.write(
-                                      key: "token",
-                                      value: JwtDecoder.decode(
-                                              response['accesstoken'])['id']
-                                          .toString());
-                                  await put_seller_info();
+                          _isloading
+                              ? Container()
+                              : buttongenerator('Sign In', context, () async {
+                                  {
+                                    if (isEmail(_emailController.text)) {
+                                      setState(() {
+                                        emailmessage = '';
+                                        _isloading = true;
+                                      });
+                                      final response = await sign_in(
+                                          _emailController.text,
+                                          _passController.text);
+                                      setState(() {
+                                        _isloading = false;
+                                      });
+                                      if (response['success']) {
+                                        setState(() {
+                                          _isloading = true;
+                                        });
+                                        await storage.write(
+                                            key: "access_token",
+                                            value: response['accesstoken']);
+                                        await storage.write(
+                                            key: "token",
+                                            value: JwtDecoder.decode(response[
+                                                    'accesstoken'])['id']
+                                                .toString());
+                                        await put_seller_info();
 
-                                  final shared_storage =
-                                      await SharedPreferences.getInstance();
+                                        final shared_storage =
+                                            await SharedPreferences
+                                                .getInstance();
 
-                                  final user_info = jsonDecode(
-                                      shared_storage.getString('seller_info')!);
+                                        final user_info = jsonDecode(
+                                            shared_storage
+                                                .getString('seller_info')!);
 
-                                  if (user_info['sellerDetails']
-                                          ['restaurantname'] !=
-                                      null) {
-                                    Navigator.pushReplacementNamed(
-                                        context, '/main_home');
-                                  } else {
-                                    Navigator.pushReplacementNamed(
-                                        context, '/restrauntregister');
+                                        if (user_info['sellerDetails']
+                                                ['restaurantname'] !=
+                                            null) {
+                                          Navigator.pushReplacementNamed(
+                                              context, '/main_home');
+                                        } else {
+                                          Navigator.pushReplacementNamed(
+                                              context, '/restrauntregister');
+                                        }
+
+                                        setState(() {
+                                          _isloading = false;
+                                        });
+                                        Navigator.pushReplacementNamed(
+                                            context, '/main_home');
+                                      } else if (response['msg'] ==
+                                          "User Not Verified") {
+                                        send_api_otp(_emailController.text);
+                                        Navigator.pushReplacementNamed(
+                                            context, '/register_otp',
+                                            arguments: _emailController.text);
+                                      } else {
+                                        emailmessage = response['msg'];
+                                      }
+                                    } else {
+                                      setState(() {});
+                                      emailmessage = 'Invalid Email';
+                                    }
                                   }
-
-                                  setState(() {
-                                    _isloading = false;
-                                  });
-                                  Navigator.pushReplacementNamed(
-                                      context, '/main_home');
-                                } else if (response['msg'] ==
-                                    "User Not Verified") {
-                                  send_api_otp(_emailController.text);
-                                  Navigator.pushReplacementNamed(
-                                      context, '/otppage',
-                                      arguments: _emailController.text);
-                                } else {
-                                  emailmessage = response['msg'];
-                                }
-                              } else {
-                                setState(() {});
-                                emailmessage = 'Invalid Email';
-                              }
-                            }
-                            ;
-                          }),
+                                  ;
+                                }),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
