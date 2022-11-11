@@ -106,7 +106,7 @@ class _EnterOTPState extends State<EnterOTP> {
                               )
                             : SizedBox(height: 20),
                         SizedBox(height: 10),
-                        buttongenerator("Verify", context, () async {
+                        _isloading?Container():buttongenerator("Verify", context, () async {
                           log(widget.email);
                           if (_full_Otp == true) {
                             setState(() {

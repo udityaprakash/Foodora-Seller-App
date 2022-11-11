@@ -90,7 +90,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                                       color: blue_background),
                                 )
                               : SizedBox(height: 20),
-                          buttongenerator(
+                          _isloading?Container():buttongenerator(
                             'Set Password',
                             context,
                             () async {

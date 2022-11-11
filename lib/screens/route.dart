@@ -16,7 +16,7 @@ import 'homepage/newsellerpage.dart';
 import 'newregister/register.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
       case '/homepage':
@@ -53,7 +53,7 @@ class RouteGenerator {
       case '/adddish':  
         return MaterialPageRoute(builder: (_) => const Add_dish());
       default:
-        return MaterialPageRoute(builder: (_) => const Errorpage());
+        return null;
 
     }
   }

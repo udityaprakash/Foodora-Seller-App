@@ -256,7 +256,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                             CircularProgressIndicator(color: blue_background),
                       )
                     : SizedBox(height: 20),
-                buttongenerator(
+                _isloading?Container():buttongenerator(
                   'Next',
                   context,
                   () async {

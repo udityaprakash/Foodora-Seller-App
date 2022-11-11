@@ -77,7 +77,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                             )
                           : SizedBox(height: 20),
                       SizedBox(height: 10),
-                      buttongenerator(
+                      _isloading?Container():buttongenerator(
                         'Continue',
                         context,
                         () async {
