@@ -76,7 +76,7 @@ class _main_homeState extends State<main_home> {
                               itemCount: 6,
                               scrollDirection: Axis.vertical,
                               itemBuilder: ((context, index) => Container(
-                                    height: 300,
+                                    height: 320,
                                     width: double.infinity,
                                     margin: EdgeInsets.only(bottom: 10),
                                     padding: EdgeInsets.all(10),
@@ -116,32 +116,54 @@ class _main_homeState extends State<main_home> {
                                                 ],
                                               ),
                                               SizedBox(height: 15,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  textgenerator('Food:', 20, 'Raleway', 500, Color.fromARGB(255, 185, 185, 185)),
-                                                  Container(
-                                                    margin: EdgeInsets.only(left:10,top:4),
-                                                    width: MediaQuery.of(context).size.width*0.58,
-                                                    child: textgenerator('Gulab jamun', 16, 'Raleway', 500, Colors.white)),
+                                              Container(
+                                                height: 130,
+                                                width: MediaQuery.of(context).size.width*0.7,
+                                                      decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                      color: Color.fromARGB(255, 110, 110, 110)),
+                                                      // borderRadius: BorderRadius.all(Radius.circular(20))
+                                                      ),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        textgenerator('Food', 20, 'Raleway',500, Colors.white),
+                                                        Divider(color: Color.fromARGB(255, 255, 255, 255)),
+                                                        textgenerator('Quantity', 20, 'Raleway',500, Colors.white), 
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      height: 80,
+                                                      child: ListView.builder(
+                                                      itemCount: 2,
+                                                      itemBuilder: ((context, index) =>Container(
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Color.fromARGB(255, 110, 110, 110)),
+                                                          // borderRadius: BorderRadius.all(Radius.circular(20))
+                                                          ),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            children: [
+                                                              textgenerator('gulab jamun', 18, 'Raleway',500, Colors.white),
+                                                              textgenerator('2', 18, 'Raleway',500, Colors.white),
+                                                            ],
 
-                                                ],
+                                                          ),
+                                                    ],
+                                                  ),
+                                                  )
+                                                ),
                                               ),
-                                              SizedBox(height: 15,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  textgenerator('Quantity:', 20, 'Raleway', 500, Color.fromARGB(255, 185, 185, 185)),
-                                                  Container(
-                                                    margin: EdgeInsets.only(left:10),
-                                                    width: MediaQuery.of(context).size.width*0.58,
-                                                    child: textgenerator('25', 20, 'Raleway', 500, Colors.white)),
+                                                    ),
 
-                                                ],
-                                              ),
-                                              
+                                                  ],
+                                                )
+                                              )
                                               
 
                                             ],
