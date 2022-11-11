@@ -25,6 +25,17 @@ class _main_homeState extends State<main_home> {
                 fontFamily: 'FoodoraFont',
                 fontSize: MediaQuery.of(context).size.width / 10),
           ),
+          actions: [
+            IconButton(
+            icon: const Icon(Icons.sync),
+            iconSize: 30,
+            onPressed: () {
+              setState(() {
+                
+              });
+            },
+          ),
+          ],
         ),
       // ),
       body: SingleChildScrollView(
@@ -61,8 +72,6 @@ class _main_homeState extends State<main_home> {
                   orderexist
                       ? Container(
                           height: 500,
-
-                          // margin: EdgeInsets.all(20),
                           child: ListView.builder(
                               itemCount: 10,
                               scrollDirection: Axis.vertical,
@@ -104,34 +113,41 @@ class _main_homeState extends State<main_home> {
                       child: Container(
                         color: Color.fromRGBO(70, 73, 255, 1),
                         width: double.infinity,
-                        child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            textgenerator(
-                                'Welcome,', 25, 'Raleway', 300, Colors.white),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 20),
-                              child: textgenerator(
-                                  seller_info['sellerDetails']['username'],
-                                  20,
-                                  'Raleway',
-                                  300,
-                                  Colors.white),
+                            Container(
+                              child: Column(
+                                children: [
+
+                                  textgenerator(
+                                      'Welcome,', 25, 'Raleway', 300, Colors.white),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(top: 8.0, left: 40),
+                                    child: textgenerator(
+                                        seller_info['sellerDetails']['username'],
+                                        20,
+                                        'Raleway',
+                                        300,
+                                        Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 20),
-                              child: textgenerator(
-                                  seller_info['sellerDetails']['email'],
-                                  20,
-                                  'Raleway',
-                                  300,
-                                  Colors.white),
-                            ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 8.0, left: 20),
+                          child: textgenerator(
+                              seller_info['sellerDetails']['email'],
+                              12,
+                              'Raleway',
+                              300,
+                              Colors.white),
+                        ),
                           ],
-                        )),
+                        ),
                       ),
                     ),
                     ListTile(
