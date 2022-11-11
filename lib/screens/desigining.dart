@@ -459,15 +459,18 @@ Widget DishTray(context) {
   );
 }
 
-Widget Acceptbtn(BuildContext context,{function}){
+Widget Acceptbtn(BuildContext context,{onpressed}){
   return ElevatedButton(
-    onPressed: function,
+    onPressed: onpressed,
     style: ElevatedButton.styleFrom(
-      // primary: Color.fromRGBO(50, 81, 255, 1),
+      primary: Color.fromARGB(0, 185, 185, 185),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(17.0),
         side: const BorderSide(
-            color: Colors.white),
+            color: Colors.white,
+            
+            ),
+            
       ),
     ),
     child: Center(
@@ -491,7 +494,7 @@ Widget Rejectbtn(BuildContext context,{onpressed}){
   return ElevatedButton(
     onPressed: onpressed,
     style: ElevatedButton.styleFrom(
-      // primary: Color.fromRGBO(50, 81, 255, 1),
+      primary: Color.fromARGB(0, 185, 185, 185),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(17.0),
         side: const BorderSide(
