@@ -72,33 +72,6 @@ class Homepage extends StatelessWidget {
                    '/newregister'
                    );
                 }),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 17,
-                      bottom: MediaQuery.of(context).size.width / 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Code Of Conduct",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: MediaQuery.of(context).size.width / 35),
-                      ),
-                      Text(
-                        "Terms Of Service",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: MediaQuery.of(context).size.width / 35),
-                      ),
-                      Text("Privacy Policy",
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontSize: MediaQuery.of(context).size.width / 35))
-                    ],
-                  ),
-                )
               ],
             ),
           ),
