@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodora_seller/screens/Adddishes/add_dish.dart';
+import 'package:foodora_seller/screens/YourKitchen/kitchen.dart';
 import 'package:foodora_seller/screens/editrestraunt.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
+import 'package:foodora_seller/screens/help.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/main_home_pages/home_page_redirector.dart';
 import 'package:foodora_seller/screens/main_home_pages/main_home.dart';
@@ -45,6 +47,10 @@ class RouteGenerator {
                 ));
       case '/restrauntregister':
         return MaterialPageRoute(builder: (_) => Restraunt_register());
+      case '/help': 
+      return MaterialPageRoute(builder: (_) => const Help()); 
+      case '/kitchen': 
+      return MaterialPageRoute(builder: (_) => const Kitchen()); 
       case '/main_home':
         return MaterialPageRoute(builder: (_) => const main_home());
       case '/home_page_redirector':
