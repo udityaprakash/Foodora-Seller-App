@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/api_integration.dart';
 import '../desigining.dart';
 
@@ -134,7 +137,24 @@ class _register_otpState extends State<register_otp> {
                                       value: JwtDecoder.decode(
                                               response['accesstoken'])['id']
                                           .toString());
-                                  put_seller_info();
+                                  await put_seller_info();
+
+                                  final shared_storage =
+                                      await SharedPreferences.getInstance();
+
+                                  final user_info = jsonDecode(
+                                      shared_storage.getString('seller_info')!);
+
+                                  if (user_info['sellerDetails']
+                                          ['restaurantname'] !=
+                                      null) {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/main_home');
+                                  } else {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/restrauntregister');
+                                  }
+
                                   Navigator.pushReplacementNamed(
                                       context, '/restrauntregister');
                                 } else {
