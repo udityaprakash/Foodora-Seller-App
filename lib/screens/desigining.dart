@@ -272,6 +272,20 @@ Future<String?> idgrabber() async {
   } catch (er) {}
 }
 
+Future<dynamic> sellerinfograbber() async {
+  try {
+    final seller_info_storage = await SharedPreferences.getInstance();
+    if (seller_info_storage.getString("seller_info") == null) {
+      return "seller Info Doesnt Exist";
+    } else {
+      final seller_info =
+          jsonDecode(seller_info_storage.getString("seller_info")!);
+
+      return seller_info;
+    }
+  } catch (er) {}
+}
+
 Future<Map<dynamic, dynamic>?> put_seller_info() async {
   try {
     log("putting seller info");
