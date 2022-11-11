@@ -458,3 +458,60 @@ Widget DishTray(context) {
     color: Color.fromARGB(26, 139, 46, 46),
   );
 }
+
+Widget Acceptbtn(BuildContext context,{function}){
+  return ElevatedButton(
+    onPressed: function,
+    style: ElevatedButton.styleFrom(
+      // primary: Color.fromRGBO(50, 81, 255, 1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(17.0),
+        side: const BorderSide(
+            color: Colors.white),
+      ),
+    ),
+    child: Center(
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
+        child: Text(
+          'Accept',
+          style: TextStyle(
+              letterSpacing: 2,
+              color: Colors.white,
+              fontFamily: 'Raleway',
+              fontVariations: <FontVariation>[FontVariation('wght', 500)],
+              fontSize: MediaQuery.of(context).size.width / 18),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget Rejectbtn(BuildContext context,{onpressed}){
+  return ElevatedButton(
+    onPressed: onpressed,
+    style: ElevatedButton.styleFrom(
+      // primary: Color.fromRGBO(50, 81, 255, 1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(17.0),
+        side: const BorderSide(
+            color: Colors.white),
+      ),
+    ),
+    child: Center(
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
+        child: Text(
+          'Reject',
+          style: TextStyle(
+              letterSpacing: 2,
+              color: Colors.white,
+              fontFamily: 'Raleway',
+              fontVariations: <FontVariation>[FontVariation('wght', 500)],
+              fontSize: MediaQuery.of(context).size.width / 18),
+        ),
+      ),
+    ),
+  );
+
+}

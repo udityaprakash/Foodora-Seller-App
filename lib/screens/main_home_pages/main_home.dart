@@ -71,19 +71,91 @@ class _main_homeState extends State<main_home> {
                   ),
                   orderexist
                       ? Container(
-                          height: 500,
+                          height: MediaQuery.of(context).size.height * 0.7,
                           child: ListView.builder(
-                              itemCount: 10,
+                              itemCount: 6,
                               scrollDirection: Axis.vertical,
                               itemBuilder: ((context, index) => Container(
                                     height: 300,
                                     width: double.infinity,
                                     margin: EdgeInsets.only(bottom: 10),
-                                    // color: Colors.white,
+                                    padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Color.fromARGB(255, 110, 110, 110)),
-                                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              textgenerator('User $index', 20, 'Raleway', 500, Color.fromRGBO(50, 81, 255, 1)),
+                                              Divider(
+                                                color: Colors.white,
+                                                
+                                              )
+
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  textgenerator('Address:', 20, 'Raleway', 500, Color.fromARGB(255, 185, 185, 185)),
+                                                  Container(
+                                                    margin: EdgeInsets.only(left:10),
+                                                    width: MediaQuery.of(context).size.width*0.58,
+                                                    child: textgenerator('cs-it block,Akgec ghaziabad, UP,India', 16, 'Raleway', 500, Colors.white)),
+                                                ],
+                                              ),
+                                              SizedBox(height: 15,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  textgenerator('Food:', 20, 'Raleway', 500, Color.fromARGB(255, 185, 185, 185)),
+                                                  Container(
+                                                    margin: EdgeInsets.only(left:10,top:4),
+                                                    width: MediaQuery.of(context).size.width*0.58,
+                                                    child: textgenerator('Gulab jamun', 16, 'Raleway', 500, Colors.white)),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 15,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  textgenerator('Quantity:', 20, 'Raleway', 500, Color.fromARGB(255, 185, 185, 185)),
+                                                  Container(
+                                                    margin: EdgeInsets.only(left:10),
+                                                    width: MediaQuery.of(context).size.width*0.58,
+                                                    child: textgenerator('25', 20, 'Raleway', 500, Colors.white)),
+
+                                                ],
+                                              ),
+                                              
+                                              
+
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Acceptbtn(context),
+                                            Rejectbtn(context)
+                                          ],
+                                        )
+                                      ],
+                                    ),  
                                   ))),
                         )
                       : Container(
@@ -105,13 +177,13 @@ class _main_homeState extends State<main_home> {
             final seller_info = snapshot.data;
             if (snapshot.connectionState == ConnectionState.done) {
               return Drawer(
-                backgroundColor: Color.fromARGB(238, 238, 238, 250),
+                backgroundColor: Color.fromARGB(255, 203, 203, 255),
                 child: Column(
                   children: [
                     DrawerHeader(
                       padding: EdgeInsets.zero,
                       child: Container(
-                        color: Color.fromRGBO(70, 73, 255, 1),
+                        color: Color.fromRGBO(50, 73, 255, 1),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
