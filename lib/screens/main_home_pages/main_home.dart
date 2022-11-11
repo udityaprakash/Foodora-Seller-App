@@ -172,8 +172,16 @@ class _main_homeState extends State<main_home> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Acceptbtn(context),
-                                            Rejectbtn(context)
+                                            Acceptbtn(context,onpressed:(){
+                                              setState(() {
+                                                
+                                              });
+                                            }),
+                                            Rejectbtn(context,onpressed: (){
+                                              setState(() {
+                                                
+                                              });
+                                            })
                                           ],
                                         )
                                       ],
