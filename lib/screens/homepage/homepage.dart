@@ -12,7 +12,7 @@ class Homepage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - 40.0,
+            height: MediaQuery.of(context).size.height - 30.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: ListView(
               shrinkWrap: true,

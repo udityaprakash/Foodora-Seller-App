@@ -26,7 +26,7 @@ class _main_homeState extends State<main_home> {
                 fontSize: MediaQuery.of(context).size.width / 10),
           ),
         ),
-      ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -90,118 +90,6 @@ class _main_homeState extends State<main_home> {
           ],
         ),
       ),
-      drawer: Drawer(
-        backgroundColor: Color.fromARGB(237, 186, 186, 255),
-        child: Column(
-          children: [
-            DrawerHeader(
-              padding: EdgeInsets.zero,
-              child: Container(
-                color: Color.fromRGBO(70, 73, 255, 1),
-                width: double.infinity,
-                child: Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    textgenerator(
-                        'Your Kitchen',
-                        MediaQuery.of(context).size.width / 20,
-                        'RaleWay',
-                        200,
-                        Colors.white),
-                    const Divider(
-                      color: Colors.white38,
-                    ),
-                    // ListView.builder(
-                    //   itemCount: 10,
-                    //   scrollDirection: Axis.horizontal,
-                    //   itemBuilder: ((context, index) => Container(
-                    //     height: 100,
-                    //     width: 100,
-                    //     color: Color.fromARGB(26, 139, 46, 46),
-                    //   )))
-                  ],
-                )),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.loupe,
-                color: Colors.black,
-                size: 30,
-              ),
-              title:
-                  textgenerator('Add Dishes', 15, 'Raleway', 500, Colors.white),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/adddish');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: const Icon(
-                Icons.edit,
-                color: Colors.black,
-                size: 30,
-              ),
-              title: textgenerator(
-                  'Edit Restraunt', 15, 'Raleway', 500, Colors.white),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/editrestraunt');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: const Icon(
-                Icons.restaurant_menu,
-                color: Colors.black,
-                size: 30,
-              ),
-              title: textgenerator(
-                  'Your Kitchen', 15, 'Raleway', 500, Colors.white),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/kitchen');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: const Icon(
-                Icons.policy,
-                color: Colors.black,
-                size: 30,
-              ),
-              title: textgenerator(
-                  'Terms And Policy', 15, 'Raleway', 500, Colors.white),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/terms');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(
-                Icons.help,
-                color: Colors.black,
-                size: 30,
-              ),
-              title: textgenerator('Help', 15, 'Raleway', 500, Colors.white),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/help');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                size: 30,
-                color: Colors.black,
-              ),
-            ],
-          ),
-        ),
         drawer: FutureBuilder(
           future: sellerinfograbber(),
           builder: (context, snapshot) {
@@ -276,6 +164,20 @@ class _main_homeState extends State<main_home> {
                     Divider(),
                     ListTile(
                       leading: const Icon(
+                        Icons.restaurant_menu,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      title: textgenerator(
+                          'Your Kitchen', 15, 'Raleway', 500, Colors.white),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed('/kitchen');
+                      },
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: const Icon(
                         Icons.policy,
                         color: Colors.black,
                         size: 30,
@@ -298,6 +200,8 @@ class _main_homeState extends State<main_home> {
                           'Help', 15, 'Raleway', 500, Colors.white),
                       onTap: () {
                         Navigator.pop(context);
+                        Navigator.of(context).pushNamed('/help');
+
                       },
                     ),
                     Divider(),
