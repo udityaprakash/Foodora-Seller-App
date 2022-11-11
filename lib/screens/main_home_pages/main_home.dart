@@ -99,6 +99,20 @@ class _main_homeState extends State<main_home> {
             Divider(),
             ListTile(
               leading: const Icon(
+                Icons.edit,
+                color: Colors.black,
+                size: 30,
+              ),
+              title:
+                  textgenerator('Edit Restraunt', 15, 'Raleway', 500, Colors.white),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/editrestraunt');
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: const Icon(
                 Icons.policy,
                 color: Colors.black,
                 size: 30,

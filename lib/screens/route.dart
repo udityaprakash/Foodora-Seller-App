@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodora_seller/screens/Adddishes/add_dish.dart';
+import 'package:foodora_seller/screens/editrestraunt.dart';
 import 'package:foodora_seller/screens/forgotpages/resetpages.dart';
 import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/main_home_pages/home_page_redirector.dart';
@@ -52,6 +53,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Termsnpolicy());  
       case '/adddish':  
         return MaterialPageRoute(builder: (_) => const Add_dish());
+      case '/editrestraunt':
+        return MaterialPageRoute(builder: (_) => const Editrestraunt());  
       default:
         return null;
 
