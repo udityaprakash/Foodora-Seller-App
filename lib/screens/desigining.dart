@@ -291,10 +291,9 @@ Future<Map<dynamic, dynamic>?> put_seller_info() async {
     log("putting seller info");
     final storage = new FlutterSecureStorage();
     SharedPreferences user_info = await SharedPreferences.getInstance();
-    Map? get_profile_response =
-        await get_seller_info(await storage.read(key: 'token'));
+    Map? get_profile_response = await get_seller_info();
     user_info.setString('seller_info', jsonEncode(get_profile_response));
-    return get_seller_info(await storage.read(key: 'token'));
+    return get_seller_info();
   } catch (er) {
     log(er.toString());
   }
