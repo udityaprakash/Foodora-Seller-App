@@ -25,6 +25,17 @@ class _main_homeState extends State<main_home> {
                 fontFamily: 'FoodoraFont',
                 fontSize: MediaQuery.of(context).size.width / 10),
           ),
+          actions: [
+            IconButton(
+            icon: const Icon(Icons.sync),
+            iconSize: 30,
+            onPressed: () {
+              setState(() {
+                
+              });
+            },
+          ),
+          ],
         ),
       // ),
       body: SingleChildScrollView(
@@ -61,8 +72,6 @@ class _main_homeState extends State<main_home> {
                   orderexist
                       ? Container(
                           height: 500,
-
-                          // margin: EdgeInsets.all(20),
                           child: ListView.builder(
                               itemCount: 10,
                               scrollDirection: Axis.vertical,

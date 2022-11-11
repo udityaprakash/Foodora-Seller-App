@@ -94,16 +94,20 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 ),
                 _image.isNotEmpty
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.22,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: _image.length,
                             itemBuilder: (BuildContext context, int index) {
                               //design this
                               return Container(
-                                width: 160,
+                                width: 250,
                                 margin: EdgeInsets.all(10),
-                                color: Colors.white24,
+                                padding: EdgeInsets.all(7),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 110, 110, 110), width: 2),
+                                  borderRadius: BorderRadius.all(Radius.circular(20))),
                                 child: Image.file(_image[index]),
                               );
                             }),
