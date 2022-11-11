@@ -95,6 +95,16 @@ class _main_homeState extends State<main_home> {
                                   300,
                                   Colors.white),
                             ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, left: 20),
+                              child: textgenerator(
+                                  seller_info['sellerDetails']['email'],
+                                  20,
+                                  'Raleway',
+                                  300,
+                                  Colors.white),
+                            ),
                           ],
                         )),
                       ),
