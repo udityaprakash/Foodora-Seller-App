@@ -274,6 +274,7 @@ Future<String?> idgrabber() async {
 
 Future<dynamic> sellerinfograbber() async {
   try {
+    await put_seller_info();
     final seller_info_storage = await SharedPreferences.getInstance();
     if (seller_info_storage.getString("seller_info") == null) {
       return "seller Info Doesnt Exist";
@@ -459,7 +460,7 @@ Widget DishTray(context) {
   );
 }
 
-Widget Acceptbtn(BuildContext context,{onpressed}){
+Widget Acceptbtn(BuildContext context, {onpressed}) {
   return ElevatedButton(
     onPressed: onpressed,
     style: ElevatedButton.styleFrom(
@@ -467,17 +468,15 @@ Widget Acceptbtn(BuildContext context,{onpressed}){
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(17.0),
         side: const BorderSide(
-            color: Colors.white,
-            
-            ),
-            
+          color: Colors.white,
+        ),
       ),
     ),
     child: Center(
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
         child: Text(
-          'Accept',
+          'DONE',
           style: TextStyle(
               letterSpacing: 2,
               color: Colors.white,
@@ -490,15 +489,14 @@ Widget Acceptbtn(BuildContext context,{onpressed}){
   );
 }
 
-Widget Rejectbtn(BuildContext context,{onpressed}){
+Widget Rejectbtn(BuildContext context, {onpressed}) {
   return ElevatedButton(
     onPressed: onpressed,
     style: ElevatedButton.styleFrom(
       primary: Color.fromARGB(0, 185, 185, 185),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(17.0),
-        side: const BorderSide(
-            color: Colors.white),
+        side: const BorderSide(color: Colors.white),
       ),
     ),
     child: Center(
@@ -516,5 +514,4 @@ Widget Rejectbtn(BuildContext context,{onpressed}){
       ),
     ),
   );
-
 }
