@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:http_parser/http_parser.dart';
 import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:http/http.dart';
-
 import 'api_links.dart';
 
 dynamic sign_in(String email, String password) async {
@@ -88,19 +86,21 @@ Future<Map?> get_seller_info() async {
   try {
     final storage = new FlutterSecureStorage();
     String? token = await storage.read(key: 'access_token');
+
     String? id = await storage.read(key: 'token');
-    log("Initialised Profile get for: " + id!);
+    log("token:" + token!);
+    log("Initialised Profile get for: " + token!);
     final response = await post(Uri.parse(seller_profile_link),
         headers: <String, String>{
           HttpHeaders.authorizationHeader: token!,
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, String>{"_id": id}));
+        body: jsonEncode(<String, String>{"_id": id!}));
     final Map output = jsonDecode(response.body);
     log("response of the profile : " + output.toString());
     return output;
   } catch (er) {
-    log("error caught: " + er.toString());
+    log("error caught: in profile get " + er.toString());
   }
 }
 
@@ -162,10 +162,14 @@ dynamic restaurant_register(
     String closingtime,
     List<File?> image) async {
   try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    Map<String, String> headers = {HttpHeaders.authorizationHeader: token!};
+
     log("Registring Restraunt");
 
     var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
-
+    request.headers.addAll(headers);
     for (int i = 0; i < image.length; ++i) {
       log(image[i]!.path);
       request.files.add(
@@ -200,10 +204,13 @@ dynamic restaurant_modify(
     String? closingtime,
     List<File?> image) async {
   try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    Map<String, String> headers = {HttpHeaders.authorizationHeader: token!};
     log("Registring Restraunt");
 
     var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
-
+    request.headers.addAll(headers);
     if (image.isNotEmpty) {
       for (int i = 0; i < image.length; ++i) {
         log(image[i]!.path);
@@ -225,16 +232,14 @@ dynamic restaurant_modify(
       }
     }
     if (mobilenumber != null) {
-      if(mobilenumber.toString().isNotEmpty){
-      request.fields['mobilenumber'] = mobilenumber;
-
+      if (mobilenumber.toString().isNotEmpty) {
+        request.fields['mobilenumber'] = mobilenumber;
       }
     }
     if (address != null) {
-        if(address.toString().isNotEmpty){
-
-      request.fields['restaurantaddress'] = address;
-        }
+      if (address.toString().isNotEmpty) {
+        request.fields['restaurantaddress'] = address;
+      }
     } else {
       final seller_info = await get_seller_info();
 
@@ -243,15 +248,13 @@ dynamic restaurant_modify(
     }
 
     if (openingtime != null) {
-      if(openingtime.toString().isNotEmpty){
-
-      request.fields['restaurant_openingtime'] = openingtime;
+      if (openingtime.toString().isNotEmpty) {
+        request.fields['restaurant_openingtime'] = openingtime;
       }
     }
     if (closingtime != null) {
-      if(closingtime.toString().isNotEmpty){
-
-      request.fields['restaurant_closingtime'] = closingtime;
+      if (closingtime.toString().isNotEmpty) {
+        request.fields['restaurant_closingtime'] = closingtime;
       }
     }
 
@@ -268,9 +271,13 @@ dynamic food_list(
     String id, String foodname, String food_price, String food_desc,
     {File? image}) async {
   try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    Map<String, String> headers = {HttpHeaders.authorizationHeader: token!};
     log("Adding Dish");
 
     var request = MultipartRequest('POST', Uri.parse(food_list_link));
+    request.headers.addAll(headers);
     if (image != null) {
       request.files.add(
         MultipartFile(
@@ -278,7 +285,12 @@ dynamic food_list(
             filename: "something.jpg", contentType: MediaType('image', 'jpg')),
       );
     }
-
+    log(token.toString());
+    log(id.toString());
+    log(foodname.toString());
+    log(food_price.toString());
+    log(food_desc.toString());
+    log(image!.path.toString());
     request.fields['id'] = id;
     request.fields['foodname'] = foodname;
     request.fields['food_price'] = food_price;
@@ -288,6 +300,25 @@ dynamic food_list(
     var result = await response.stream.bytesToString();
     log(result.toString());
     return jsonDecode(result);
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}
+
+dynamic order_done(int index) async {
+  try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    log("Initialised order done  For: " + index.toString());
+    final response = await post(Uri.parse(order_done_link),
+        headers: <String, String>{
+          HttpHeaders.authorizationHeader: token!,
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{"index": index}));
+    final output = jsonDecode(response.body);
+    log(" order done results: : " + output.toString());
+    return output;
   } catch (er) {
     log("error caught: " + er.toString());
   }

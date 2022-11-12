@@ -301,7 +301,8 @@ class _Add_dishState extends State<Add_dish> {
                                                   user_info,
                                                   dishname,
                                                   price,
-                                                  dishdesc);
+                                                  dishdesc,
+                                                  image: _image);
                                               if (response['success']) {
                                                 Navigator.pop(context);
                                               }
@@ -332,7 +333,8 @@ class _Add_dishState extends State<Add_dish> {
                                             imagesheet = false;
                                           } else {
                                             setState(() {
-                                              imgerr = 'Please select Dish Image';
+                                              imgerr =
+                                                  'Please select Dish Image';
                                             });
                                           }
                                         });

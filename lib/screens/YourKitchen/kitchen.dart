@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodora_seller/screens/desigining.dart';
 
+import '../../config/api_links.dart';
+
 class Kitchen extends StatefulWidget {
   const Kitchen({super.key});
 
@@ -25,18 +27,21 @@ class _KitchenState extends State<Kitchen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          // height: MediaQuery.of(context).size.height*0.7,
-          width: double.infinity,
-          // color: Colors.white,
-          child: trayhasfood
-              ? Container(
-                  height: MediaQuery.of(context).size.height * 0.88,
-                  child: ListView.builder(
-                    itemCount: 16,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: ((context, index) => Container(
+          child: FutureBuilder(
+        future: sellerinfograbber(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final list_food = snapshot.data['sellerDetails']['food_list'];
+            if (list_food.isNotEmpty) {
+              return Container(
+                  margin: EdgeInsets.all(10),
+                  width: double.infinity,
+                  child: Container(
+                      height: MediaQuery.of(context).size.height * 0.88,
+                      child: ListView.builder(
+                        itemCount: list_food.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: ((context, index) => Container(
                               height: 150,
                               margin: EdgeInsets.all(5),
                               decoration: BoxDecoration(
@@ -50,8 +55,10 @@ class _KitchenState extends State<Kitchen> {
                                 children: [
                                   Container(
                                     width: 150,
-                                    child:
-                                        SvgPicture.asset('assets/svg/dish.svg'),
+                                    child: Image.network(
+                                      backend_link +
+                                          list_food[index]['imgpath'],
+                                    ),
                                     decoration: BoxDecoration(
                                       color: Color.fromARGB(255, 43, 43, 43),
                                       borderRadius: BorderRadius.only(
@@ -70,14 +77,14 @@ class _KitchenState extends State<Kitchen> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           textgenerator(
-                                              'Shaahi Panner',
+                                              list_food[index]['foodname'],
                                               18,
                                               'Raleway',
                                               300,
                                               Color.fromARGB(
                                                   255, 255, 236, 236)),
                                           textgenerator(
-                                              'It has more panner then any other dish and paste of dry fruit.it is full vegitarian dish.',
+                                              list_food[index]['food_desc'],
                                               12,
                                               'Raleway',
                                               300,
@@ -88,21 +95,15 @@ class _KitchenState extends State<Kitchen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               textgenerator(
-                                                  '₹ ' + '199',
+                                                  '₹ ' +
+                                                      list_food[index]
+                                                              ['food_price']
+                                                          .toString(),
                                                   25,
                                                   'Raleway',
                                                   300,
                                                   Color.fromARGB(
                                                       255, 255, 236, 236)),
-                                              IconButton(
-                                                icon: const Icon(
-                                                    Icons.delete_rounded),
-                                                iconSize: 30,
-                                                color: Colors.white,
-                                                onPressed: () {
-                                                  setState(() {});
-                                                },
-                                              ),
                                             ],
                                           ),
                                         ],
@@ -111,24 +112,16 @@ class _KitchenState extends State<Kitchen> {
                                   ),
                                 ],
                               ),
-                            )
-                        // children: [
-                        //   textgenerator(
-                        //       'Your Kitchen',
-                        //       MediaQuery.of(context).size.width / 15,
-                        //       'Raleway',
-                        //       300,
-                        //       Color.fromRGBO(50, 81, 255, 1)),
-                        //   Container(
-                        //     margin: EdgeInsets.only(left: 20, top: 20),
-                        //     child: textgenerator('', 15, 'Raleway', 300, Colors.white),
-                        //   ),
-                        // ],
-                        ),
-                  ))
-              : Container(),
-        ),
-      ),
+                            )),
+                      )));
+            } else {
+              return Text("Food Items Not Added");
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.pushNamed(context, '/adddish');
@@ -140,3 +133,15 @@ class _KitchenState extends State<Kitchen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+//

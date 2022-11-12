@@ -26,3 +26,8 @@ final restaurant_register_link =
 
 final food_list_link =
     "https://foodorabackend-production.up.railway.app/seller/foodlisting";
+
+final order_done_link =
+    "https://foodorabackend-production.up.railway.app/seller/removefromorders";
+
+final backend_link = "https://foodorabackend-production.up.railway.app/";
