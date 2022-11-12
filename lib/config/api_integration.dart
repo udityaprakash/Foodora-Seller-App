@@ -217,14 +217,24 @@ dynamic restaurant_modify(
     }
 
     request.fields['id'] = id;
+    log('res name: ' + r_name.toString());
     if (r_name != null) {
-      request.fields['restaurantname'] = r_name;
+      if (r_name.toString().isNotEmpty) {
+        log('changing res name');
+        request.fields['restaurantname'] = r_name;
+      }
     }
     if (mobilenumber != null) {
+      if(mobilenumber.toString().isNotEmpty){
       request.fields['mobilenumber'] = mobilenumber;
+
+      }
     }
     if (address != null) {
+        if(address.toString().isNotEmpty){
+
       request.fields['restaurantaddress'] = address;
+        }
     } else {
       final seller_info = await get_seller_info();
 
@@ -233,10 +243,16 @@ dynamic restaurant_modify(
     }
 
     if (openingtime != null) {
+      if(openingtime.toString().isNotEmpty){
+
       request.fields['restaurant_openingtime'] = openingtime;
+      }
     }
     if (closingtime != null) {
+      if(closingtime.toString().isNotEmpty){
+
       request.fields['restaurant_closingtime'] = closingtime;
+      }
     }
 
     var response = await request.send();

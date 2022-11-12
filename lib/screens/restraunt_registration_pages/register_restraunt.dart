@@ -124,58 +124,59 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                       ),
                 ElevatedButton(
                     onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: ((builder) {
-                          return Container(
-                            color: Colors.black,
-                            height: 140,
-                            width: double.infinity,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: textgenerator(
-                                      'Choose from below options',
-                                      20,
-                                      'Raleway',
-                                      700,
-                                      Colors.white),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () async {
-                                        fromcamera();
-                                      },
-                                      icon: const Icon(
-                                        Icons.no_photography,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        selectImage();
-                                      },
-                                      icon: const Icon(
-                                        Icons.add_photo_alternate,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        }),
-                      );
+                      selectImage();
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: ((builder) {
+                      //     return Container(
+                      //       color: Colors.black,
+                      //       height: 140,
+                      //       width: double.infinity,
+                      //       child: Column(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(top: 10.0),
+                      //             child: textgenerator(
+                      //                 'Choose from below options',
+                      //                 20,
+                      //                 'Raleway',
+                      //                 700,
+                      //                 Colors.white),
+                      //           ),
+                      //           SizedBox(
+                      //             height: 10,
+                      //           ),
+                      //           Row(
+                      //             mainAxisAlignment:
+                      //                 MainAxisAlignment.spaceAround,
+                      //             children: [
+                      //               IconButton(
+                      //                 onPressed: () async {
+                      //                   fromcamera();
+                      //                 },
+                      //                 icon: const Icon(
+                      //                   Icons.no_photography,
+                      //                   size: 40,
+                      //                   color: Colors.white,
+                      //                 ),
+                      //               ),
+                      //               IconButton(
+                      //                 onPressed: () async {
+                      //                   selectImage();
+                      //                 },
+                      //                 icon: const Icon(
+                      //                   Icons.add_photo_alternate,
+                      //                   size: 40,
+                      //                   color: Colors.white,
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           )
+                      //         ],
+                      //       ),
+                      //     );
+                      //   }),
+                      // );
                     },
                     child: Text("Add Pics")),
                 SizedBox(
