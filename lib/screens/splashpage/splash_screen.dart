@@ -17,7 +17,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context,'/homepage');
+      Navigator.pushReplacementNamed(context,'/home_page_redirector');
     });
   }
 
