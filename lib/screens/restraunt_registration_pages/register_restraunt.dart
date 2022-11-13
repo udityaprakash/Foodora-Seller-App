@@ -308,6 +308,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                                   restname,
                                   mobno,
                                   addres,
+                                  pinno,
                                   _timeo.text,
                                   _timec.text,
                                   _image);
