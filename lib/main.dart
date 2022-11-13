@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home_page_redirector',
+      initialRoute: '/splashspage',
 
       onGenerateRoute: RouteGenerator.generateRoute,
       theme: ThemeData(
