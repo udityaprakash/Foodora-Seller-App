@@ -288,6 +288,7 @@ class _EditrestrauntState extends State<Editrestraunt> {
                                   restname,
                                   mobno,
                                   addres,
+                                  pinno,
                                   _timeo.text,
                                   _timec.text,
                                   _image);

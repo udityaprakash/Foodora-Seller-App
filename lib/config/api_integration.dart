@@ -158,6 +158,7 @@ dynamic restaurant_register(
     String r_name,
     String mobilenumber,
     String address,
+    String pinno,
     String openingtime,
     String closingtime,
     List<File?> image) async {
@@ -183,6 +184,7 @@ dynamic restaurant_register(
     request.fields['restaurantname'] = r_name;
     request.fields['mobilenumber'] = mobilenumber;
     request.fields['restaurantaddress'] = address;
+    request.fields['pincode'] = pinno;
     request.fields['restaurant_openingtime'] = openingtime;
     request.fields['restaurant_closingtime'] = closingtime;
 
@@ -200,6 +202,7 @@ dynamic restaurant_modify(
     String? r_name,
     String? mobilenumber,
     String? address,
+    String? pinno,
     String? openingtime,
     String? closingtime,
     List<File?> image) async {
@@ -245,6 +248,16 @@ dynamic restaurant_modify(
 
       request.fields['restaurantaddress'] =
           seller_info!['sellerDetails']['restaurantaddress'];
+    }
+
+    if (pinno != null) {
+      if (address.toString().isNotEmpty) {
+        request.fields['pincode'] = pinno;
+      }
+    } else {
+      final seller_info = await get_seller_info();
+
+      request.fields['pincode'] = seller_info!['sellerDetails']['pincode'];
     }
 
     if (openingtime != null) {

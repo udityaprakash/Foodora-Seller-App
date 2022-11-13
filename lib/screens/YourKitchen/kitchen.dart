@@ -32,7 +32,7 @@ class _KitchenState extends State<Kitchen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final list_food = snapshot.data['sellerDetails']['food_list'];
-            if (list_food.isNotEmpty) {
+            if (list_food != []) {
               return Container(
                   margin: EdgeInsets.all(10),
                   width: double.infinity,
