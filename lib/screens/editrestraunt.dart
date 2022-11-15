@@ -108,7 +108,7 @@ class _EditrestrauntState extends State<Editrestraunt> {
                                         width: 2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: Image.file(_image[index]),
+                                child: Image.file(_image[index],),
                               );
                             }),
                       )
@@ -205,9 +205,13 @@ class _EditrestrauntState extends State<Editrestraunt> {
                         mobnoerr = '10 digits required';
                       });
                     } else {
-                      setState(() {
-                        mobnoerr = '';
-                      });
+                      if (ismobilenumber(mobno!)) {
+                        setState(() {
+                          mobnoerr = '';
+                        });
+                      } else {
+                        mobnoerr = 'Invalid Mobile no';
+                      }
                     }
                   } else {
                     setState(() {
@@ -273,13 +277,12 @@ class _EditrestrauntState extends State<Editrestraunt> {
                         () async {
                           if (!_isloading) {
                             if ((mobno == null ||
-                                   ( mobno.toString().length == 10)?
-                                   ismobilenumber(mobno!):false
-                                   ) &&
+                                        (mobno.toString().length == 10)
+                                    ? ismobilenumber(mobno!)
+                                    : false) &&
                                 (pinno == null ||
                                     pinno.toString().length == 6) &&
-                                (_image.isEmpty || _image.length == 5)
-                                ) {
+                                (_image.isEmpty || _image.length == 5)) {
                               final id = await storage.read(key: 'token');
 
                               setState(() {
