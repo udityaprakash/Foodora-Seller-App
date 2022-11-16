@@ -105,9 +105,12 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                                 margin: EdgeInsets.all(10),
                                 padding: EdgeInsets.all(7),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 110, 110, 110), width: 2),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(255, 110, 110, 110),
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
                                 child: Image.file(_image[index]),
                               );
                             }),
@@ -212,7 +215,11 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                       });
                     } else {
                       setState(() {
-                        mobnoerr = '';
+                        if (ismobilenumber(mobno)) {
+                          mobnoerr = '';
+                        } else {
+                          mobno = 'Enter valid mobile no';
+                        }
                       });
                     }
                   } else {
@@ -228,7 +235,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 ),
                 InputNumfieldgenerator('Pincode', context, 6,
                     on_changed_function: (String pin) {
-                    pinno = pin;
+                  pinno = pin;
                   if (pin.length >= 1 && pin.length < 6) {
                     pinerr = 'Write full Pincode';
                   } else {
@@ -296,7 +303,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                                     _image.length == 5 &&
                                     _timec.text != '' &&
                                     _timeo.text != '' &&
-                                    pinno!='')) {
+                                    pinno != '' && ismobilenumber(mobno))) {
                               final id = await storage.read(key: 'token');
 
                               setState(() {

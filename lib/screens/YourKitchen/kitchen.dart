@@ -58,6 +58,7 @@ class _KitchenState extends State<Kitchen> {
                                     child: Image.network(
                                       backend_link +
                                           list_food[index]['imgpath'],
+                                          fit: BoxFit.cover,
                                     ),
                                     decoration: BoxDecoration(
                                       color: Color.fromARGB(255, 43, 43, 43),

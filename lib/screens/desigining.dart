@@ -515,3 +515,15 @@ Widget Rejectbtn(BuildContext context, {onpressed}) {
     ),
   );
 }
+
+bool ismobilenumber(String value) {
+  String pattern = r'(^[6-9][0-9]{9}$)';
+  RegExp regExp = new RegExp(pattern);
+  if (value.length == 0) {
+    return false;
+  } else if (regExp.hasMatch(value)) {
+    return true;
+  } else {
+    return false;
+  }
+}

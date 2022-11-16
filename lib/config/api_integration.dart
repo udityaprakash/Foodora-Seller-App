@@ -89,10 +89,10 @@ Future<Map?> get_seller_info() async {
 
     String? id = await storage.read(key: 'token');
     log("token:" + token!);
-    log("Initialised Profile get for: " + token!);
+    log("Initialised Profile get for: " + token);
     final response = await post(Uri.parse(seller_profile_link),
         headers: <String, String>{
-          HttpHeaders.authorizationHeader: token!,
+          HttpHeaders.authorizationHeader: token,
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{"_id": id!}));
