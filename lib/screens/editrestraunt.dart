@@ -227,8 +227,8 @@ class _EditrestrauntState extends State<Editrestraunt> {
                 InputNumfieldgenerator('Pincode', context, 6,
                     on_changed_function: (String pin) {
                   pinno = pin;
-                  if (pin.length >= 1 && pin.length < 6) {
-                    pinerr = 'Write full Pincode';
+                  if (!ispin(pinno!)) {
+                    pinerr = 'Invalid pin';
                   } else {
                     pinerr = '';
                   }
@@ -277,12 +277,16 @@ class _EditrestrauntState extends State<Editrestraunt> {
                         () async {
                           if (!_isloading) {
                             if ((mobno == null ||
-                                        (mobno.toString().length == 10)
+                                        (mobno.toString().length == 0)
                                     ? ismobilenumber(mobno!)
                                     : false) &&
                                 (pinno == null ||
                                     pinno.toString().length == 6) &&
-                                (_image.isEmpty || _image.length == 5)) {
+                                (_image.isEmpty || _image.length == 5) && 
+                                (pinno == null || (pinno.toString().length < 0)
+                                ? ispin(pinno!)
+                                :false
+                                )) {
                               final id = await storage.read(key: 'token');
 
                               setState(() {

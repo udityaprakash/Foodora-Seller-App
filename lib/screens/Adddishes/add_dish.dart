@@ -215,7 +215,7 @@ class _Add_dishState extends State<Add_dish> {
                                         ],
                                       )
                                     : Container(
-                                        margin: EdgeInsets.symmetric(
+                                        margin: const EdgeInsets.symmetric(
                                             horizontal: 20),
                                         // color: Colors.white,
                                         child: Column(

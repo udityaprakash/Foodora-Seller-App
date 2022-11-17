@@ -339,6 +339,7 @@ Widget Inputtimepicker(
     width: MediaQuery.of(context).size.width / 2.3,
     child: TextfieldTimePicker(
       textfieldDateAndTimePickerController: _timeo,
+      cupertinoTimePickerUse24hFormat:true,
       cupertinoDatePickerBackgroundColor: Colors.black87,
       cupertinoDateInitialDateTime: DateTime(2022, 9, 7, 17, 30),
       materialInitialTime: new TimeOfDay(hour: 12, minute: 0),
@@ -522,6 +523,18 @@ bool ismobilenumber(String value) {
   if (value.length == 0) {
     return false;
   } else if (regExp.hasMatch(value)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool ispin(String pinnumber) {
+  String pattern = r'(^[0-9]{6}$)';
+  RegExp regExp = new RegExp(pattern);
+  if (pinnumber.length == 0) {
+    return false;
+  } else if (regExp.hasMatch(pinnumber)) {
     return true;
   } else {
     return false;
