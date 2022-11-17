@@ -15,6 +15,7 @@ class main_home extends StatefulWidget {
 
 class _main_homeState extends State<main_home> {
   RefreshController control = RefreshController(initialRefresh: false);
+  RefreshController controlz = RefreshController(initialRefresh: false);
   bool _isloading = false;
   final storage = new FlutterSecureStorage();
   bool orderexist = true;
@@ -41,63 +42,74 @@ class _main_homeState extends State<main_home> {
           ],
         ),
         // ),
-        body: FutureBuilder(
-          future: sellerinfograbber(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              var order_info = snapshot.data['sellerDetails']['orders'];
+        body: 
+        // SmartRefresher(
+        //   enablePullDown: true,
+        //   controller: control,
+        //   onRefresh: () async {
+        //     await put_seller_info();
+        //     setState(() {});
+        //     control.loadComplete();
+        //   },
+        //   child:
+           FutureBuilder(
+            future: sellerinfograbber(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var order_info = snapshot.data['sellerDetails']['orders'];
 
-              if (order_info.isEmpty) {
-                return Center(
-                  child: Container(
-                    child: textgenerator(
-                        'No Order\'s yet', 25, 'Raleway', 500, Colors.white),
-                  ),
-                );
-              } else {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        // color: Colors.white38,
-                        margin: EdgeInsets.only(top: 30, left: 10, right: 10),
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.85,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(255, 110, 110, 110),
-                                width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Column(
-                                children: [
-                                  textgenerator(
-                                      'Your Orders',
-                                      MediaQuery.of(context).size.width / 15,
-                                      'RaleWay',
-                                      200,
-                                      Colors.white),
-                                  Divider(
-                                    color: Colors.white38,
-                                  ),
-                                ],
+                if (order_info.isEmpty) {
+                  return Center(
+                    child: Container(
+                      child: textgenerator(
+                          'No Order\'s yet', 25, 'Raleway', 500, Colors.white),
+                    ),
+                  );
+                } else {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          // color: Colors.white38,
+                          margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.85,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 110, 110, 110),
+                                  width: 2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    textgenerator(
+                                        'Your Orders',
+                                        MediaQuery.of(context).size.width / 15,
+                                        'RaleWay',
+                                        200,
+                                        Colors.white),
+                                    Divider(
+                                      color: Colors.white38,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            orderexist
-                                ? Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.7,
-                                    child: SmartRefresher(
-                                      enablePullDown: true,
-                                      controller: control,
-                                      onRefresh: () async {
-                                        await put_seller_info();
-                                        setState(() {});
-                                      },
+                              orderexist
+                                  ? Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      // child: SmartRefresher(
+                                      //   enablePullDown: true,
+                                      //   controller: control,
+                                      //   onRefresh: () async {
+                                      //     // await put_seller_info();
+                                      //     // setState(() {});
+                                      //   },
                                       child: ListView.builder(
                                           itemCount: order_info.length,
                                           scrollDirection: Axis.vertical,
@@ -110,14 +122,15 @@ class _main_homeState extends State<main_home> {
                                                     padding: EdgeInsets.all(10),
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
-                                                            color:
-                                                                const Color.fromARGB(
-                                                                    255,
-                                                                    110,
-                                                                    110,
-                                                                    110)),
+                                                            color: const Color
+                                                                    .fromARGB(
+                                                                255,
+                                                                110,
+                                                                110,
+                                                                110)),
                                                         borderRadius:
-                                                            const BorderRadius.all(
+                                                            const BorderRadius
+                                                                    .all(
                                                                 Radius.circular(
                                                                     20))),
                                                     child: Column(
@@ -252,29 +265,35 @@ class _main_homeState extends State<main_home> {
                                                       ],
                                                     ),
                                                   ))),
+                                      // ),
+                                    )
+                                  : Container(
+                                      child: textgenerator('No Order yet', 15,
+                                          'Raleway', 500, Colors.white),
                                     ),
-                                  )
-                                : Container(
-                                    child: textgenerator('No Order yet', 15,
-                                        'Raleway', 500, Colors.white),
-                                  ),
-                            SizedBox(
-                              height: 10,
-                            )
-                          ],
+                              SizedBox(
+                                height: 10,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  );
+                }
+              } else {
+                return Center(
+                  // child: CircularProgressIndicator(),
+                  child: Image.asset(
+                    "assets/images/loader.gif",
+                    height: 100,
+                    width: 100,
                   ),
                 );
               }
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+            },
+          ),
+        // ),
         drawer: FutureBuilder(
           future: sellerinfograbber(),
           builder: (context, snapshot) {
@@ -431,9 +450,11 @@ class _main_homeState extends State<main_home> {
               );
             } else {
               return Container(
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: blue_background,
+                child: Center(
+                  child: Image.asset(
+                    "assets/images/loader.gif",
+                    height: 100,
+                    width: 100,
                   ),
                 ),
               );

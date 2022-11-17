@@ -368,16 +368,22 @@ class _Add_dishState extends State<Add_dish> {
                                     ),
                                   )
                                 : Container(
-                                    color: Color.fromRGBO(50, 81, 255, 1),
+                                    // color: Color.fromRGBO(50, 81, 255, 1),
                                     width: double.infinity,
                                     child: Center(
-                                        child: textgenerator(
-                                            'Adding...',
-                                            MediaQuery.of(context).size.width /
-                                                16,
-                                            'Raleway',
-                                            200,
-                                            Colors.white)),
+                                        child: Image.asset(
+                    "assets/images/loader.gif",
+                    height: 100,
+                    width: 100,
+                  ),
+                                        // textgenerator(
+                                        //     'Adding...',
+                                        //     MediaQuery.of(context).size.width /
+                                        //         16,
+                                        //     'Raleway',
+                                        //     200,
+                                        //     Colors.white)
+                                            ),
                                   )
                           ],
                         ),
