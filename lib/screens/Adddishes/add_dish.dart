@@ -301,6 +301,7 @@ class _Add_dishState extends State<Add_dish> {
                                                   user_info,
                                                   dishname,
                                                   price,
+                                                  'pizza',
                                                   dishdesc,
                                                   image: _image);
                                               if (response['success']) {
