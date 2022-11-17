@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodora_seller/config/api_integration.dart';
 import 'package:foodora_seller/screens/desigining.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../config/api_links.dart';
 
@@ -13,6 +15,7 @@ class Kitchen extends StatefulWidget {
 
 class _KitchenState extends State<Kitchen> {
   bool trayhasfood = true;
+  RefreshController control = RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,7 @@ class _KitchenState extends State<Kitchen> {
         ),
       ),
       body: SingleChildScrollView(
-          child: FutureBuilder(
+        child: FutureBuilder(
         future: sellerinfograbber(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -46,19 +49,33 @@ class _KitchenState extends State<Kitchen> {
                               margin: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Color.fromARGB(255, 110, 110, 110)),
+                                    color:
+                                        Color.fromARGB(255, 110, 110, 110)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                               ),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.stretch,
                                 children: [
                                   Container(
                                     width: 150,
                                     child: Image.network(
                                       backend_link +
                                           list_food[index]['imgpath'],
-                                          fit: BoxFit.cover,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (BuildContext context, Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress.expectedTotalBytes != null
+                                              ? loadingProgress.cumulativeBytesLoaded /
+                                                  loadingProgress.expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      );
+                                    },
                                     ),
                                     decoration: BoxDecoration(
                                       color: Color.fromARGB(255, 43, 43, 43),
@@ -93,7 +110,8 @@ class _KitchenState extends State<Kitchen> {
                                                   255, 255, 236, 236)),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment
+                                                    .spaceBetween,
                                             children: [
                                               textgenerator(
                                                   '₹ ' +
@@ -122,7 +140,8 @@ class _KitchenState extends State<Kitchen> {
             return Center(child: CircularProgressIndicator());
           }
         },
-      )),
+      ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.pushNamed(context, '/adddish');

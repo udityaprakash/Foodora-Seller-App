@@ -236,8 +236,8 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                 InputNumfieldgenerator('Pincode', context, 6,
                     on_changed_function: (String pin) {
                   pinno = pin;
-                  if (pin.length >= 1 && pin.length < 6) {
-                    pinerr = 'Write full Pincode';
+                  if (!ispin(pinno)) {
+                    pinerr = 'Invalid pin';
                   } else {
                     pinerr = '';
                   }
@@ -303,7 +303,7 @@ class _Restraunt_registerState extends State<Restraunt_register> {
                                     _image.length == 5 &&
                                     _timec.text != '' &&
                                     _timeo.text != '' &&
-                                    pinno != '' && ismobilenumber(mobno))) {
+                                    pinno != '' && ismobilenumber(mobno) && ispin(pinno))) {
                               final id = await storage.read(key: 'token');
 
                               setState(() {

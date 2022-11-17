@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foodora_seller/screens/desigining.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../config/api_integration.dart';
 
@@ -13,6 +14,8 @@ class main_home extends StatefulWidget {
 }
 
 class _main_homeState extends State<main_home> {
+  RefreshController control = RefreshController(initialRefresh: false);
+  RefreshController controlz = RefreshController(initialRefresh: false);
   bool _isloading = false;
   final storage = new FlutterSecureStorage();
   bool orderexist = true;
@@ -39,226 +42,258 @@ class _main_homeState extends State<main_home> {
           ],
         ),
         // ),
-        body: FutureBuilder(
-          future: sellerinfograbber(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              var order_info = snapshot.data['sellerDetails']['orders'];
+        body: 
+        // SmartRefresher(
+        //   enablePullDown: true,
+        //   controller: control,
+        //   onRefresh: () async {
+        //     await put_seller_info();
+        //     setState(() {});
+        //     control.loadComplete();
+        //   },
+        //   child:
+           FutureBuilder(
+            future: sellerinfograbber(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var order_info = snapshot.data['sellerDetails']['orders'];
 
-              if (order_info == null) {
-                return Container(
-                  child: textgenerator(
-                      'No Order yet', 15, 'Raleway', 500, Colors.white),
-                );
-              } else {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        // color: Colors.white38,
-                        margin: EdgeInsets.only(top: 30, left: 10, right: 10),
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.85,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(255, 110, 110, 110),
-                                width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Column(
-                                children: [
-                                  textgenerator(
-                                      'Your Orders',
-                                      MediaQuery.of(context).size.width / 15,
-                                      'RaleWay',
-                                      200,
-                                      Colors.white),
-                                  Divider(
-                                    color: Colors.white38,
-                                  ),
-                                ],
+                if (order_info.isEmpty) {
+                  return Center(
+                    child: Container(
+                      child: textgenerator(
+                          'No Order\'s yet', 25, 'Raleway', 500, Colors.white),
+                    ),
+                  );
+                } else {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          // color: Colors.white38,
+                          margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.85,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 110, 110, 110),
+                                  width: 2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    textgenerator(
+                                        'Your Orders',
+                                        MediaQuery.of(context).size.width / 15,
+                                        'RaleWay',
+                                        200,
+                                        Colors.white),
+                                    Divider(
+                                      color: Colors.white38,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            orderexist
-                                ? Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.7,
-                                    child: ListView.builder(
-                                        itemCount: order_info.length,
-                                        scrollDirection: Axis.vertical,
-                                        itemBuilder: ((context, index) =>
-                                            Container(
-                                              height: 320,
-                                              width: double.infinity,
-                                              margin:
-                                                  EdgeInsets.only(bottom: 10),
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Color.fromARGB(
-                                                          255, 110, 110, 110)),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
+                              orderexist
+                                  ? Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      // child: SmartRefresher(
+                                      //   enablePullDown: true,
+                                      //   controller: control,
+                                      //   onRefresh: () async {
+                                      //     // await put_seller_info();
+                                      //     // setState(() {});
+                                      //   },
+                                      child: ListView.builder(
+                                          itemCount: order_info.length,
+                                          scrollDirection: Axis.vertical,
+                                          itemBuilder:
+                                              ((context, index) => Container(
+                                                    height: 320,
+                                                    width: double.infinity,
+                                                    margin: EdgeInsets.only(
+                                                        bottom: 10),
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color
+                                                                    .fromARGB(
+                                                                255,
+                                                                110,
+                                                                110,
+                                                                110)),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    20))),
                                                     child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        textgenerator(
-                                                            "User " +
-                                                                (index + 1)
-                                                                    .toString(),
-                                                            20,
-                                                            'Raleway',
-                                                            500,
-                                                            Color.fromRGBO(50,
-                                                                81, 255, 1)),
-                                                        Divider(
-                                                          color: Colors.white,
+                                                        Container(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              textgenerator(
+                                                                  "User " +
+                                                                      (index +
+                                                                              1)
+                                                                          .toString(),
+                                                                  20,
+                                                                  'Raleway',
+                                                                  500,
+                                                                  Color
+                                                                      .fromRGBO(
+                                                                          50,
+                                                                          81,
+                                                                          255,
+                                                                          1)),
+                                                              Divider(
+                                                                color: Colors
+                                                                    .white,
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          child: Column(
+                                                            children: [
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                              Container(
+                                                                  height: 130,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.7,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    border: Border.all(
+                                                                        color: Color.fromARGB(
+                                                                            255,
+                                                                            110,
+                                                                            110,
+                                                                            110)),
+                                                                    // borderRadius: BorderRadius.all(Radius.circular(20))
+                                                                  ),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          textgenerator(
+                                                                              'Food',
+                                                                              20,
+                                                                              'Raleway',
+                                                                              500,
+                                                                              Colors.white),
+                                                                          Divider(
+                                                                              color: Color.fromARGB(255, 255, 255, 255)),
+                                                                          textgenerator(
+                                                                              'Quantity',
+                                                                              20,
+                                                                              'Raleway',
+                                                                              500,
+                                                                              Colors.white),
+                                                                        ],
+                                                                      ),
+                                                                      Container(
+                                                                        height:
+                                                                            80,
+                                                                        child: ListView
+                                                                            .builder(
+                                                                          itemCount:
+                                                                              order_info[index].length,
+                                                                          itemBuilder: ((context, food_index) =>
+                                                                              Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  border: Border.all(color: Color.fromARGB(255, 110, 110, 110)),
+                                                                                  // borderRadius: BorderRadius.all(Radius.circular(20))
+                                                                                ),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                      children: [
+                                                                                        textgenerator(order_info[index][food_index]['foodname'], 18, 'Raleway', 500, Colors.white),
+                                                                                        textgenerator(order_info[index][food_index]['quantity'].toString(), 18, 'Raleway', 500, Colors.white),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              )),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ))
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Acceptbtn(context,
+                                                                onpressed:
+                                                                    () async {
+                                                              if (!_isloading) {
+                                                                _isloading =
+                                                                    true;
+                                                                await order_done(
+                                                                    index);
+                                                                _isloading =
+                                                                    false;
+                                                                setState(() {});
+                                                              }
+                                                            }),
+                                                          ],
                                                         )
                                                       ],
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    child: Column(
-                                                      children: [
-                                                        SizedBox(
-                                                          height: 15,
-                                                        ),
-                                                        Container(
-                                                            height: 130,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.7,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          110,
-                                                                          110,
-                                                                          110)),
-                                                              // borderRadius: BorderRadius.all(Radius.circular(20))
-                                                            ),
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  children: [
-                                                                    textgenerator(
-                                                                        'Food',
-                                                                        20,
-                                                                        'Raleway',
-                                                                        500,
-                                                                        Colors
-                                                                            .white),
-                                                                    Divider(
-                                                                        color: Color.fromARGB(
-                                                                            255,
-                                                                            255,
-                                                                            255,
-                                                                            255)),
-                                                                    textgenerator(
-                                                                        'Quantity',
-                                                                        20,
-                                                                        'Raleway',
-                                                                        500,
-                                                                        Colors
-                                                                            .white),
-                                                                  ],
-                                                                ),
-                                                                Container(
-                                                                  height: 80,
-                                                                  child: ListView
-                                                                      .builder(
-                                                                    itemCount: order_info[
-                                                                            index]
-                                                                        .length,
-                                                                    itemBuilder:
-                                                                        ((context,
-                                                                                food_index) =>
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(color: Color.fromARGB(255, 110, 110, 110)),
-                                                                                // borderRadius: BorderRadius.all(Radius.circular(20))
-                                                                              ),
-                                                                              child: Column(
-                                                                                children: [
-                                                                                  Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                    children: [
-                                                                                      textgenerator(order_info[index][food_index]['foodname'], 18, 'Raleway', 500, Colors.white),
-                                                                                      textgenerator(order_info[index][food_index]['quantity'].toString(), 18, 'Raleway', 500, Colors.white),
-                                                                                    ],
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            )),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Acceptbtn(context,
-                                                          onpressed: () async {
-                                                        if (!_isloading) {
-                                                          _isloading = true;
-                                                          await order_done(
-                                                              index);
-                                                          _isloading = false;
-                                                          setState(() {});
-                                                        }
-                                                      }),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ))),
-                                  )
-                                : Container(
-                                    child: textgenerator('No Order yet', 15,
-                                        'Raleway', 500, Colors.white),
-                                  ),
-                            SizedBox(
-                              height: 10,
-                            )
-                          ],
+                                                  ))),
+                                      // ),
+                                    )
+                                  : Container(
+                                      child: textgenerator('No Order yet', 15,
+                                          'Raleway', 500, Colors.white),
+                                    ),
+                              SizedBox(
+                                height: 10,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  );
+                }
+              } else {
+                return Center(
+                  // child: CircularProgressIndicator(),
+                  child: Image.asset(
+                    "assets/images/loader.gif",
+                    height: 100,
+                    width: 100,
                   ),
                 );
               }
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+            },
+          ),
+        // ),
         drawer: FutureBuilder(
           future: sellerinfograbber(),
           builder: (context, snapshot) {
@@ -354,6 +389,20 @@ class _main_homeState extends State<main_home> {
                     Divider(),
                     ListTile(
                       leading: const Icon(
+                        Icons.history,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      title: textgenerator(
+                          'Order History', 15, 'Raleway', 500, Colors.white),
+                      onTap: () {
+                        Navigator.pop(context);
+                        // Navigator.of(context).pushNamed('/');
+                      },
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: const Icon(
                         Icons.policy,
                         color: Colors.black,
                         size: 30,
@@ -401,9 +450,11 @@ class _main_homeState extends State<main_home> {
               );
             } else {
               return Container(
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: blue_background,
+                child: Center(
+                  child: Image.asset(
+                    "assets/images/loader.gif",
+                    height: 100,
+                    width: 100,
                   ),
                 ),
               );

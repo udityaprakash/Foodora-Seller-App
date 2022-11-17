@@ -4,7 +4,6 @@ import 'package:foodora_seller/screens/homepage/loginpage.dart';
 import 'package:foodora_seller/screens/homepage/newsellerpage.dart';
 import 'package:foodora_seller/screens/newregister/register.dart';
 import 'package:foodora_seller/screens/route.dart';
-
 import 'screens/forgotpages/forgotpass.dart';
 import 'screens/forgotpages/otppage.dart';
 import 'screens/splashpage/splash_screen.dart';
@@ -15,7 +14,6 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MyApp()));
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
