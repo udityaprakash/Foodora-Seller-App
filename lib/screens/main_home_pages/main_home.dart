@@ -41,8 +41,7 @@ class _main_homeState extends State<main_home> {
             ),
           ],
         ),
-        body: 
-        SmartRefresher(
+        body: SmartRefresher(
           enablePullDown: true,
           controller: control,
           onRefresh: () async {
@@ -50,12 +49,12 @@ class _main_homeState extends State<main_home> {
             control.loadComplete();
             setState(() {});
           },
-          child:
-           FutureBuilder(
+          child: FutureBuilder(
             future: sellerinfograbber(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var order_info = snapshot.data['sellerDetails']['orders'];
+                log("infinite load "+snapshot.error.toString());
 
                 if (order_info.isEmpty) {
                   return Center(
@@ -102,13 +101,14 @@ class _main_homeState extends State<main_home> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.7,
-                                      child: SmartRefresher(
-                                        enablePullDown: true,
-                                        controller: control,
-                                        onRefresh: () async {
-                                          await put_seller_info();
-                                          setState(() {});
-                                        },
+                                      // child:
+                                      //  SmartRefresher(
+                                      //   enablePullDown: true,
+                                      //   controller: control,
+                                      //   onRefresh: () async {
+                                      //     await put_seller_info();
+                                      //     setState(() {});
+                                      //   },
                                       child: ListView.builder(
                                           itemCount: order_info.length,
                                           scrollDirection: Axis.vertical,
@@ -264,7 +264,7 @@ class _main_homeState extends State<main_home> {
                                                       ],
                                                     ),
                                                   ))),
-                                      ),
+                                      // ),
                                     )
                                   : Container(
                                       child: textgenerator('No Order yet', 15,
