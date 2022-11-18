@@ -54,9 +54,7 @@ class _main_homeState extends State<main_home> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var order_info = snapshot.data['sellerDetails']['orders'];
-                log("infinite load "+snapshot.error.toString());
-
-                if (order_info.isEmpty) {
+                  if (order_info!=[]) {
                   return Center(
                     child: Container(
                       child: textgenerator(
