@@ -178,95 +178,96 @@ class _EditrestrauntState extends State<Editrestraunt> {
                           on_changed_function: (String textinput) {
                         mobno = textinput;
 
-                  if (textinput.isNotEmpty) {
-                    if (textinput.length != 10) {
-                      setState(() {
-                        mobnoerr = '10 digits required';
-                      });
-                    } else {
-                      if (ismobilenumber(mobno!)) {
-                        setState(() {
-                          mobnoerr = '';
-                        });
-                      } else {
-                        mobnoerr = 'Invalid Mobile no';
-                      }
-                    }
-                  } else {
-                    setState(() {
-                      mobnoerr = '';
-                    });
-                  }
-                }),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 35,
-                  child: errortextgenerator(
-                      mobnoerr, MediaQuery.of(context).size.width / 30, 400),
-                ),
-                InputNumfieldgenerator('Pincode', context, 6,
-                    on_changed_function: (String pin) {
-                  pinno = pin;
-                  if (!ispin(pinno!)) {
-                    pinerr = 'Invalid pin';
-                  } else {
-                    pinerr = '';
-                  }
-                }),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 35,
-                  child: errortextgenerator(
-                      pinerr, MediaQuery.of(context).size.width / 30, 400),
-                ),
-                InputFieldgenerator("Full Address", context,
-                    check: (String addr) {
-                  addres = addr;
-                }),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 55,
-                  child: errortextgenerator(
-                      adderr, MediaQuery.of(context).size.width / 30, 400),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Inputtimepicker(context, 'Opening Time', _timeo),
-                    Inputtimepicker(context, 'Closing Time', _timec),
-                  ],
-                ),
-                _image.length != 5
-                    ? SizedBox(
-                        height: 20,
-                        child: errortextgenerator('5 Images required', 15, 300),
-                      )
-                    : SizedBox(height: 20),
-                _isloading
-                    ? SizedBox(
-                        height: 20,
-                        width: 20,
-                        child:
-                            CircularProgressIndicator(color: blue_background),
-                      )
-                    : SizedBox(height: 20),
-                _isloading
-                    ? Container()
-                    : buttongenerator(
-                        'Next',
-                        context,
-                        () async {
-                          if (!_isloading) {
-                            if ((mobno == null ||
-                                        (mobno.toString().length == 0)
-                                    ? ismobilenumber(mobno!)
-                                    : false) &&
-                                (pinno == null ||
-                                    pinno.toString().length == 6) &&
-                                (_image.isEmpty || _image.length == 5) && 
-                                (pinno == null || (pinno.toString().length < 0)
-                                ? ispin(pinno!)
-                                :false
-                                )) {
-                              final id = await storage.read(key: 'token');
+                        if (textinput.isNotEmpty) {
+                          if (textinput.length != 10) {
+                            setState(() {
+                              mobnoerr = '10 digits required';
+                            });
+                          } else {
+                            if (ismobilenumber(mobno!)) {
+                              setState(() {
+                                mobnoerr = '';
+                              });
+                            } else {
+                              mobnoerr = 'Invalid Mobile no';
+                            }
+                          }
+                        } else {
+                          setState(() {
+                            mobnoerr = '';
+                          });
+                        }
+                      }),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 35,
+                        child: errortextgenerator(mobnoerr,
+                            MediaQuery.of(context).size.width / 30, 400),
+                      ),
+                      InputNumfieldgenerator('Pincode', context, 6,
+                          on_changed_function: (String pin) {
+                        pinno = pin;
+                        if (!ispin(pinno!)) {
+                          pinerr = 'Invalid pin';
+                        } else {
+                          pinerr = '';
+                        }
+                      }),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 35,
+                        child: errortextgenerator(pinerr,
+                            MediaQuery.of(context).size.width / 30, 400),
+                      ),
+                      InputFieldgenerator("Full Address", context,
+                          controller: _address, check: (String addr) {
+                        addres = addr;
+                      }),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 55,
+                        child: errortextgenerator(adderr,
+                            MediaQuery.of(context).size.width / 30, 400),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Inputtimepicker(context, 'Opening Time', _timeo),
+                          Inputtimepicker(context, 'Closing Time', _timec),
+                        ],
+                      ),
+                      _image.length != 5
+                          ? SizedBox(
+                              height: 20,
+                              child: errortextgenerator(
+                                  '5 Images required', 15, 300),
+                            )
+                          : SizedBox(height: 20),
+                      _isloading
+                          ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                  color: blue_background),
+                            )
+                          : SizedBox(height: 20),
+                      _isloading
+                          ? Container()
+                          : buttongenerator(
+                              'Next',
+                              context,
+                              () async {
+                                if (!_isloading) {
+                                  if ((mobno == null ||
+                                              (mobno.toString().length == 0)
+                                          ? ismobilenumber(mobno!)
+                                          : false) &&
+                                      (pinno == null ||
+                                          pinno.toString().length == 6) &&
+                                      (_image.isEmpty || _image.length == 5) &&
+                                      (pinno == null ||
+                                              (pinno.toString().length < 0)
+                                          ? ispin(pinno!)
+                                          : false)) {
+                                    final id = await storage.read(key: 'token');
 
                                     setState(() {
                                       _isloading = true;

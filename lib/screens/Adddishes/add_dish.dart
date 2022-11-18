@@ -28,8 +28,9 @@ class _Add_dishState extends State<Add_dish> {
     "Burger",
     "Pizza",
     "Noodles",
-    "Desert",
+    "Dessert",
     "Beverages",
+    "Indian",
     "Others"
   ];
   bool notsendingdata = true;
@@ -37,9 +38,6 @@ class _Add_dishState extends State<Add_dish> {
   String dishdesc = '';
   String price = '';
   dynamic user_info;
-  // TextEditingController _restname = TextEditingController();
-  // TextEditingController _mobno = TextEditingController();
-  // TextEditingController _address = TextEditingController();
   String btntext = 'Next';
   late XFile im;
   final ImagePicker _picker = ImagePicker();
@@ -158,7 +156,6 @@ class _Add_dishState extends State<Add_dish> {
                                                 ),
                                                 onTap: () {
                                                   selectImage();
-                                                 
                                                 },
                                               ))
                                         ],
@@ -212,7 +209,13 @@ class _Add_dishState extends State<Add_dish> {
                                                 child: errortextgenerator(
                                                     dishdescerr, 13, 300)),
                                             DropdownButton(
-                                              hint: Text("Category"),
+                                              hint: Text(
+                                                "Category",
+                                                style: TextStyle(
+                                                    color: Colors.white70),
+                                              ),
+                                              dropdownColor: Color.fromARGB(
+                                                  255, 110, 110, 110),
                                               value: valuechoosen,
                                               onChanged: (value) {
                                                 setState(() {
@@ -224,7 +227,12 @@ class _Add_dishState extends State<Add_dish> {
                                               items: listItem.map((valueItem) {
                                                 return DropdownMenuItem(
                                                     value: valueItem,
-                                                    child: Text(valueItem));
+                                                    child: Text(
+                                                      valueItem,
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat"),
+                                                    ));
                                               }).toList(),
                                             ),
                                             SizedBox(
@@ -263,7 +271,6 @@ class _Add_dishState extends State<Add_dish> {
                                                 price != '' &&
                                                 int.parse(price) != 0 &&
                                                 _image != null) {
-
                                               if (valuechoosen != null) {
                                                 setState(() {
                                                   notsendingdata = false;
@@ -273,13 +280,12 @@ class _Add_dishState extends State<Add_dish> {
                                                     dishname,
                                                     price,
                                                     dishdesc,
-                                                    valuechoosen!,
+                                                    valuechoosen!.toLowerCase(),
                                                     image: _image);
                                                 if (response['success']) {
                                                   Navigator.pop(context);
                                                 }
                                                 // food_list(id, dishname, price, dishdesc,)
-
 
                                                 // Navigator.of(context).pop();
                                               } else {
