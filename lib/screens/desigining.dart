@@ -477,7 +477,7 @@ Widget Acceptbtn(BuildContext context, {onpressed}) {
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
         child: Text(
-          'DONE',
+          'ACCEPT',
           style: TextStyle(
               letterSpacing: 2,
               color: Colors.white,
@@ -504,7 +504,7 @@ Widget Rejectbtn(BuildContext context, {onpressed}) {
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.height / 60),
         child: Text(
-          'Reject',
+          'REJECT',
           style: TextStyle(
               letterSpacing: 2,
               color: Colors.white,

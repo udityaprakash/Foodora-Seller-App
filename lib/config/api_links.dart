@@ -30,4 +30,10 @@ final food_list_link =
 final order_done_link =
     "https://foodorabackend-production.up.railway.app/seller/removefromorders";
 
+final seller_orders_link =
+    "https://foodorabackend-production.up.railway.app/seller/sellerpendingorders";
+
+final set_status_link =
+    "https://foodorabackend-production.up.railway.app/seller/setorderstatus";
+
 final backend_link = "https://foodorabackend-production.up.railway.app/";

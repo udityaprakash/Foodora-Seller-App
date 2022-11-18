@@ -252,3 +252,65 @@ dynamic order_done(int index) async {
     log("error caught: " + er.toString());
   }
 }
+
+dynamic seller_orders(int index) async {
+  try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    log("Initialised order done  For: " + index.toString());
+    final response = await get(
+      Uri.parse(seller_orders_link),
+      headers: <String, String>{
+        HttpHeaders.authorizationHeader: token!,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    final output = jsonDecode(response.body);
+    log(" order done results: : " + output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}
+
+Future<Map?> get_pending_orders() async {
+  try {
+    final storage = new FlutterSecureStorage();
+    String? id = await storage.read(key: 'access_token');
+    log("Initialised Orders get for: " + id!);
+    final response =
+        await get(Uri.parse(seller_orders_link), headers: <String, String>{
+      HttpHeaders.authorizationHeader: id!,
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+    final Map output = jsonDecode(response.body);
+    log("response of the Orders : " + output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+    return Map();
+  }
+}
+
+dynamic set_order_status(String orderid, String status) async {
+  try {
+    final storage = new FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+    log("Initialised order set for ${orderid} with status " + status);
+    final response = await post(
+      Uri.parse(set_status_link),
+      headers: <String, String>{
+        HttpHeaders.authorizationHeader: token!,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        <String, String>{"orderid": orderid, "status": status},
+      ),
+    );
+    final output = jsonDecode(response.body);
+    log(" status results: : " + output.toString());
+    return output;
+  } catch (er) {
+    log("error caught: " + er.toString());
+  }
+}

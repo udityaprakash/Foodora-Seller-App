@@ -46,15 +46,15 @@ class _main_homeState extends State<main_home> {
           controller: control,
           onRefresh: () async {
             await put_seller_info();
-            control.loadComplete();
+            control.refreshCompleted();
             setState(() {});
           },
           child: FutureBuilder(
-            future: sellerinfograbber(),
+            future: get_pending_orders(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                var order_info = snapshot.data['sellerDetails']['orders'];
-                  if (order_info!=[]) {
+                var order_info = snapshot.data!['orders'];
+                if (order_info.isEmpty) {
                   return Center(
                     child: Container(
                       child: textgenerator(
@@ -66,7 +66,6 @@ class _main_homeState extends State<main_home> {
                     child: Column(
                       children: [
                         Container(
-                          // color: Colors.white38,
                           margin: EdgeInsets.only(top: 30, left: 10, right: 10),
                           padding: EdgeInsets.all(10),
                           height: MediaQuery.of(context).size.height * 0.85,
@@ -213,7 +212,7 @@ class _main_homeState extends State<main_home> {
                                                                         child: ListView
                                                                             .builder(
                                                                           itemCount:
-                                                                              order_info[index].length,
+                                                                              order_info[index]['order'].length,
                                                                           itemBuilder: ((context, food_index) =>
                                                                               Container(
                                                                                 decoration: BoxDecoration(
@@ -225,8 +224,8 @@ class _main_homeState extends State<main_home> {
                                                                                     Row(
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                                       children: [
-                                                                                        textgenerator(order_info[index][food_index]['foodname'], 18, 'Raleway', 500, Colors.white),
-                                                                                        textgenerator(order_info[index][food_index]['quantity'].toString(), 18, 'Raleway', 500, Colors.white),
+                                                                                        textgenerator(order_info[index]['order'][food_index]['foodname'], 18, 'Raleway', 500, Colors.white),
+                                                                                        textgenerator(order_info[index]['order'][food_index]['quantity'].toString(), 18, 'Raleway', 500, Colors.white),
                                                                                       ],
                                                                                     ),
                                                                                   ],
@@ -250,13 +249,32 @@ class _main_homeState extends State<main_home> {
                                                               if (!_isloading) {
                                                                 _isloading =
                                                                     true;
-                                                                await order_done(
-                                                                    index);
+                                                                set_order_status(
+                                                                    order_info[
+                                                                            index]
+                                                                        ['_id'],
+                                                                    "Accepted");
                                                                 _isloading =
                                                                     false;
                                                                 setState(() {});
                                                               }
                                                             }),
+                                                            Rejectbtn(context,
+                                                                onpressed:
+                                                                    () async {
+                                                              if (!_isloading) {
+                                                                _isloading =
+                                                                    true;
+                                                                set_order_status(
+                                                                    order_info[
+                                                                            index]
+                                                                        ['_id'],
+                                                                    "Rejected");
+                                                                _isloading =
+                                                                    false;
+                                                                setState(() {});
+                                                              }
+                                                            })
                                                           ],
                                                         )
                                                       ],
