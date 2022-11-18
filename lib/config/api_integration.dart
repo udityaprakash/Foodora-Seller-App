@@ -281,7 +281,7 @@ dynamic restaurant_modify(
 }
 
 dynamic food_list(
-    String id, String foodname, String food_price, String food_desc,
+    String id, String foodname, String food_price, String food_desc,String category,
     {File? image}) async {
   try {
     final storage = new FlutterSecureStorage();

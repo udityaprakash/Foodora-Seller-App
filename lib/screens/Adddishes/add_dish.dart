@@ -20,6 +20,7 @@ class _Add_dishState extends State<Add_dish> {
   var dishdescerr = '';
   var priceerr = '';
   var imgerr = '';
+  var caterr = '';
   // final category =<String>['item 1','item 2'];
   // final category = List<DropdownMenuItem<dynamic>>.from(lis);
   String? valuechoosen;
@@ -292,7 +293,7 @@ class _Add_dishState extends State<Add_dish> {
                                             SizedBox(
                                                 height: 20,
                                                 child: errortextgenerator(
-                                                    dishdescerr, 13, 300)),
+                                                    caterr, 13, 300)),
                                             InputNumfieldgenerator(
                                                 'Price', context, 4,
                                                 on_changed_function:
@@ -325,21 +326,27 @@ class _Add_dishState extends State<Add_dish> {
                                                 price != '' &&
                                                 int.parse(price) != 0 &&
                                                 _image != null) {
-                                              setState(() {
-                                                notsendingdata = false;
-                                              });
-                                              var response = await food_list(
-                                                  user_info,
-                                                  dishname,
-                                                  price,
-                                                  dishdesc,
-                                                  image: _image);
-                                              if (response['success']) {
-                                                Navigator.pop(context);
-                                              }
-                                              // food_list(id, dishname, price, dishdesc,)
+                                              if (valuechoosen != null) {
+                                                setState(() {
+                                                  notsendingdata = false;
+                                                });
+                                                var response = await food_list(
+                                                    user_info,
+                                                    dishname,
+                                                    price,
+                                                    dishdesc,
+                                                    valuechoosen!,
+                                                    image: _image);
+                                                if (response['success']) {
+                                                  Navigator.pop(context);
+                                                }
+                                                // food_list(id, dishname, price, dishdesc,)
 
-                                              // Navigator.of(context).pop();
+                                                // Navigator.of(context).pop();
+                                              } else {
+                                                caterr =
+                                                    'Please select Category';
+                                              }
                                             } else {
                                               setState(() {
                                                 priceerr = 'Price Required';
