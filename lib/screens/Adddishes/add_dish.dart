@@ -29,8 +29,9 @@ class _Add_dishState extends State<Add_dish> {
     "Burger",
     "Pizza",
     "Noodles",
-    "Desert",
+    "Dessert",
     "Beverages",
+    "Indian",
     "Others"
   ];
   bool notsendingdata = true;
@@ -38,9 +39,6 @@ class _Add_dishState extends State<Add_dish> {
   String dishdesc = '';
   String price = '';
   dynamic user_info;
-  // TextEditingController _restname = TextEditingController();
-  // TextEditingController _mobno = TextEditingController();
-  // TextEditingController _address = TextEditingController();
   String btntext = 'Next';
   late XFile im;
   final ImagePicker _picker = ImagePicker();

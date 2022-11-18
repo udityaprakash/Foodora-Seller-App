@@ -200,10 +200,8 @@ dynamic restaurant_register(
   }
 }
 
-
-dynamic food_list(
-    String id, String foodname, String food_price, String food_desc,String category,
-
+dynamic food_list(String id, String foodname, String food_price,
+    String food_desc, String category,
     {File? image}) async {
   try {
     final storage = new FlutterSecureStorage();
@@ -222,7 +220,7 @@ dynamic food_list(
     }
 
     request.fields['id'] = id;
-    request.fields['category'] = category;
+    request.fields['food_category'] = category;
     request.fields['foodname'] = foodname;
     request.fields['food_price'] = food_price;
     request.fields['food_desc'] = food_desc;
