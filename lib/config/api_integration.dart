@@ -171,13 +171,16 @@ dynamic restaurant_register(
 
     var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
     request.headers.addAll(headers);
-    for (int i = 0; i < image.length; ++i) {
-      log(image[i]!.path);
-      request.files.add(
-        MultipartFile(
-            'image', image[i]!.readAsBytes().asStream(), image[i]!.lengthSync(),
-            filename: "something.jpg", contentType: MediaType('image', 'jpg')),
-      );
+    if (image != []) {
+      for (int i = 0; i < image.length; ++i) {
+        log(image[i]!.path);
+        request.files.add(
+          MultipartFile('image', image[i]!.readAsBytes().asStream(),
+              image[i]!.lengthSync(),
+              filename: "something.jpg",
+              contentType: MediaType('image', 'jpg')),
+        );
+      }
     }
 
     request.fields['id'] = id;
@@ -197,91 +200,10 @@ dynamic restaurant_register(
   }
 }
 
-dynamic restaurant_modify(
-    String id,
-    String? r_name,
-    String? mobilenumber,
-    String? address,
-    String? pinno,
-    String? openingtime,
-    String? closingtime,
-    List<File?> image) async {
-  try {
-    final storage = new FlutterSecureStorage();
-    String? token = await storage.read(key: 'access_token');
-    Map<String, String> headers = {HttpHeaders.authorizationHeader: token!};
-    log("Registring Restraunt");
-
-    var request = MultipartRequest('POST', Uri.parse(restaurant_register_link));
-    request.headers.addAll(headers);
-    if (image.isNotEmpty) {
-      for (int i = 0; i < image.length; ++i) {
-        log(image[i]!.path);
-        request.files.add(
-          MultipartFile('image', image[i]!.readAsBytes().asStream(),
-              image[i]!.lengthSync(),
-              filename: "something.jpg",
-              contentType: MediaType('image', 'jpg')),
-        );
-      }
-    }
-
-    request.fields['id'] = id;
-    log('res name: ' + r_name.toString());
-    if (r_name != null) {
-      if (r_name.toString().isNotEmpty) {
-        log('changing res name');
-        request.fields['restaurantname'] = r_name;
-      }
-    }
-    if (mobilenumber != null) {
-      if (mobilenumber.toString().isNotEmpty) {
-        request.fields['mobilenumber'] = mobilenumber;
-      }
-    }
-    if (address != null) {
-      if (address.toString().isNotEmpty) {
-        request.fields['restaurantaddress'] = address;
-      }
-    } else {
-      final seller_info = await get_seller_info();
-
-      request.fields['restaurantaddress'] =
-          seller_info!['sellerDetails']['restaurantaddress'];
-    }
-
-    if (pinno != null) {
-      if (address.toString().isNotEmpty) {
-        request.fields['pincode'] = pinno;
-      }
-    } else {
-      final seller_info = await get_seller_info();
-
-      request.fields['pincode'] = seller_info!['sellerDetails']['pincode'];
-    }
-
-    if (openingtime != null) {
-      if (openingtime.toString().isNotEmpty) {
-        request.fields['restaurant_openingtime'] = openingtime;
-      }
-    }
-    if (closingtime != null) {
-      if (closingtime.toString().isNotEmpty) {
-        request.fields['restaurant_closingtime'] = closingtime;
-      }
-    }
-
-    var response = await request.send();
-    var result = await response.stream.bytesToString();
-    log(result.toString());
-    return jsonDecode(result);
-  } catch (er) {
-    log("error caught at modify:" + er.toString());
-  }
-}
 
 dynamic food_list(
     String id, String foodname, String food_price, String food_desc,String category,
+
     {File? image}) async {
   try {
     final storage = new FlutterSecureStorage();
@@ -298,13 +220,9 @@ dynamic food_list(
             filename: "something.jpg", contentType: MediaType('image', 'jpg')),
       );
     }
-    log(token.toString());
-    log(id.toString());
-    log(foodname.toString());
-    log(food_price.toString());
-    log(food_desc.toString());
-    log(image!.path.toString());
+
     request.fields['id'] = id;
+    request.fields['category'] = category;
     request.fields['foodname'] = foodname;
     request.fields['food_price'] = food_price;
     request.fields['food_desc'] = food_desc;

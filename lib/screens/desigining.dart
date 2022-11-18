@@ -281,7 +281,7 @@ Future<dynamic> sellerinfograbber() async {
     } else {
       final seller_info =
           jsonDecode(seller_info_storage.getString("seller_info")!);
-
+      log("Seller Info " + seller_info.toString());
       return seller_info;
     }
   } catch (er) {}
