@@ -61,14 +61,14 @@ class _Add_dishState extends State<Add_dish> {
           return Scaffold(
             body: SafeArea(
               child: SingleChildScrollView(
-                child: SmartRefresher(
-                  enablePullDown: true,
-                  controller: contro,
-                  onRefresh: () async {
-                  await put_seller_info();
-                  // contro.loadComplete();
-                  setState(() {});
-                },
+                // child: SmartRefresher(
+                //   enablePullDown: true,
+                //   controller: contro,
+                //   onRefresh: () async {
+                //   await put_seller_info();
+                //   // contro.loadComplete();
+                //   setState(() {});
+                // },
                   child: Container(
                     // height: MediaQuery.of(context).size.height - 40.0,
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -401,7 +401,7 @@ class _Add_dishState extends State<Add_dish> {
                   ),
                 ),
               ),
-            ),
+            // ),
           );
         });
   }
