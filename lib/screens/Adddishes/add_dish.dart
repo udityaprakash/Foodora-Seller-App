@@ -304,7 +304,7 @@ class _Add_dishState extends State<Add_dish> {
                                                       dishname,
                                                       price,
                                                       dishdesc,
-                                                      valuechoosen!,
+                                                      valuechoosen!.toLowerCase(),
                                                       image: _image);
                                                   if (response['success']) {
                                                     Navigator.pop(context);
