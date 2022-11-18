@@ -211,21 +211,42 @@ class _Add_dishState extends State<Add_dish> {
                                                 height: 20,
                                                 child: errortextgenerator(
                                                     dishdescerr, 13, 300)),
-                                            DropdownButton(
-                                              hint: Text("Category"),
-                                              value: valuechoosen,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  valuechoosen =
-                                                      value.toString();
-                                                  log(valuechoosen!);
-                                                });
-                                              },
-                                              items: listItem.map((valueItem) {
-                                                return DropdownMenuItem(
-                                                    value: valueItem,
-                                                    child: Text(valueItem));
-                                              }).toList(),
+                                            Container(
+                                              height: MediaQuery.of(context).size.height/15,
+                                              padding: EdgeInsets.symmetric(horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.white24 ,width: 1),
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: Colors.white30
+                                              ),
+                                              child: DropdownButton(
+                                                hint: Text("Category"),
+                                                value: valuechoosen,
+                                                icon: Icon(Icons.arrow_drop_down),
+                                                isExpanded: true,
+                                                underline: SizedBox(),
+                                                iconSize: 50,
+                                                iconEnabledColor: Colors.white,
+                                                dropdownColor: Colors.black,
+                                                style: TextStyle(
+                                                  fontFamily: "Raleway",
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w900,
+                                                  color:Colors.white),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    valuechoosen =
+                                                        value.toString();
+                                                    log(valuechoosen!);
+                                                  });
+                                                },
+                                                items: listItem.map((valueItem) {
+                                                  return DropdownMenuItem(
+                                                      value: valueItem,
+                                                      
+                                                      child: Text(valueItem));
+                                                }).toList(),
+                                              ),
                                             ),
                                             SizedBox(
                                                 height: 20,

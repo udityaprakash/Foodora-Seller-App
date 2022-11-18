@@ -137,7 +137,12 @@ class _KitchenState extends State<Kitchen> {
               return Text("Food Items Not Added");
             }
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: Image.asset(
+                "assets/images/loader.gif",
+                height: 100,
+                 width: 100,
+               ),);
           }
         },
       ),
