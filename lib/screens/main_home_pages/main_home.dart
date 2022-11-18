@@ -41,17 +41,16 @@ class _main_homeState extends State<main_home> {
             ),
           ],
         ),
-        // ),
         body: 
-        // SmartRefresher(
-        //   enablePullDown: true,
-        //   controller: control,
-        //   onRefresh: () async {
-        //     await put_seller_info();
-        //     setState(() {});
-        //     control.loadComplete();
-        //   },
-        //   child:
+        SmartRefresher(
+          enablePullDown: true,
+          controller: control,
+          onRefresh: () async {
+            await put_seller_info();
+            control.loadComplete();
+            setState(() {});
+          },
+          child:
            FutureBuilder(
             future: sellerinfograbber(),
             builder: (context, snapshot) {
@@ -103,13 +102,13 @@ class _main_homeState extends State<main_home> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.7,
-                                      // child: SmartRefresher(
-                                      //   enablePullDown: true,
-                                      //   controller: control,
-                                      //   onRefresh: () async {
-                                      //     // await put_seller_info();
-                                      //     // setState(() {});
-                                      //   },
+                                      child: SmartRefresher(
+                                        enablePullDown: true,
+                                        controller: control,
+                                        onRefresh: () async {
+                                          await put_seller_info();
+                                          setState(() {});
+                                        },
                                       child: ListView.builder(
                                           itemCount: order_info.length,
                                           scrollDirection: Axis.vertical,
@@ -265,7 +264,7 @@ class _main_homeState extends State<main_home> {
                                                       ],
                                                     ),
                                                   ))),
-                                      // ),
+                                      ),
                                     )
                                   : Container(
                                       child: textgenerator('No Order yet', 15,
@@ -293,7 +292,7 @@ class _main_homeState extends State<main_home> {
               }
             },
           ),
-        // ),
+        ),
         drawer: FutureBuilder(
           future: sellerinfograbber(),
           builder: (context, snapshot) {

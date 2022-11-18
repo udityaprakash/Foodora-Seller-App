@@ -20,6 +20,17 @@ class _Add_dishState extends State<Add_dish> {
   var dishdescerr = '';
   var priceerr = '';
   var imgerr = '';
+  // final category =<String>['item 1','item 2'];
+  // final category = List<DropdownMenuItem<dynamic>>.from(lis);
+  String? valuechoosen;
+  List listItem = <String>[
+    "Burger",
+    "Pizza",
+    "Noodles",
+    "Desert",
+    "Beverages",
+    "Others"
+  ];
   bool notsendingdata = true;
   String dishname = '';
   String dishdesc = '';
@@ -262,6 +273,26 @@ class _Add_dishState extends State<Add_dish> {
                                                 height: 20,
                                                 child: errortextgenerator(
                                                     dishdescerr, 13, 300)),
+                                            DropdownButton(
+                                              hint: Text("Category"),
+                                              value: valuechoosen,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  valuechoosen =
+                                                      value.toString();
+                                                  log(valuechoosen!);
+                                                });
+                                              },
+                                              items: listItem.map((valueItem) {
+                                                return DropdownMenuItem(
+                                                    value: valueItem,
+                                                    child: Text(valueItem));
+                                              }).toList(),
+                                            ),
+                                            SizedBox(
+                                                height: 20,
+                                                child: errortextgenerator(
+                                                    dishdescerr, 13, 300)),
                                             InputNumfieldgenerator(
                                                 'Price', context, 4,
                                                 on_changed_function:
@@ -371,19 +402,19 @@ class _Add_dishState extends State<Add_dish> {
                                     // color: Color.fromRGBO(50, 81, 255, 1),
                                     width: double.infinity,
                                     child: Center(
-                                        child: Image.asset(
-                    "assets/images/loader.gif",
-                    height: 100,
-                    width: 100,
-                  ),
-                                        // textgenerator(
-                                        //     'Adding...',
-                                        //     MediaQuery.of(context).size.width /
-                                        //         16,
-                                        //     'Raleway',
-                                        //     200,
-                                        //     Colors.white)
-                                            ),
+                                      child: Image.asset(
+                                        "assets/images/loader.gif",
+                                        height: 100,
+                                        width: 100,
+                                      ),
+                                      // textgenerator(
+                                      //     'Adding...',
+                                      //     MediaQuery.of(context).size.width /
+                                      //         16,
+                                      //     'Raleway',
+                                      //     200,
+                                      //     Colors.white)
+                                    ),
                                   )
                           ],
                         ),
